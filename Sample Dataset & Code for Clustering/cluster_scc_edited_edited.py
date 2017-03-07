@@ -131,7 +131,7 @@ def SCC(data):
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
     filename_1='data'
-    filename_2='gold_allSports'
+    filename_2='gold_allSports - Copy'
     num = raw_input('Pls enter the num of records wanted:')
 
     f = open('./'+filename_1+'.csv', 'r')
@@ -151,7 +151,6 @@ if __name__ == "__main__":
     for i in range(100):
         next_data.append(data[i+int(num)])
 
-    filename_2='gold_allSports'
     f2 = open('./'+filename_2+'.csv', 'r')
     data2 = []
     max_num2 = 0
@@ -176,7 +175,7 @@ if __name__ == "__main__":
     # print len(cluster_list)
     
     # generate nodes entries in json
-    g = open('./clustering_with_'+str(num)+".json",'a')
+    g = open('./clustering_with_'+str(num)+"_AMAZING.json",'a')
     #g.write("{\n"+"  \"nodes\": [\n")
     #for i in range(len(cluster_list)):
     #	for j in cluster_list[i]:
@@ -189,53 +188,30 @@ if __name__ == "__main__":
         for j in cluster_list[i][:-1]:
             g.write("   {\"name\": \""+str(j)+"\", \"size\": 1, \"truth\": \"")
             for k,v in GTAdict.iteritems():
-                for m in range(len(v)):
-                    if v[m] == j:
+                for m,n in enumerate(v):
+                    if n == int(j):
                         g.write(k + "\"},\n") # comma
         g.write("   {\"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1, \"truth\": \"")
+        j = cluster_list[i][-1]
         for k,v in GTAdict.iteritems():
-            for m in range(len(v)):
-                if v[m] == j:
+            for m,n in enumerate(v):
+                if n == int(j):
                     g.write(k + "\"}\n") # no comma
         g.write("]},\n")
     g.write("   {\"name\": \"group "+str(len(cluster_list)-1)+"\",\n\"children\": [\n")
     for j in cluster_list[len(cluster_list)-1][:-1]:
         g.write("   {\"name\": \""+str(j)+"\", \"size\": 1, \"truth\": \"")
         for k,v in GTAdict.iteritems():
-            for m in range(len(v)):
-                if v[m] == j:
+            for m,n in enumerate(v):
+                if n == int(j):
                     g.write(k + "\"},\n") # comma
     g.write("   {\"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1, \"truth\": \"")
+    j = cluster_list[len(cluster_list)-1][-1]
     for k,v in GTAdict.iteritems():
-            for m in range(len(v)):
-                if v[m] == j:
+            for m,n in enumerate(v):
+                if n == int(j):
                     g.write(k + "\"}\n") # no comma
     g.write("   ]}\n")
     g.write("],\n")
-
-    # touch the dictionary
-#    for k,v in GTAdict.iteritems():
-#            for m in range(len(v)):
-#                if int(v[m]) == j:
-#                    g.write(k + "\"}\n")
-
-    # generate uncertain graph in json
-    g.write("  \"link1s\": [\n")
-    for i in temp_data:
-    	# if float(i[2])<0.5:
-    	# 	continue
-    	# else:
-	    	i[2]=str(int(float(i[2])*20+1))
-	    	# print i
-	    	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    g.write("  ],\n")
-
-    # generate next questions in json
-    g.write("  \"link2s\": [\n")
-    for i in next_data:
-    	i[2]="10"
-    	# print i
-    	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    g.write("  ]\n}")
 
     g.close()

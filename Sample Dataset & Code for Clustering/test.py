@@ -28,10 +28,10 @@ jare=[2,3,4,5]
 
 for j in jare:
     for k,v in GTAdict.iteritems():
-            for m in range(len(v)):
-                if v[m] == j:
+            for m,n in enumerate(v):
+                if n == j:
                     print True
                     print v[m]
                     print k
-                    g.write(k+" ya ")
+                    g.write(k+"\"},\n")
 g.close()
