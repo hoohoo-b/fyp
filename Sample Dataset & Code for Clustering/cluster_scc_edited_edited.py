@@ -151,6 +151,23 @@ if __name__ == "__main__":
     for i in range(100):
         next_data.append(data[i+int(num)])
 
+    filename_2='gold_allSports'
+    f2 = open('./'+filename_2+'.csv', 'r')
+    data2 = []
+    max_num2 = 0
+
+    for line in f2.readlines():
+        data2.append(line.split(','))
+        max_num2 = max_num2 + 1
+    # print data
+
+    GTAdict = dict()
+    for i in range(max_num2):
+        for j in range(len(data2[i])-1):
+            key = data2[i][0]
+            GTAdict.setdefault(key, [])
+            GTAdict[key].append(int(data2[i][j+1])+1)
+
     cluster_list,time_cost=SCC(temp_data)
     for i in cluster_list:
         for j in range(len(i)):
@@ -170,15 +187,37 @@ if __name__ == "__main__":
     for i in range(len(cluster_list)-1):
         g.write("   {\"name\": \"group "+str(i)+"\",\n\"children\": [\n")
         for j in cluster_list[i][:-1]:
-            g.write("   {\"name\": \""+str(j)+"\", \"size\": 1 },\n")
-        g.write("   {\"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1 }\n")
+            g.write("   {\"name\": \""+str(j)+"\", \"size\": 1, \"truth\": \"")
+            for k,v in GTAdict.iteritems():
+                for m in range(len(v)):
+                    if v[m] == j:
+                        g.write(k + "\"},\n") # comma
+        g.write("   {\"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1, \"truth\": \"")
+        for k,v in GTAdict.iteritems():
+            for m in range(len(v)):
+                if v[m] == j:
+                    g.write(k + "\"}\n") # no comma
         g.write("]},\n")
     g.write("   {\"name\": \"group "+str(len(cluster_list)-1)+"\",\n\"children\": [\n")
     for j in cluster_list[len(cluster_list)-1][:-1]:
-        g.write("   {\"name\": \""+str(j)+"\", \"size\": 1 },\n")
-    g.write("   {\"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1 }\n")
-    g.write("]}\n")
+        g.write("   {\"name\": \""+str(j)+"\", \"size\": 1, \"truth\": \"")
+        for k,v in GTAdict.iteritems():
+            for m in range(len(v)):
+                if v[m] == j:
+                    g.write(k + "\"},\n") # comma
+    g.write("   {\"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1, \"truth\": \"")
+    for k,v in GTAdict.iteritems():
+            for m in range(len(v)):
+                if v[m] == j:
+                    g.write(k + "\"}\n") # no comma
+    g.write("   ]}\n")
     g.write("],\n")
+
+    # touch the dictionary
+#    for k,v in GTAdict.iteritems():
+#            for m in range(len(v)):
+#                if int(v[m]) == j:
+#                    g.write(k + "\"}\n")
 
     # generate uncertain graph in json
     g.write("  \"link1s\": [\n")
@@ -199,3 +238,4 @@ if __name__ == "__main__":
     	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
     g.write("  ]\n}")
 
+    g.close()
