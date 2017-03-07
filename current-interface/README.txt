@@ -1,0 +1,1 @@
+Please use Firefox to open it or configure Chrome as ¡°--allow-file-access-from-files¡±.

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<meta charset="utf-8">
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+<style type="text/css">
+
+circle.node {
+  cursor: pointer;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+
+    </style>
+<body>
+<script>
+var data = [
+    {"id": "67", "group": 0},
+    {"id": "82", "group": 0},
+    {"id": "131", "group": 1},
+    {"id": "135", "group": 1},
+    {"id": "126", "group": 1},
+    {"id": "0", "group": 2},
+    {"id": "1", "group": 2},
+    {"id": "2", "group": ""}
+    ];
+
+var w = 1280,
+    h = 800,
+    root,
+    node;
+
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+/*var simulation = d3.forceSimulation()
+	.force("link", d3.forceLink().id(function(d) { return d.id; }))
+	.force("charge", d3.forceManyBody())
+	.force("center", d3.forceCenter( w/2, h/2 ));
+*/
+var vis = d3.select("body").append("svg:svg")
+    .attr("width", w)
+    .attr("height", h)
+    	.append('g')
+    	.attr("transform", "translate(1,1)");
+
+var stratify = d3.stratify()
+	.id(function(d) { return d.id; })
+	.parentId(function(d) { return d.group; });
+
+var pack = d3.pack()
+	.size([w-2,h-2])
+	.padding(3);
+
+var root = stratify(data)
+	.count();
+
+pack(root);
+
+var node = vis.selectAll("g")
+	.data(root.descendants())
+	.enter().append("g")
+		.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+//		.attr("class", function(d) { return "node" + (!d.children ? " node--leaf" : d.depth ? "" : " node--root"); })
+		.each(function(d) { d.node = this; });
+
+node.append("circle")
+	.attr("id", function(d) { return "node-" + d.id; })
+	.attr("r", function(d) { return d.r; })
+	.style("fill", function(d) { return color(d.depth); });
+
+node.append("title")
+	.text(function(d) { return d.id; });
+
+</script>
+</body>
+<!-- I tried to do the collapsible force layout, but this recipe calls for LINKS. so... I will move down to just do circle packing first. -->
