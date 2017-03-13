@@ -1,3 +1,20 @@
+      <style>
+
+      .links line {
+        stroke: #999;
+        stroke-opacity: 0.6;
+  
+      }
+
+      .nodes circle {
+        stroke: #fff;
+        stroke-width: 1.5px;
+      }
+
+      </style>
+      <svg width="720" height="500" style="margin-left: -5px"></svg>
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
       var svg = d3.select("svg"),
           width = +svg.attr("width"),
           height = +svg.attr("height");
@@ -103,3 +120,5 @@
   return function(d) {
     d3.selectAll(d.ancestors().map(function(d) { return d.node; })).classed("node--hover", hover);
   }; */
+
+</script>

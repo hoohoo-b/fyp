@@ -269,24 +269,24 @@
       </style>
       <svg width="720" height="500" style="margin-left: -5px"></svg>
       <script src="https://d3js.org/d3.v4.min.js"></script>
-      <script>
-
-var vis = d3.select("svg")
-      .append('g')
-      .attr("transform", "translate(1,1)");
+      
+<script>
 
 var w = +d3.select("svg").attr("width"),
     h = +d3.select("svg").attr("height"),
     root,
-    node,
-    link,
-    dataa,
-    nodeData,
-    link1Data,
-    link2Data,
-    forceNode;
+    node;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20b);
+
+/*var simulation = d3.forceSimulation()
+   .force("link", d3.forceLink().id(function(d) { return d.id; }))
+   .force("charge", d3.forceManyBody())
+   .force("center", d3.forceCenter( w/2, h/2 ));
+*/
+var vis = d3.select("svg")
+      .append('g')
+      .attr("transform", "translate(1,1)");
 
 /*var stratify = d3.stratify()
    .id(function(d) { return d.id; })
@@ -296,20 +296,13 @@ var pack = d3.pack()
    .size([w-2,h-2])
    .padding(3);
 
-d3.json("testvalues.json", function(error, data) {
-   if (error) console.log(error);
-
-   dataa = data;
-   nodeData = data.nodes;
-   link1Data = data.link1s;
-   link2Data = data.link2s;
-
-   root = d3.hierarchy(nodeData)
+d3.json("clustering_with_5000_AMAZING.json", function(error, data) {
+   var root = d3.hierarchy(data)
       .count();
 
    pack(root);
 
-   node = vis.selectAll("g")
+   var node = vis.selectAll("g")
       .data(root.descendants())
       .enter().append("g")
          .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
@@ -320,43 +313,13 @@ d3.json("testvalues.json", function(error, data) {
    node.append("circle")
       .attr("id", function(d) { return "node-" + d.data.name; })
       .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { if (d.data.name==="root") {return "none";} else {return color(d.data.truth);}});
+      .style("fill", function(d) { if (d.data.name==="root") {return "none";} else {return color(d.data.truth);}})
          
    vis.selectAll(".node--internal").select("circle")
          .style("fill", "lightblue");
 
    node.append("title")
       .text(function(d) { return d.data.name; });
-   
-   forceNode = vis.selectAll(".node--leaf").select("circle");
-
-   var simulation = d3.forceSimulation()
-         .force("link", d3.forceLink())//.id(function(d) { return d.nodes.name; }))
-         .force("charge", d3.forceManyBody())
-         .force("center", d3.forceCenter(w/2, h/2));
-
-   link = vis.append("g")
-         .classed("links links1", "true");
-
-   link.selectAll("line")
-         .data(link1Data.links)
-         .enter().append("line");
-
-   simulation
-      .nodes(forceNode._groups[0]);
-//      .on("tick", ticked);
-
-   simulation.force("link")
-     .links(link1Data.links);
-
-   /*function ticked() {
-      link
-         .attr("x1", function(d) { return d.source.x; })
-         .attr("y1", function(d) { return d.source.y; })
-         .attr("x2", function(d) { return d.target.x; })
-         .attr("y2", function(d) { return d.target.y; });
-   }
-   */
 });
 </script>
     </div>
