@@ -175,7 +175,7 @@ if __name__ == "__main__":
     # print len(cluster_list)
     
     # generate nodes entries in json
-    g = open('./clustering_with_'+str(num)+"_AMAZING.json",'a')
+    g = open('./clustering_with_'+str(num)+"_8MAR.json",'a')
     #g.write("{\n"+"  \"nodes\": [\n")
     #for i in range(len(cluster_list)):
     #	for j in cluster_list[i]:
@@ -214,4 +214,23 @@ if __name__ == "__main__":
     g.write("   ]}\n")
     g.write("],\n")
 
+    # generate uncertain graph in json
+    g.write("  \"link1s\": [\n")
+    for i in temp_data:
+    	# if float(i[2])<0.5:
+    	# 	continue
+    	# else:
+	    	i[2]=str(int(float(i[2])*20+1))
+	    	# print i
+	    	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+    g.write("  ],\n")
+
+    # generate next questions in json
+    g.write("  \"link2s\": [\n")
+    for i in next_data:
+    	i[2]="10"
+    	# print i
+    	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+    g.write("  ]\n}")
+        
     g.close()
