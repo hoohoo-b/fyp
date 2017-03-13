@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-filestyle.min.js"> </script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -119,6 +120,11 @@
       }
       .row.content {height:auto;} 
     }
+
+    #fileUpload {
+      visibility: hidden;
+      height: 5px;
+    }
   </style>
 </head>
 <body>
@@ -159,7 +165,8 @@
         <button>Initial Data(if any)</button>
         <button>Gold Answer(if any)</button> -->
         <!-- <div class="btn-group-vertical"> -->
-          <button type="button" class="btn btn-success btn-block">Target Dataset</button>
+          <label for="fileUpload" class="btn btn-success btn-block">Target Dataset</label>
+          <input id="fileUpload" type="file">
           <button type="button" class="btn btn-success btn-block">Initial Data(if any)</button>
           <button type="button" class="btn btn-success btn-block">Gold Answer(if any)</button>
         <!-- </div> -->
