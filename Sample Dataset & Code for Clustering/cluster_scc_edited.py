@@ -1,4 +1,6 @@
-
+"""
+First morphing: Into a hierarchy data format! for Circle-Pack layout!
+"""
 import os
 import numpy as np
 import networkx as nx

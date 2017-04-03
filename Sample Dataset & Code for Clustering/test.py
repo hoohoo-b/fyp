@@ -1,3 +1,11 @@
+"""
+Created on Mon Apr 03 18:02:57 2017
+
+@author: Michelle
+
+Testing out GTAdict!
+"""
+
 filename_1='data'
 filename_2='gold_allSports'
 #num = raw_input('Pls enter the num of records wanted:')

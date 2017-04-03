@@ -1,3 +1,6 @@
+"""
+Original cluster_scc.py for data format for Force Layout!
+"""
 import os
 import numpy as np
 import networkx as nx

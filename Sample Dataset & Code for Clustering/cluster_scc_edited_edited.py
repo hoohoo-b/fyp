@@ -1,4 +1,6 @@
-
+"""
+Second morphing: Still rather unpolished! But iterating thru the GTAdict is smooth as a baby's butt!
+"""
 import os
 import numpy as np
 import networkx as nx

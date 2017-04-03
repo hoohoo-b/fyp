@@ -8,47 +8,48 @@
 ]},
    {"name": "group 1",
 "children": [
-   {"name": "11", "size": 1, "truth": "Misiolek Andrew"},
-   {"name": "36", "size": 1, "truth": "Misiolek Andrew"}
+   {"name": "41", "size": 1, "truth": "Cassie Churnside"},
+   {"name": "48", "size": 1, "truth": "Cassie Churnside"}
 ]},
    {"name": "group 2",
 "children": [
-   {"name": "2", "size": 1, "truth": "Jordan Nolff"},
-   {"name": "18", "size": 1, "truth": "Jordan Nolff"}
+   {"name": "71", "size": 1, "truth": "Ho Daniel"},
+   {"name": "75", "size": 1, "truth": "Ho Daniel"}
 ]},
    {"name": "group 3",
+"children": [
+   {"name": "232", "size": 1, "truth": "Ian Gamble"},
+   {"name": "239", "size": 1, "truth": "Ian Gamble"}
+]},
+   {"name": "group 4",
+"children": [
+   {"name": "8", "size": 1, "truth": "Kevin Baker"},
+   {"name": "32", "size": 1, "truth": "Kevin Baker"},
+   {"name": "16", "size": 1, "truth": "Kevin Baker"}
+]},
+   {"name": "group 5",
+"children": [
+   {"name": "103", "size": 1, "truth": "Taylor Rice"},
+   {"name": "104", "size": 1, "truth": "Taylor Rice"},
+   {"name": "96", "size": 1, "truth": "Taylor Rice"}
+]},
+   {"name": "group 6",
 "children": [
    {"name": "230", "size": 1, "truth": "Bret Bonanni"},
    {"name": "236", "size": 1, "truth": "Bret Bonanni"},
    {"name": "223", "size": 1, "truth": "Bret Bonanni"},
    {"name": "238", "size": 1, "truth": "Bret Bonanni"}
 ]},
-   {"name": "group 4",
-"children": [
-   {"name": "131", "size": 1, "truth": "Liedle Laura"},
-   {"name": "135", "size": 1, "truth": "Liedle Laura"}
-]},
-   {"name": "group 5",
-"children": [
-   {"name": "96", "size": 1, "truth": "Taylor Rice"},
-   {"name": "103", "size": 1, "truth": "Taylor Rice"},
-   {"name": "104", "size": 1, "truth": "Taylor Rice"}
-]},
-   {"name": "group 6",
-"children": [
-   {"name": "12", "size": 1, "truth": "Gabriel Alvarado"},
-   {"name": "30", "size": 1, "truth": "Gabriel Alvarado"}
-]},
    {"name": "group 7",
 "children": [
-   {"name": "8", "size": 1, "truth": "Kevin Baker"},
-   {"name": "32", "size": 1, "truth": "Kevin Baker"},
-   {"name": "16", "size": 1, "truth": "Kevin Baker"}
+   {"name": "176", "size": 1, "truth": "Maddie Secco"},
+   {"name": "188", "size": 1, "truth": "Maddie Secco"},
+   {"name": "172", "size": 1, "truth": "Maddie Secco"}
 ]},
    {"name": "group 8",
 "children": [
-   {"name": "76", "size": 1, "truth": "Strobel Trey"},
-   {"name": "83", "size": 1, "truth": "Strobel Trey"}
+   {"name": "11", "size": 1, "truth": "Misiolek Andrew"},
+   {"name": "36", "size": 1, "truth": "Misiolek Andrew"}
 ]},
    {"name": "group 9",
 "children": [
@@ -57,70 +58,69 @@
 ]},
    {"name": "group 10",
 "children": [
-   {"name": "71", "size": 1, "truth": "Ho Daniel"},
-   {"name": "75", "size": 1, "truth": "Ho Daniel"}
+   {"name": "131", "size": 1, "truth": "Liedle Laura"},
+   {"name": "135", "size": 1, "truth": "Liedle Laura"}
 ]},
    {"name": "group 11",
 "children": [
-   {"name": "176", "size": 1, "truth": "Maddie Secco"},
-   {"name": "188", "size": 1, "truth": "Maddie Secco"},
-   {"name": "172", "size": 1, "truth": "Maddie Secco"}
+   {"name": "76", "size": 1, "truth": "Strobel Trey"},
+   {"name": "83", "size": 1, "truth": "Strobel Trey"}
 ]},
    {"name": "group 12",
 "children": [
-   {"name": "41", "size": 1, "truth": "Cassie Churnside"},
-   {"name": "48", "size": 1, "truth": "Cassie Churnside"}
+   {"name": "12", "size": 1, "truth": "Gabriel Alvarado"},
+   {"name": "30", "size": 1, "truth": "Gabriel Alvarado"}
 ]},
    {"name": "group 13",
-"children": [
-   {"name": "232", "size": 1, "truth": "Ian Gamble"},
-   {"name": "239", "size": 1, "truth": "Ian Gamble"}
-]},
-   {"name": "group 14",
 "children": [
    {"name": "215", "size": 1, "truth": "Forrest Watkins"},
    {"name": "217", "size": 1, "truth": "Forrest Watkins"}
 ]},
-   {"name": "group 15",
+   {"name": "group 14",
 "children": [
    {"name": "152", "size": 1, "truth": "Bugg Madi"},
    {"name": "162", "size": 1, "truth": "Bugg Madi"}
 ]},
+   {"name": "group 15",
+"children": [
+   {"name": "2", "size": 1, "truth": "Jordan Nolff"},
+   {"name": "18", "size": 1, "truth": "Jordan Nolff"}
+]},
    {"name": "group 16",
 "children": [
-   {"name": "256", "size": 1, "truth": "Bret Baumbach"},
-   {"name": "258", "size": 1, "truth": "Bret Baumbach"}
+   {"name": "240", "size": 1, "truth": "Alex Manley"},
+   {"name": "262", "size": 1, "truth": "Alex Manley"},
+   {"name": "255", "size": 1, "truth": "Alex Manley"}
 ]},
    {"name": "group 17",
-"children": [
-   {"name": "179", "size": 1, "truth": "Hope Burke"},
-   {"name": "191", "size": 1, "truth": "Hope Burke"},
-   {"name": "187", "size": 1, "truth": "Hope Burke"}
-]},
-   {"name": "group 18",
-"children": [
-   {"name": "14", "size": 1, "truth": "Modi Akash"},
-   {"name": "34", "size": 1, "truth": "Modi Akash"}
-]},
-   {"name": "group 19",
-"children": [
-   {"name": "253", "size": 1, "truth": "Dan Scherer"},
-   {"name": "257", "size": 1, "truth": "Dan Scherer"}
-]},
-   {"name": "group 20",
 "children": [
    {"name": "174", "size": 1, "truth": "Katie Mitchell"},
    {"name": "182", "size": 1, "truth": "Katie Mitchell"}
 ]},
+   {"name": "group 18",
+"children": [
+   {"name": "119", "size": 1, "truth": "Cox Siobhan"},
+   {"name": "136", "size": 1, "truth": "Cox Siobhan"}
+]},
+   {"name": "group 19",
+"children": [
+   {"name": "15", "size": 1, "truth": "Chris Turner"},
+   {"name": "38", "size": 1, "truth": "Chris Turner"}
+]},
+   {"name": "group 20",
+"children": [
+   {"name": "256", "size": 1, "truth": "Bret Baumbach"},
+   {"name": "258", "size": 1, "truth": "Bret Baumbach"}
+]},
    {"name": "group 21",
 "children": [
-   {"name": "219", "size": 1, "truth": "Scott Platshon"},
-   {"name": "227", "size": 1, "truth": "Scott Platshon"}
+   {"name": "14", "size": 1, "truth": "Modi Akash"},
+   {"name": "34", "size": 1, "truth": "Modi Akash"}
 ]},
    {"name": "group 22",
 "children": [
-   {"name": "66", "size": 1, "truth": "Morrissey John"},
-   {"name": "80", "size": 1, "truth": "Morrissey John"}
+   {"name": "253", "size": 1, "truth": "Dan Scherer"},
+   {"name": "257", "size": 1, "truth": "Dan Scherer"}
 ]},
    {"name": "group 23",
 "children": [
@@ -129,54 +129,54 @@
 ]},
    {"name": "group 24",
 "children": [
-   {"name": "119", "size": 1, "truth": "Cox Siobhan"},
-   {"name": "136", "size": 1, "truth": "Cox Siobhan"}
-]},
-   {"name": "group 25",
-"children": [
    {"name": "196", "size": 1, "truth": "Steven Irvin"},
    {"name": "206", "size": 1, "truth": "Steven Irvin"}
 ]},
-   {"name": "group 26",
-"children": [
-   {"name": "15", "size": 1, "truth": "Chris Turner"},
-   {"name": "38", "size": 1, "truth": "Chris Turner"}
-]},
-   {"name": "group 27",
-"children": [
-   {"name": "132", "size": 1, "truth": "Bauer Maddie"},
-   {"name": "142", "size": 1, "truth": "Bauer Maddie"}
-]},
-   {"name": "group 28",
-"children": [
-   {"name": "240", "size": 1, "truth": "Alex Manley"},
-   {"name": "262", "size": 1, "truth": "Alex Manley"},
-   {"name": "255", "size": 1, "truth": "Alex Manley"}
-]},
-   {"name": "group 29",
-"children": [
-   {"name": "4", "size": 1, "truth": "Chris Turner"},
-   {"name": "37", "size": 1, "truth": "Chris Turner"}
-]},
-   {"name": "group 30",
+   {"name": "group 25",
 "children": [
    {"name": "171", "size": 1, "truth": "Courtney Haldeman"},
    {"name": "190", "size": 1, "truth": "Courtney Haldeman"}
 ]},
-   {"name": "group 31",
+   {"name": "group 26",
 "children": [
-   {"name": "177", "size": 1, "truth": "Shannon Herold"},
-   {"name": "194", "size": 1, "truth": "Shannon Herold"}
+   {"name": "66", "size": 1, "truth": "Morrissey John"},
+   {"name": "80", "size": 1, "truth": "Morrissey John"}
 ]},
-   {"name": "group 32",
+   {"name": "group 27",
+"children": [
+   {"name": "219", "size": 1, "truth": "Scott Platshon"},
+   {"name": "227", "size": 1, "truth": "Scott Platshon"}
+]},
+   {"name": "group 28",
+"children": [
+   {"name": "4", "size": 1, "truth": "Chris Turner"},
+   {"name": "37", "size": 1, "truth": "Chris Turner"}
+]},
+   {"name": "group 29",
+"children": [
+   {"name": "132", "size": 1, "truth": "Bauer Maddie"},
+   {"name": "142", "size": 1, "truth": "Bauer Maddie"}
+]},
+   {"name": "group 30",
+"children": [
+   {"name": "179", "size": 1, "truth": "Hope Burke"},
+   {"name": "191", "size": 1, "truth": "Hope Burke"},
+   {"name": "187", "size": 1, "truth": "Hope Burke"}
+]},
+   {"name": "group 31",
 "children": [
    {"name": "54", "size": 1, "truth": "Kate Baldoni"},
    {"name": "63", "size": 1, "truth": "Kate Baldoni"}
 ]},
-   {"name": "group 33",
+   {"name": "group 32",
 "children": [
    {"name": "213", "size": 1, "truth": "Conner Cleary"},
    {"name": "216", "size": 1, "truth": "Conner Cleary"}
+]},
+   {"name": "group 33",
+"children": [
+   {"name": "177", "size": 1, "truth": "Shannon Herold"},
+   {"name": "194", "size": 1, "truth": "Shannon Herold"}
 ]},
    {"name": "group 34",
 "children": [
