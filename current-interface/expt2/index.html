@@ -329,19 +329,20 @@ d3.json("clustering_with_15000_3APR.json", function(error, data) {
 //  vis.selectAll(".node--internal").select("circle")
 //         .style("fill", "lightblue");
 
+  var t = d3.transition()
+          .duration(100)
+          .ease(d3.easeLinear);
+
   var leafNodes = vis.selectAll(".node--leaf");
-          leafNodes.on('mouseover', function() {
-            leafNodes.select('circle')
-                    .style('fill', function(d) {
-                        return "rgb(150,"+ parseInt(d.data.name) +",150)";
-                    });
-          })
-                  .on('mouseout', function() {
-                    leafNodes.select('circle')
-                            .style('fill', function (d) {
-                              return color(d.data.truth);
-                            });
-                  });
+  leafNodes.on('mouseenter', function() {
+    leafNodes.select('circle').interrupt().transition(t)
+            .attr("r", 30);
+  });
+
+  leafNodes.on('mouseleave', function() {
+    leafNodes.select('circle').interrupt().transition(t)
+            .attr('r', function(d) { return d.r; });
+  });
 
   node.append("title")
       .text(function(d) { return d.children ? d.data.name : d.data.name + " " + d.data.truth; }); // Do you have children? Yes/No
