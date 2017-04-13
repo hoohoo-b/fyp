@@ -323,10 +323,11 @@ d3.json("clustering_with_15000_3APR.json", function(error, data) {
       .attr("r", function(d) { return d.r; })
       .style("fill", function(d) {
         if (d.data.name==="root") return "none";
+        else if (d.data.name.indexOf('group ') > -1)  return "lightblue"; // if Name contains the string "group "
         else return color(d.data.truth);})
          
-  vis.selectAll(".node--internal").select("circle")
-         .style("fill", "lightblue");
+//  vis.selectAll(".node--internal").select("circle")
+//         .style("fill", "lightblue");
 
   var leafNodes = vis.selectAll(".node--leaf");
           leafNodes.on('mouseover', function() {
@@ -334,7 +335,13 @@ d3.json("clustering_with_15000_3APR.json", function(error, data) {
                     .style('fill', function(d) {
                         return "rgb(150,"+ parseInt(d.data.name) +",150)";
                     });
-          });
+          })
+                  .on('mouseout', function() {
+                    leafNodes.select('circle')
+                            .style('fill', function (d) {
+                              return color(d.data.truth);
+                            });
+                  });
 
   node.append("title")
       .text(function(d) { return d.children ? d.data.name : d.data.name + " " + d.data.truth; }); // Do you have children? Yes/No
