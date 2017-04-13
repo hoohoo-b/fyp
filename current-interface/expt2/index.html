@@ -321,7 +321,7 @@ d3.json("clustering_with_15000_14APR.json", function(error, data) {
    // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
 
   node.append("circle")
-      .attr("id", function(d) { return "node-" + d.data.name; })
+      .attr("id", function(d) { return d.data.name; })
       .attr("r", function(d) { return d.r; })
       .style("fill", function(d) {
         if (d.data.name==="root") return "none";
@@ -336,19 +336,23 @@ d3.json("clustering_with_15000_14APR.json", function(error, data) {
           .ease(d3.easeLinear);
 
   var leafNodes = vis.selectAll(".node--leaf");
-/*
+
   leafNodes.on('mouseenter', function() {
 
     var x = event.clientX;
     var y = event.clientY;
-    for (Object o : root.descendants()) {
-      if (document.elementFromPoint(x, y).id.indexOf(o.data.name) > -1) {
-        console.log(o.data.name);
+    for (var i = 0; i < data.children.length; i++) {
+      for (var j = 0; j < data.children[i].children.length; j++) {
+        if (document.elementFromPoint(x, y).id === data.children[i].children[j].name) {
+//          if(data.children[i].children[j].truth)
+          console.log(data.children[i].children[j].truth);
+        }
+      }
     }
-*/
+
 // leafNodes.select('circle').interrupt().transition(t)
 //            .attr("r", 30);
-//  });
+  });
 
 /*
   leafNodes.on('mouseleave', function() {
