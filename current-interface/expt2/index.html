@@ -384,8 +384,8 @@ d3.json("clustering_with_15000_14APR.json", function(error, data) {
             .attr('xlink:href', function(d) {
               return 'AllSports\\' + d.data.name + '.JPG';
             })
-            .attr("x", function(d) { return d.x-300; })
-            .attr("y", function(d) { return d.y-50; })
+            .attr("x", 0)
+            .attr("y", 0)
             .attr('width', 200)
             .attr('height', 200);
 
