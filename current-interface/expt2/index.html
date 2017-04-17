@@ -364,7 +364,7 @@ d3.json("clustering_with_15000_14APR.json", function(error, data) {
             .data(root.descendants())
 //            .enter().append("g")
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-            .attr("class", function(d) { return "node" + (d.children ? d.depth ? " node--internal" : " node--root" : " node--leaf"); })
+            .attr("class", function(d) { return "node" + (d.children ? d.depth ? " node--internal" : " node--root" : " node--leaf") + (d.data.size===30 ? " zoom" : ""); })
             .each(function(d) { d.node = this; });
     // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
 
@@ -376,6 +376,15 @@ d3.json("clustering_with_15000_14APR.json", function(error, data) {
               else if (d.data.name.indexOf('group') > -1)  return "lightblue"; // if Name contains the string "group "
               else return color(d.data.truth);
             });
+
+    zoomNode = vis.selectAll('.zoom');
+
+    zoomNode.append('image')
+            .attr('href', '4.JPG')
+            .attr("x", d.x)
+            .attr("y", d.y)
+            .attr("width", "20")
+            .attr("height", "20");
 
 // leafNodes.select('circle').interrupt().transition(t)
 //            .attr("r", 30);
