@@ -100,9 +100,12 @@
                 if (blueLine.active) {
                     blueLine.active = 0;
                     d3.select("#blueLine").style("opacity", 0);
-                    d3.select("#blueAxis").style("opacity", 0);
-                }
-            });;
+                } else {
+                    blueLine.active = 1;
+                    d3.select("#blueLine").style("opacity", 1);
+                };
+
+            });
 
     svg.append("path")
             .attr("class", "line")
@@ -112,8 +115,10 @@
                 if (redLine.active) {
                     redLine.active = 0;
                     d3.select("#redLine").style("opacity", 0);
-                    d3.select("#redAxis").style("opacity", 0);
-                }
+                } else {
+                    redLine.active = 1;
+                    d3.select("#redLine").style("opacity", 1);
+                };
             });
 
     svg.append("g")
@@ -143,12 +148,11 @@
             .style("fill", "steelblue")
             .on("click", function(){
                 // Determine if current line is visible
-                var newOpacity = blueLine.active ? 0 : 1;
+                var newOpacity = redLine.active ? 0 : 1;
                 // Hide or show the elements
-                d3.select("#blueLine").style("opacity", newOpacity);
-                d3.select("#blueAxis").style("opacity", newOpacity);
+                d3.select("#redLine").style("opacity", newOpacity);
                 // Update whether or not the elements are active
-                blueLine.active = blueLine.active ^ 1; // toggle it
+                redLine.active = !redLine.active; // toggle it
             })
             .text("Blue Line");
 
@@ -160,12 +164,11 @@
             .style("fill", "red")
             .on("click", function(){
                 // Determine if current line is visible
-                var newOpacity = redLine.active ? 0 : 1;
+                var newOpacity = blueLine.active ? 0 : 1;
                 // Hide or show the elements
-                d3.select("#redLine").style("opacity", newOpacity);
-                d3.select("#redAxis").style("opacity", newOpacity);
+                d3.select("#blueLine").style("opacity", newOpacity);
                 // Update whether or not the elements are active
-                redLine.active = redLine.active ^ 1;
+                blueLine.active = !blueLine.active;
             })
             .text("Red Line");
 
