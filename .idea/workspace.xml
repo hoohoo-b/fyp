@@ -26,7 +26,7 @@
       <file leaf-file-name="animated-cp2.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/animated-cp2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
+            <state relative-caret-position="3144">
               <caret line="131" column="5" selection-start-line="131" selection-start-column="5" selection-end-line="131" selection-end-column="5" />
               <folding />
             </state>
@@ -36,7 +36,7 @@
       <file leaf-file-name="mouse-event.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/mouse-event.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="642">
+            <state relative-caret-position="648">
               <caret line="27" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
@@ -46,8 +46,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="392" column="0" selection-start-line="392" selection-start-column="0" selection-end-line="392" selection-end-column="0" />
+            <state relative-caret-position="152">
+              <caret line="384" column="40" selection-start-line="384" selection-start-column="40" selection-end-line="384" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -56,9 +56,11 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/current-interface/expt3/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="618">
-              <caret line="42" column="34" selection-start-line="38" selection-start-column="23" selection-end-line="42" selection-end-column="34" />
-              <folding />
+            <state relative-caret-position="1152">
+              <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
+              <folding>
+                <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,7 +78,7 @@
       <file leaf-file-name="animated-cp.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/animated-cp.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="642">
+            <state relative-caret-position="936">
               <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding />
             </state>
@@ -86,9 +88,11 @@
       <file leaf-file-name="update-cp.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/update-cp.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="3" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="2136">
+              <caret line="89" column="30" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
+              <folding>
+                <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -154,7 +158,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -226,6 +229,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -244,7 +248,7 @@
       <recent name="C:\xampp\htdocs\fyp\current-interface" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html (1)">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration default="false" name="animated-cp2.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/fyp/current-interface/expt2/animated-cp2.html">
       <method />
     </configuration>
@@ -318,8 +322,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
         <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.mouse-event.html" />
         <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.animated-cp2.html" />
       </list>
@@ -350,12 +354,14 @@
       <workItem from="1492106939301" duration="4401000" />
       <workItem from="1492143777620" duration="1053000" />
       <workItem from="1492144864607" duration="736000" />
-      <workItem from="1492390724480" duration="6461000" />
+      <workItem from="1492390724480" duration="6729000" />
+      <workItem from="1492397502610" duration="4141000" />
+      <workItem from="1492404737855" duration="746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36555000" />
+    <option name="totallyTimeSpent" value="41710000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="22" width="1932" height="1066" extended-state="0" />
@@ -397,11 +403,22 @@
           <url>file://$PROJECT_DIR$/current-interface/expt2/animated-cp2.html</url>
           <line>106</line>
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/current-interface/expt2/index.html</url>
+          <line>431</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/current-interface/expt2/index.html</url>
+          <line>384</line>
+          <properties />
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="31" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
@@ -411,6 +428,10 @@
         <watch expression="data.children[i].children[j].size" language="HTML" />
         <watch expression="node" language="HTML" />
         <watch expression="d.data.name" language="HTML" />
+        <watch expression="zoomImage" language="HTML" />
+        <watch expression="d.name" language="JavaScript" />
+        <watch expression="d.x" language="HTML" />
+        <watch expression="d.y" language="HTML" />
       </configuration>
     </watches-manager>
   </component>
@@ -450,7 +471,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2160">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -497,7 +520,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2160">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -544,7 +569,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2160">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -591,7 +618,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2520">
           <caret line="105" column="9" selection-start-line="105" selection-start-column="9" selection-end-line="105" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -638,7 +667,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2424">
           <caret line="101" column="17" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -678,7 +709,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2424">
           <caret line="101" column="17" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -702,7 +735,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2424">
           <caret line="101" column="17" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -726,7 +761,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2068">
           <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -767,7 +804,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt2/animated-cp2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
+        <state relative-caret-position="3144">
           <caret line="131" column="5" selection-start-line="131" selection-start-column="5" selection-end-line="131" selection-end-column="5" />
           <folding />
         </state>
@@ -775,40 +812,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt2/animated-cp.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
+        <state relative-caret-position="936">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/current-interface/expt2/update-cp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt2/mouse-event.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
+        <state relative-caret-position="648">
           <caret line="27" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/current-interface/expt2/update-cp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2136">
+          <caret line="89" column="30" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt3/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="42" column="34" selection-start-line="38" selection-start-column="23" selection-end-line="42" selection-end-column="34" />
-          <folding />
+        <state relative-caret-position="1152">
+          <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt2/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="392" column="0" selection-start-line="392" selection-start-column="0" selection-end-line="392" selection-end-column="0" />
+        <state relative-caret-position="152">
+          <caret line="384" column="40" selection-start-line="384" selection-start-column="40" selection-end-line="384" selection-end-column="40" />
           <folding />
         </state>
       </provider>

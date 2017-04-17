@@ -27,20 +27,26 @@
 
 </style>
 <body>
+
+<button id="remove-btn" style="position: absolute; top: 0; right: 0;">Remove picture</button>
 <script>
     var svg = d3.select("body").append('svg')
-            .attr("width", 200)
-            .attr("height", 100);
+            .attr("width", 400)
+            .attr("height", 400);
 
-    svg.append('text').text('HI')
+    var text = svg.append('text').text('HI')
             .attr("x", "40")
             .attr("y", "60");
 
-    svg.append('image').attr('href', '4.JPG')
+    var selection = svg.selectAll('image').data([0]).enter().append('image').attr('href', '4.JPG')
+            .attr('id', 'myImage')
             .attr("x", "60")
             .attr("y", "60")
-            .attr("width", "20")
-            .attr("height", "20");
+            .attr("width", "200")
+            .attr("height", "200");
 
+    d3.select('#remove-btn').on('click', function() {
+        selection.remove();
+    })
 </script>
 </body>
