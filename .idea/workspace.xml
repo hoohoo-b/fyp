@@ -46,8 +46,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="319" column="10" selection-start-line="319" selection-start-column="10" selection-end-line="319" selection-end-column="10" />
+            <state relative-caret-position="360">
+              <caret line="389" column="55" selection-start-line="389" selection-start-column="55" selection-end-line="389" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -311,12 +311,12 @@
       <workItem from="1492106939301" duration="4401000" />
       <workItem from="1492143777620" duration="1053000" />
       <workItem from="1492144864607" duration="736000" />
-      <workItem from="1492390724480" duration="664000" />
+      <workItem from="1492390724480" duration="2058000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30758000" />
+    <option name="totallyTimeSpent" value="32152000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="22" width="1932" height="1066" extended-state="0" />
@@ -360,17 +360,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/current-interface/expt2/index.html</url>
-          <line>359</line>
+          <line>360</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/current-interface/expt2/index.html</url>
-          <line>349</line>
+          <line>350</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/current-interface/expt2/index.html</url>
-          <line>369</line>
+          <line>370</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -793,8 +793,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt2/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="319" column="10" selection-start-line="319" selection-start-column="10" selection-end-line="319" selection-end-column="10" />
+        <state relative-caret-position="360">
+          <caret line="389" column="55" selection-start-line="389" selection-start-column="55" selection-end-line="389" selection-end-column="55" />
           <folding />
         </state>
       </provider>
