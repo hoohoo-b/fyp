@@ -32,19 +32,28 @@
 <script>
     var svg = d3.select("body").append('svg')
             .attr("width", 400)
-            .attr("height", 400);
+            .attr("height", 400)
+            .call(d3.zoom()
+                    .scaleExtent([ 0.5, 4 ])
+                    .on('zoom', zoomed));
 
-    var text = svg.append('text').text('HI')
+    var g = svg.append('g');
+
+    var text = g.append('text').text('HI')
             .attr("x", "40")
             .attr("y", "60");
 
-    var selection = svg.selectAll('image').data([0]).enter().append('image').attr('href', '4.JPG')
+    var selection = g.append('image').attr('href', '4.JPG')
             .attr('id', 'myImage')
             .attr("x", "60")
             .attr("y", "60")
             .attr("width", "200")
             .attr("height", "200");
 
+    function zoomed() {
+        g.attr('transform', d3.event.transform);
+    }
+    
     d3.select('#remove-btn').on('click', function() {
         selection.remove();
     })
