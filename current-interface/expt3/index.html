@@ -35,25 +35,45 @@
             .attr("height", 400)
             .call(d3.zoom()
                     .scaleExtent([ 0.5, 4 ])
-                    .on('zoom', zoomed));
+                    .translateExtent([[0,0], [400,400]])
+                    .on('zoom', zoomed))
+            .on('dblclick.zoom', null);
 
     var g = svg.append('g');
 
     var text = g.append('text').text('HI')
+            .attr('class', 'item')
             .attr("x", "40")
             .attr("y", "60");
 
-    var selection = g.append('image').attr('href', '4.JPG')
+    var selection = g.append('image')
+            .attr('href', '4.JPG')
             .attr('id', 'myImage')
+            .attr('class', 'item')
             .attr("x", "60")
             .attr("y", "60")
             .attr("width", "200")
             .attr("height", "200");
 
+    g.selectAll('.item').on('dblclick', dblclick);
+
     function zoomed() {
+        console.log(d3.event.transform);
         g.attr('transform', d3.event.transform);
     }
-    
+
+    function dblclick(d, i) {
+
+        var a = d3.transition()
+                .duration(100)
+                .ease(d3.easeLinear);
+
+        var t = d3.zoomTransform(d3.select(this));
+
+        svg.transition(a)
+                .attr('transform', 'translate(' + t.x + ', ' + t.y + ') scale(' + t.k + ')');
+    }
+
     d3.select('#remove-btn').on('click', function() {
         selection.remove();
     })
