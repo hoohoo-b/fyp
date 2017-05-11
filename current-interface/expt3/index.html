@@ -74,7 +74,9 @@
                 .attr('transform', 'translate(' + t.x + ', ' + t.y + ') scale(' + t.k + ')');
     }
 
-    d3.select('#remove-btn').on('click', function() {
+    d3.select('#remove-btn').on('click', onclick);
+
+    function onclick() {
         selection.remove();
     })
 </script>

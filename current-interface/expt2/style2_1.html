@@ -275,12 +275,11 @@
 
             </style>
             <svg width="720" height="500" style="margin-left: -5px"></svg>
-            <button style="position: absolute; top: 0; right: 0;">Update me</button>
+            <button id="update-button" style="position: absolute; top: 0; right: 0;">Update me</button>
             <script src="https://d3js.org/d3.v4.min.js"></script>
 
             <script>
 
-                d3.select('button').on('click', onclick);
 
                 var w = +d3.select("svg").attr("width"),
                         h = +d3.select("svg").attr("height"),
@@ -372,7 +371,7 @@
 
                 });
 
-        function onclick() {
+                d3.select('#update-button').on('click', function() {
             d3.json("clustering_with_15000_14APR.json", function(error, data) {
                 if (error) throw error;
                 var root = d3.hierarchy(data)
@@ -412,7 +411,7 @@
                         .on('mouseleave', mouseleave);
 
             });
-        }
+        });
             </script>
         </div>
 
