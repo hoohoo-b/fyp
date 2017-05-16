@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        #label {
+            margin-top:16px;
+            margin-bottom:16px;
+        }
+    </style>
+    <script>
+        window.URL = window.URL || window.webkitURL;
+
+        var numfiles =0;
+
+        function updateSize() {
+            var files = document.getElementById('input').files;
+
+            numfiles += files.length;
+            document.getElementById('numfiles').innerHTML = numfiles;
+        }
+
+        var dropbox = document.getElementById('dropbox');
+        dropbox.addEventListener('ondragenter', drageneter, false);
+        dropbox.addEventListener('ondragover', dragover, false);
+        dropbox.addEventListener('ondrop', drop, false);
+
+        function dragenter(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        function dragover(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var dt = e.dataTransfer;
+            var files = dt.files;
+
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            for (var i =0; i< files.length; i++) {
+                var file = files[i];
+
+                var preview = document.getElementById('preview');
+
+                var img = document.createElement('img');
+                img.classList.add('obj');
+                img.classList.add('img-thumbnail');
+                img.src = window.URL.createObjectURL(file);
+                img.onload = function() {
+                    window.URL.revokeObjectURL(this.src);
+                }
+                preview.appendChild(img);
+
+
+                // var reader = new FileReader();
+                //   reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+                //   reader.readAsDataURL(file);
+
+            }
+        }
+    </script>
+</head>
+<body onload='updateSize()'>
+<div class='container'>
+    <div class='row-content'>
+        <div class='col-xs-4  text-center'></div>
+        <div class='col-xs-4  text-center'>
+            <h2>File Upload</h2>
+            <input type='file' id='input' multiple onchange='updateSize()&handleFiles(this.files)' style="display:none" accept='image/*' />
+            <label for="input" class='btn btn-success' id='label'>Select some files</label>
+            <p>Or drop a file here:</p>
+            <div class='well' id='dropbox'>
+            </div>
+            <p>#File count:
+            <p id='numfiles'></p>
+            <div id='preview'></div>
+        </div>
+        <div class='col-xs-4  text-center'></div>
+    </div>
+</div>
+</body>

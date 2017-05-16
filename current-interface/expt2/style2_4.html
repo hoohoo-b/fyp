@@ -224,9 +224,9 @@
                 <div class="col-sm-7 text-center">
 
                     <div class="progress" id="bar">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                             aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                            <div id="text-in-bar">50% Complete</div>
+                        <div class="progress-bar progress-bar-info" role="progressbar" id="progressbar" aria-valuenow="9"
+                             aria-valuemin="0" aria-valuemax="100" style="width:9%">
+                            <div id="text-in-bar">9%</div>
                         </div>
                     </div>
 
@@ -257,6 +257,7 @@
                             <label><input type="checkbox" value="">Next Crowd Questions</label>
                         </div>
                     </form>
+                    <p id="answer-count"></p>
                 </div>
             </div>
 
@@ -279,12 +280,17 @@
             <script src="https://d3js.org/d3.v4.min.js"></script>
 
             <script>
+                var ans = 1800;
+                var a = 9;
+                document.getElementById('answer-count').innerHTML = ans;
+                var progressbar = document.getElementById('progressbar');
+                var textInBar = document.getElementById('text-in-bar');
 
 
                 var w = +d3.select("svg").attr("width"),
-                        h = +d3.select("svg").attr("height"),
+                    h = +d3.select("svg").attr("height"),
                         root,
-                        node, target;
+                        node;
 
                 var color = d3.scaleOrdinal(d3.schemeCategory20b);
 
@@ -305,9 +311,10 @@
                         .size([w-2,h-2])
                         .padding(3);
 
-                d3.json("clustering_with_5000_3APR.json", function(error, data) {
+//                {
+                d3.json("hi//clustering_with_1800_3APR.json", function(error, data) {
                     if (error) throw error;
-                    var root = d3.hierarchy(data)
+                    root = d3.hierarchy(data)
                             .sum(function (d) {
                                 return d.size;
                             })
@@ -317,11 +324,6 @@
 //         .count();
 
                     pack(root);
-
-
-                    var t = d3.transition()
-                            .duration(500)
-                            .ease(d3.easeLinear);
 
                     node = vis.selectAll(".node")
                             .data(root.descendants())
@@ -338,7 +340,7 @@
                     // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
 
                     node.append("circle")
-//                            .transition(t)
+                    //                            .transition(t)
                             .attr("id", function (d) {
                                 return 'c' + d.data.name;
                             })
@@ -351,8 +353,10 @@
                                 else return color(d.data.truth);
                             });
 
-//  vis.selectAll(".node--internal").select("circle")
-//         .style("fill", "lightblue");
+                    node.append("title")
+                            .text(function (d) {
+                                return d.children ? d.data.name : d.data.name + " " + d.data.truth;
+                            }); // Do you have children? Yes/No
 
 
                     var leafNodes = vis.selectAll(".node--leaf");
@@ -383,17 +387,17 @@
                     };
 
 
-                    node.append("title")
-                            .text(function (d) {
-                                return d.children ? d.data.name : d.data.name + " " + d.data.truth;
-                            }); // Do you have children? Yes/No
 
 //                    node.exit().remove();
+//                }
+                    var jsonarray = [2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4200,4400,4600,4800,5000,5200,5400,5600,5800,6000,6200,6400,6600,6800,7000,7200,7400,7600,7800,8000,8200,8400,8600,8800,9000,9200,9400,9600,9800,10000,10200,10400,10600,10800,11000,11200,11400,11600,11800,12000,12200,12400,12600,12800,13000,13200,13400,13600,13800,14000,14200,14400,14600,14800,15000,15200,15400,15600,15800,16000,16200,16400,16600,16800,17000,17200,17400,17600,17800,18000,18200,18400,18600,18800,19000,19200,19400,19600,19800,20000]; //doesn't work; it will directly transit to 20000
+                    var i=0;
 
                     d3.select('#update-button').on('click', function () {
-                        d3.json("clustering_with_15000_14APR.json", function (error, data) {
+
+                        d3.json("hi//clustering_with_"+String(jsonarray[i])+"_3APR.json", function (error, data) {
                             if (error) throw error;
-                            var root = d3.hierarchy(data)
+                            root = d3.hierarchy(data)
                                     .sum(function (d) {
                                         return d.size;
                                     })
@@ -405,7 +409,7 @@
                             pack(root);
 
                             var t = d3.transition()
-                                    .duration(1000)
+                                    .duration(500)
                                     .ease(d3.easeLinear);
 
                             var t2 = d3.transition()
@@ -415,7 +419,7 @@
 
                             node = vis.selectAll(".node")
                                     .data(root.descendants());
-                                    //                        .enter().append("g")
+                            //                        .enter().append("g")
                             node.transition(t)
                                     .attr("transform", function (d) {
                                         return "translate(" + d.x + "," + d.y + ")";
@@ -480,8 +484,17 @@
                             node.exit().transition(t2).style('opacity', 0).remove();
 
                         });
+
+                        i++;
+                        if (ans <20000) ans += 200;
+                        document.getElementById('answer-count').innerHTML = ans;
+                        if (a<100) a++;
+                        progressbar.setAttribute('aria-valuenow', a);
+                        progressbar.setAttribute('style', 'width:'+String(a)+'%');
+                        textInBar.innerHTML = String(a)+'%';
+
                     });
-                });
+                    });
             </script>
         </div>
 

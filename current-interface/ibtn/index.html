@@ -166,7 +166,7 @@
                 <button>Gold Answer(if any)</button> -->
                 <!-- <div class="btn-group-vertical"> -->
                 <label for="fileUpload" class="btn btn-success btn-block">Target Dataset</label>
-                <input id="fileUpload" type="file">
+                <input id="fileUpload" type="file" />
                 <button type="button" class="btn btn-success btn-block">Initial Data(if any)</button>
                 <button type="button" class="btn btn-success btn-block">Gold Answer(if any)</button>
                 <!-- </div> -->
@@ -338,7 +338,7 @@
                     // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
 
                     node.append("circle")
-//                            .transition(t)
+                    //                            .transition(t)
                             .attr("id", function (d) {
                                 return 'c' + d.data.name;
                             })
@@ -391,7 +391,7 @@
 //                    node.exit().remove();
 
                     d3.select('#update-button').on('click', function () {
-                        d3.json("clustering_with_15000_14APR.json", function (error, data) {
+                        d3.json("clustering_with_15000_3APR.json", function (error, data) {
                             if (error) throw error;
                             var root = d3.hierarchy(data)
                                     .sum(function (d) {
@@ -415,7 +415,7 @@
 
                             node = vis.selectAll(".node")
                                     .data(root.descendants());
-                                    //                        .enter().append("g")
+                            //                        .enter().append("g")
                             node.transition(t)
                                     .attr("transform", function (d) {
                                         return "translate(" + d.x + "," + d.y + ")";
@@ -506,7 +506,7 @@
             </div>
             <div id="graph-table" style="margin-top: -22px">
                 <div class="text-center" >
-                    <table class="table table-condensed" >
+                    <table class="table table-hover table-condensed" >
                         <thead></thead>
                         <tbody>
                         <tr>
@@ -556,7 +556,7 @@
             </div>
             <div id="graph-table" style="margin-top: -22px">
                 <div class="text-center" >
-                    <table class="table table-condensed" >
+                    <table class="table table-hover table-condensed" >
                         <thead></thead>
                         <tbody>
                         <tr>
@@ -604,7 +604,7 @@
             </div>
             <div id="graph-table" style="margin-top: -22px">
                 <div class="text-center" >
-                    <table class="table table-condensed" >
+                    <table class="table table-hover table-condensed" >
                         <thead></thead>
                         <tbody>
                         <tr>
