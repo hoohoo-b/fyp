@@ -17,38 +17,6 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file leaf-file-name="a.html" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/current-interface/ibtn/a.html">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="480">
-                    <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="style2_4.html" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/current-interface/expt2/style2_4.html">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="792">
-                    <caret line="492" column="67" selection-start-line="492" selection-start-column="67" selection-end-line="492" selection-end-column="67" />
-                    <folding>
-                      <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="fyp" />
@@ -58,7 +26,7 @@
       <file leaf-file-name="style2_3_1.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/current-interface/expt2/style2_3_1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="815">
+            <state relative-caret-position="743">
               <caret line="427" column="33" selection-start-line="427" selection-start-column="33" selection-end-line="427" selection-end-column="33" />
               <folding />
             </state>
@@ -117,10 +85,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="y" value="30" />
-    <option name="width" value="940" />
-    <option name="height" value="1057" />
+    <option name="x" value="-8" />
+    <option name="y" value="22" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -133,7 +101,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -146,19 +114,13 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../7042" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -302,15 +264,15 @@
       <workItem from="1494609746043" duration="861000" />
       <workItem from="1494742454122" duration="2973000" />
       <workItem from="1494821323204" duration="9566000" />
-      <workItem from="1494914582255" duration="2179000" />
+      <workItem from="1494914582255" duration="4350000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107194000" />
+    <option name="totallyTimeSpent" value="109365000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="30" width="940" height="1057" extended-state="0" />
+    <frame x="-8" y="22" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21162124" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -698,14 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/current-interface/expt2/style2_3_1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="815">
-          <caret line="427" column="33" selection-start-line="427" selection-start-column="33" selection-end-line="427" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/ibtn/a.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -716,11 +670,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/current-interface/expt2/style2_4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="492" column="67" selection-start-line="492" selection-start-column="67" selection-end-line="492" selection-end-column="67" />
+        <state relative-caret-position="840">
+          <caret line="412" column="55" selection-start-line="412" selection-start-column="55" selection-end-line="412" selection-end-column="55" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/current-interface/expt2/style2_3_1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="743">
+          <caret line="427" column="33" selection-start-line="427" selection-start-column="33" selection-end-line="427" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>

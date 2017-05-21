@@ -1,3 +1,5 @@
+<!-- Parsing and displaying the CSV data into tables -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,10 +100,10 @@
             margin-top: -3px;
         }
 
-        #graph-table{
+        .graph-table{
             height: 100px;
             /*margin-left: -20px;*/
-            overflow: auto;
+            overflow: scroll;
             margin-top: -10px;
         }
 
@@ -409,7 +411,7 @@
                             pack(root);
 
                             var t = d3.transition()
-                                    .duration(1000)
+                                    .duration(500)
                                     .ease(d3.easeLinear);
 
                             var t2 = d3.transition()
@@ -517,33 +519,33 @@
                     </table>
                 </div>
             </div>
-            <div id="graph-table" style="margin-top: -22px">
+            <div id="uncertain-graph" class="graph-table" style="margin-top: -22px">
                 <div class="text-center" >
-                    <table class="table table-condensed" >
-                        <thead></thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>0.8</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>0.9</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>7</td>
-                            <td>0.1</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>9</td>
-                            <td>0.2</td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                    <script>
+                        var graphTable = d3.select("#uncertain-graph")
+                                .select("div")
+                                .append("table")
+                                .attr("class", "table table-condensed");
+
+                        graphTable.append('thead');
+                        graphTable.append('tbody');
+
+                        d3.text("data.csv", function(error, data) {
+                            if (error) throw error;
+
+                            var parsedRows = d3.csvParseRows(data);
+
+                            graphTable.select("tbody").selectAll("tr")
+                                    .data(parsedRows)
+                                    .enter().append("tr")
+
+                                    .selectAll("td")
+                                    .data(function(d) { return d; })
+                                    .enter().append("td")
+                                    .text(function(d) { return d; });
+                        });
+                    </script>
                 </div>
             </div>
             <div class="text-right">
@@ -567,7 +569,7 @@
                     </table>
                 </div>
             </div>
-            <div id="graph-table" style="margin-top: -22px">
+            <div id="cluster-graph" class="graph-table" style="margin-top: -22px">
                 <div class="text-center" >
                     <table class="table table-condensed" >
                         <thead></thead>
@@ -591,6 +593,13 @@
                         </tbody>
                     </table>
                 </div>
+
+                <script>
+                    var graphTable2 = d3.select("#cluster-graph").select("div")
+                            .append("table")
+                            .attr("style", "table table-condensed");
+
+                </script>
             </div>
             <div class="text-right">
                 <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
@@ -615,7 +624,7 @@
                     </table>
                 </div>
             </div>
-            <div id="graph-table" style="margin-top: -22px">
+            <div class="graph-table" style="margin-top: -22px">
                 <div class="text-center" >
                     <table class="table table-condensed" >
                         <thead></thead>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<meta charset="utf-8">
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+
+<body>
+<script>
+    var graphTable = d3.select("body")
+            .append("table");
+    graphTable.append('thead');
+    graphTable.append('tbody');
+
+//    d3.text("data-with-col-headings.csv", function(error, data) {
+//        if (error) throw error;
+
+        var parsedRow = d3.csvParseRows("1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38");
+
+        console.log(parsedRow);
+
+        graphTable.select('tbody').selectAll("tr")
+                .data(parsedRow)
+                .enter().append("tr")
+
+                .selectAll("td")
+                .data(function(d) { return d; })
+                .enter().append("td")
+                .text(function(d) { return d; });
+//    });
+</script>
+</body>
