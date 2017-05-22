@@ -1,41 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <style>
-        table {
-            border-collapse: collapse;
-            border: 2px black solid;
-            font: 12px sans-serif;
-        }
+<!--
 
-        td {
-            border: 1px black solid;
-            padding: 5px;
-        }
-    </style>
-</head>
+Switch between CSV data for HTML table
+
+-->
+
+<!DOCTYPE HTML>
+<meta charset="utf-8">
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+
 <body>
-<div id="div"></div>
 <script>
-    d3.text("cars.csv", function(error, data) {
+    var tbl = d3.select("body")
+            .append("table");
+
+    tbl.append("thead");
+    tbl.append("tbody");
+
+    d3.text("uncertain_graph_1800.csv", function(error, data) {
         if (error) throw error;
 
-        var parsedCSV = d3.csv.parseRows(data);
+        var parsedRows = d3.csvParseRows(data);
 
-        var container = d3.select("#div")
-                .append("table")
-
-                .selectAll("tr")
-                .data(parsedCSV).enter()
-                .append("tr")
+        tbl.select("tbody").selectAll("tr")
+                .data(parsedRows)
+                .enter().append("tr")
 
                 .selectAll("td")
-                .data(function(d) { return d; }).enter()
-                .append("td")
+                .data(function(d) { return d; })
+                .enter().append("td")
                 .text(function(d) { return d; });
     });
+
+    var btn = d3.select("body").append("button")
+            .text("Update")
+            .on("click", function() {
+                d3.text("uncertain_graph_5000.csv", function(error, data) {
+                    if (error) throw error;
+
+                    var parsedRows = d3.csvParseRows(data);
+
+                    var t = tbl.select("tbody").selectAll("tr")
+                            .data(parsedRows)
+                            .enter().append("tr")
+
+                            .selectAll("td")
+                            .data(function(d) { return d; })
+                            .enter().append("td")
+                            .text(function(d) { return d; });
+
+                    t.exit().remove();
+                });
+
+            });
+
 </script>
 </body>
-</html>

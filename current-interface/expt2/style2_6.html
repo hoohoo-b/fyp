@@ -1,4 +1,4 @@
-<!-- Parsing and displaying the CSV data into tables -->
+<!-- Switching between CSV data in tables -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/bootstrap-filestyle.min.js"> </script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -278,13 +279,9 @@
             </style>
             <svg width="720" height="500" style="margin-left: -5px"></svg>
             <button id="update-button" style="position: absolute; top: 0; right: 0;">Update me</button>
-            <script src="https://d3js.org/d3.v4.min.js"></script>
 
             <script>
-                var i = 0;
-                var ans = 1800;
-                var a = (ans/20000) * 100;
-                document.getElementById('answer-count').innerHTML = ans;
+                document.getElementById('answer-count').innerHTML = 1800;
                 var progressbar = document.getElementById('progressbar');
                 var textInBar = document.getElementById('text-in-bar');
 
@@ -314,7 +311,7 @@
                         .padding(3);
 
 //                {
-                d3.json("hi//clustering_with_1800_3APR.json", function(error, data) {
+                d3.json("clustering_with_1800_22may.json", function(error, data) {
                     if (error) throw error;
                     root = d3.hierarchy(data)
                             .sum(function (d) {
@@ -388,114 +385,8 @@
                                 .remove();
                     };
 
+                });
 
-
-//                    node.exit().remove();
-//                }
-                    var jsonarray = [2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4200,4400,4600,4800,5000,5200,5400,5600,5800,6000,6200,6400,6600,6800,7000,7200,7400,7600,7800,8000,8200,8400,8600,8800,9000,9200,9400,9600,9800,10000,10200,10400,10600,10800,11000,11200,11400,11600,11800,12000,12200,12400,12600,12800,13000,13200,13400,13600,13800,14000,14200,14400,14600,14800,15000,15200,15400,15600,15800,16000,16200,16400,16600,16800,17000,17200,17400,17600,17800,18000,18200,18400,18600,18800,19000,19200,19400,19600,19800,20000]; //doesn't work; it will directly transit to 20000
-
-                    d3.select('#update-button').on('click', function () {
-
-                        d3.json("hi//clustering_with_"+String(jsonarray[i])+"_3APR.json", function (error, data) {
-                            if (error) throw error;
-                            root = d3.hierarchy(data)
-                                    .sum(function (d) {
-                                        return d.size;
-                                    })
-                                    .sort(function (a, b) {
-                                        return b.height - a.height || b.size - a.size;
-                                    });
-//         .count();
-
-                            pack(root);
-
-                            var t = d3.transition()
-                                    .duration(500)
-                                    .ease(d3.easeLinear);
-
-                            var t2 = d3.transition()
-                                    .duration(100);
-
-//                node.remove();
-
-                            node = vis.selectAll(".node")
-                                    .data(root.descendants());
-                            //                        .enter().append("g")
-                            node.transition(t)
-                                    .attr("transform", function (d) {
-                                        return "translate(" + d.x + "," + d.y + ")";
-                                    })
-                                    .attr("class", function (d) {
-                                        return "node" + (d.children ? d.depth ? " node--internal" : " node--root" : " node--leaf");
-                                    })
-                                    .each(function (d) {
-                                        d.node = this;
-                                    });
-                            // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
-
-                            node.select("circle")
-                                    .attr("id", function (d) {
-                                        return 'c' + d.data.name;
-                                    })
-                                    .attr("r", function (d) {
-                                        return d.r;
-                                    })
-                                    .style("fill", function (d) {
-                                        if (d.data.name === "root") return "none";
-                                        else if (d.data.name.indexOf('group') > -1)  return "lightblue"; // if Name contains the string "group "
-                                        else return color(d.data.truth);
-                                    });
-
-//  vis.selectAll(".node--internal").select("circle")
-//         .style("fill", "lightblue");
-
-
-                            var leafNodes = vis.selectAll(".node--leaf");
-
-                            leafNodes.on('mouseenter', mouseenter)
-                                    .on('mouseleave', mouseleave);
-
-                            function mouseenter(d) {
-
-                                d3.select(this.parentNode)
-                                        .append('image')
-                                        .attr('id', 'zoomImage')
-                                        .attr('xlink:href', 'AllSports\\' + d.data.name + '.JPG')
-                                        .attr("x", 0)
-                                        .attr("y", 0)
-                                        .attr('width', 200)
-                                        .attr('height', 200);
-
-// leafNodes.select('circle').interrupt().transition(t)
-//            .attr("r", 30);
-                            };
-
-
-                            function mouseleave() {
-
-                                var zoomImage = d3.select('#zoomImage')
-                                        .remove();
-                            };
-
-                            node.select("title")
-                                    .text(function (d) {
-                                        return d.children ? d.data.name : d.data.name + " " + d.data.truth;
-                                    }); // Do you have children? Yes/No
-
-                            node.exit().transition(t2).style('opacity', 0).remove();
-
-                        });
-
-                        i++;
-                        if (ans <20000) ans += 200;
-                        document.getElementById('answer-count').innerHTML = ans;
-                        a = Math.round((ans/20000) * 100);
-                        progressbar.setAttribute('aria-valuenow', a);
-                        progressbar.setAttribute('style', 'width:'+String(a)+'%');
-                        textInBar.innerHTML = String(a)+'%';
-
-                    });
-                    });
             </script>
         </div>
 
@@ -650,6 +541,7 @@
                         });
 
                     </script>
+
                 </div>
             </div>
             <div class="text-right">
@@ -664,6 +556,138 @@
 <footer class="container-fluid text-center">
     <p>Copyright @ Nanyang Technologicial University</p>
 </footer>
+
+<script>
+
+    d3.select('#update-button').on('click', function () {
+
+        d3.json("clustering_with_5000_22may.json", function (error, data) {
+            if (error) throw error;
+            root = d3.hierarchy(data)
+                    .sum(function (d) {
+                        return d.size;
+                    })
+                    .sort(function (a, b) {
+                        return b.height - a.height || b.size - a.size;
+                    });
+//         .count();
+
+            pack(root);
+
+            var t = d3.transition()
+                    .duration(500)
+                    .ease(d3.easeLinear);
+
+            var t2 = d3.transition()
+                    .duration(100);
+
+//                node.remove();
+
+            node = vis.selectAll(".node")
+                    .data(root.descendants());
+            //                        .enter().append("g")
+            node.transition(t)
+                    .attr("transform", function (d) {
+                        return "translate(" + d.x + "," + d.y + ")";
+                    })
+                    .attr("class", function (d) {
+                        return "node" + (d.children ? d.depth ? " node--internal" : " node--root" : " node--leaf");
+                    })
+                    .each(function (d) {
+                        d.node = this;
+                    });
+            // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
+
+            node.select("circle")
+                    .attr("id", function (d) {
+                        return 'c' + d.data.name;
+                    })
+                    .attr("r", function (d) {
+                        return d.r;
+                    })
+                    .style("fill", function (d) {
+                        if (d.data.name === "root") return "none";
+                        else if (d.data.name.indexOf('group') > -1)  return "lightblue"; // if Name contains the string "group "
+                        else return color(d.data.truth);
+                    });
+
+            var leafNodes = vis.selectAll(".node--leaf");
+
+            leafNodes.on('mouseenter', mouseenter)
+                    .on('mouseleave', mouseleave);
+
+            function mouseenter(d) {
+
+                d3.select(this.parentNode)
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', 'AllSports\\' + d.data.name + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .attr('width', 200)
+                        .attr('height', 200);
+
+// leafNodes.select('circle').interrupt().transition(t)
+//            .attr("r", 30);
+            };
+
+
+            function mouseleave() {
+
+                var zoomImage = d3.select('#zoomImage')
+                        .remove();
+            };
+
+            node.select("title")
+                    .text(function (d) {
+                        return d.children ? d.data.name : d.data.name + " " + d.data.truth;
+                    }); // Do you have children? Yes/No
+
+            node.exit().transition(t2).style('opacity', 0).remove();
+
+        });
+
+        document.getElementById('answer-count').innerHTML = 5000;
+        progressbar.setAttribute('aria-valuenow', 25);
+        progressbar.setAttribute('style', 'width: 25%');
+        textInBar.innerHTML = '25%';
+
+        d3.text("uncertain_graph_5000.csv", function(error, data) {
+            if (error) throw error;
+
+            var parsedRows = d3.csvParseRows(data);
+            var gt = graphTable.select("tbody").selectAll("tr")
+                    .data(parsedRows)
+                    .enter().append("tr")
+
+                    .selectAll("td")
+                    .data(function(d) { return d; });
+
+                    gt.enter().append("td")
+                        .text(function(d) { return d;});
+
+                    gt.exit().remove();
+        });
+
+        d3.text("cluster_list_5000.tsv", function(error, data) {
+            if (error) throw error;
+
+            var parsedRows = d3.tsvParseRows(data);
+
+            var gt2 = graphTable2.select("tbody").selectAll("tr")
+                    .data(parsedRows)
+                    .enter().append("tr")
+
+                    .selectAll("td")
+                    .data(function(d) { return d; });
+
+            gt2.enter().append("td")
+                    .text(function(d) { return d; });
+
+            gt2.exit().remove();
+        });
+    });
+</script>
 
 </body>
 </html>

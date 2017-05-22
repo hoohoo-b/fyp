@@ -1,29 +1,59 @@
+<!--
+
+Switch between CSV data for HTML table
+
+-->
+
 <!DOCTYPE HTML>
 <meta charset="utf-8">
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 
 <body>
 <script>
-    var graphTable = d3.select("body")
+    var tbl = d3.select("body")
             .append("table");
-    graphTable.append('thead');
-    graphTable.append('tbody');
 
-//    d3.text("data-with-col-headings.csv", function(error, data) {
-//        if (error) throw error;
+    tbl.append("thead");
+    tbl.append("tbody");
 
-        var parsedRow = d3.csvParseRows("1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38");
+    d3.text("cluster_list_1800.tsv", function(error, data) {
+        if (error) throw error;
 
-        console.log(parsedRow);
+        var parsedRows = d3.tsvParseRows(data);
 
-        graphTable.select('tbody').selectAll("tr")
-                .data(parsedRow)
+        tbl.select("tbody").selectAll("tr")
+                .data(parsedRows)
                 .enter().append("tr")
 
                 .selectAll("td")
                 .data(function(d) { return d; })
                 .enter().append("td")
                 .text(function(d) { return d; });
-//    });
+    });
+
+    var btn = d3.select("body").append("button")
+            .text("Update")
+            .on("click", function() {
+                d3.text("cluster_list_5000.tsv", function(error, data) {
+                    if (error) throw error;
+
+                    var parsedRows = d3.tsvParseRows(data);
+
+                    var t = tbl.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                    t.enter().append("tr");
+
+                    var t2 = t.selectAll("td")
+                            .data(function(d) { return d; });
+
+                            t2.enter().append("td")
+                                    .text(function(d) { return d; });
+
+                            t2.exit().remove();
+                });
+
+            });
+
 </script>
 </body>
