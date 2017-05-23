@@ -16,7 +16,7 @@ Switch between CSV data for HTML table
     tbl.append("thead");
     tbl.append("tbody");
 
-    d3.text("uncertain_graph_1800.csv", function(error, data) {
+    d3.text("uncertain_graph_5000.csv", function(error, data) {
         if (error) throw error;
 
         var parsedRows = d3.csvParseRows(data);
@@ -34,7 +34,7 @@ Switch between CSV data for HTML table
     var btn = d3.select("body").append("button")
             .text("Update")
             .on("click", function() {
-                d3.text("uncertain_graph_5000.csv", function(error, data) {
+                d3.text("uncertain_graph_17200.csv", function(error, data) {
                     if (error) throw error;
 
                     var parsedRows = d3.csvParseRows(data);
@@ -55,6 +55,7 @@ Switch between CSV data for HTML table
 
                     t.selectAll("td").data(function(d) { return d; })
                             .exit().remove();
+
                     t.exit().remove();
                 });
 
