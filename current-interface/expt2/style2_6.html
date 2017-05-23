@@ -657,16 +657,23 @@
 
             var parsedRows = d3.csvParseRows(data);
             var gt = graphTable.select("tbody").selectAll("tr")
-                    .data(parsedRows)
-                    .enter().append("tr")
+                    .data(parsedRows);
 
-                    .selectAll("td")
-                    .data(function(d) { return d; });
+            gt.selectAll("td")
+                    .data(function(d) { return d; })
+                    .text(function(d) { return d; });
 
-                    gt.enter().append("td")
-                        .text(function(d) { return d;});
+            gt.enter().append("tr")
+                .selectAll("td")
+                .data(function(d) { return d; })
+                .enter().append("td")
+                .text(function(d) { return d; });
 
-                    gt.exit().remove();
+            gt.selectAll("td")
+                    .data(function(d) { return d; })
+                    .exit().remove();
+
+            gt.exit().remove();
         });
 
         d3.text("cluster_list_5000.tsv", function(error, data) {
@@ -675,16 +682,47 @@
             var parsedRows = d3.tsvParseRows(data);
 
             var gt2 = graphTable2.select("tbody").selectAll("tr")
-                    .data(parsedRows)
-                    .enter().append("tr")
+                    .data(parsedRows);
 
-                    .selectAll("td")
-                    .data(function(d) { return d; });
-
-            gt2.enter().append("td")
+            gt2.selectAll("td")
+                    .data(function(d) { return d; })
                     .text(function(d) { return d; });
 
+            gt2.enter().append("tr")
+                    .selectAll("td")
+                    .data(function(d) { return d; })
+                    .enter().append("td")
+                    .text(function(d) { return d;});
+
+            gt2.selectAll("td").data(function(d) { return d; })
+                    .exit().remove();
+
             gt2.exit().remove();
+        });
+
+
+        d3.text("next_qn_5000.csv", function(error, data) {
+            if (error) throw error;
+
+            var parsedRows = d3.csvParseRows(data);
+
+            var gt3 = graphTable3.select("tbody").selectAll("tr")
+                    .data(parsedRows);
+
+            gt3.selectAll("td")
+                    .data(function(d) { return d; })
+                    .text(function(d) { return d; });
+
+            gt3.enter().append("tr")
+                    .selectAll("td")
+                    .data(function(d) { return d; })
+                    .enter().append("td")
+                    .text(function(d) { return d;});
+
+            gt3.selectAll("td").data(function(d) { return d; })
+                    .exit().remove();
+
+            gt3.exit().remove();
         });
     });
 </script>
