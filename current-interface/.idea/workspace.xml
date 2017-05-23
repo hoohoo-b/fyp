@@ -23,11 +23,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="style2_6.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/expt2/style2_6.html">
+      <file leaf-file-name="style2_5.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expt2/style2_5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="824">
-              <caret line="686" column="31" selection-start-line="686" selection-start-column="31" selection-end-line="686" selection-end-column="31" />
+            <state relative-caret-position="344">
+              <caret line="399" column="51" selection-start-line="399" selection-start-column="51" selection-end-line="399" selection-end-column="51" />
+              <folding>
+                <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#7;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#button#0;n#div#8;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style2_7.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/expt2/style2_7.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="560">
+              <caret line="710" column="25" selection-start-line="710" selection-start-column="25" selection-end-line="710" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -45,11 +62,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/expt2/style2_5.html" />
         <option value="$PROJECT_DIR$/expt5/inde.html" />
         <option value="$PROJECT_DIR$/expt5/index2.html" />
         <option value="$PROJECT_DIR$/expt5/index.html" />
+        <option value="$PROJECT_DIR$/expt2/style2_5.html" />
         <option value="$PROJECT_DIR$/expt2/style2_6.html" />
+        <option value="$PROJECT_DIR$/expt2/style2_7.html" />
       </list>
     </option>
   </component>
@@ -171,7 +189,7 @@
       <recent name="C:\xampp\htdocs\fyp\current-interface\expt2" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index2.html">
+  <component name="RunManager" selected="JavaScript Debug.style2_7.html">
     <configuration default="false" name="style2_5.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style2_5.html">
       <method />
     </configuration>
@@ -182,6 +200,9 @@
       <method />
     </configuration>
     <configuration default="false" name="style2_6.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style2_6.html">
+      <method />
+    </configuration>
+    <configuration default="false" name="style2_7.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style2_7.html">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -237,18 +258,20 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style2_5.html" />
       <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
       <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
       <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style2_6.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style2_7.html" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style2_6.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style2_5.html" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style2_7.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style2_6.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style2_5.html" />
       </list>
     </recent_temporary>
   </component>
@@ -268,12 +291,12 @@
       <workItem from="1495171451675" duration="5644000" />
       <workItem from="1495349716831" duration="3839000" />
       <workItem from="1495445521297" duration="12205000" />
-      <workItem from="1495506992930" duration="2072000" />
+      <workItem from="1495506992930" duration="5089000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23760000" />
+    <option name="totallyTimeSpent" value="26777000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="22" width="1936" height="1066" extended-state="6" />
@@ -343,6 +366,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#7;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#button#0;n#div#8;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -373,6 +404,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12720">
           <caret line="530" column="31" selection-start-line="530" selection-start-column="31" selection-end-line="530" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#7;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#button#0;n#div#8;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -406,13 +445,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_5.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="668" column="7" selection-start-line="668" selection-start-column="0" selection-end-line="668" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expt5/inde.html" />
     <entry file="file://$PROJECT_DIR$/expt5/index2.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -432,8 +464,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style2_6.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="824">
-          <caret line="686" column="31" selection-start-line="686" selection-start-column="31" selection-end-line="686" selection-end-column="31" />
+        <state relative-caret-position="24">
+          <caret line="559" column="14" selection-start-line="559" selection-start-column="12" selection-end-line="559" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style2_5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="399" column="51" selection-start-line="399" selection-start-column="51" selection-end-line="399" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#7;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#button#0;n#div#8;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style2_7.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="710" column="25" selection-start-line="710" selection-start-column="25" selection-end-line="710" selection-end-column="25" />
           <folding />
         </state>
       </provider>

@@ -281,11 +281,6 @@
             <button id="update-button" style="position: absolute; top: 0; right: 0;">Update me</button>
 
             <script>
-                document.getElementById('answer-count').innerHTML = 1800;
-                var progressbar = document.getElementById('progressbar');
-                var textInBar = document.getElementById('text-in-bar');
-
-
                 var w = +d3.select("svg").attr("width"),
                     h = +d3.select("svg").attr("height"),
                         root,
@@ -558,6 +553,16 @@
 </footer>
 
 <script>
+    var ansCount = document.getElementById('answer-count');
+    var progressbar = document.getElementById('progressbar');
+    var textInBar = document.getElementById('text-in-bar');
+
+    var a = 1800;
+    var p = (a/20000) * 100;
+    ansCount.innerHTML = a;
+    progressbar.setAttribute('aria-valuenow', p);
+    progressbar.setAttribute('style', 'width: '+String(p)+'%');
+    textInBar.innerHTML = String(p)+'%';
 
     d3.select('#update-button').on('click', function () {
 
@@ -647,11 +652,6 @@
 
         });
 
-        document.getElementById('answer-count').innerHTML = 5000;
-        progressbar.setAttribute('aria-valuenow', 25);
-        progressbar.setAttribute('style', 'width: 25%');
-        textInBar.innerHTML = '25%';
-
         d3.text("uncertain_graph_5000.csv", function(error, data) {
             if (error) throw error;
 
@@ -724,6 +724,13 @@
 
             gt3.exit().remove();
         });
+
+        a = 5000;
+        p = (a/20000) * 100;
+        ansCount.innerHTML = a;
+        progressbar.setAttribute('aria-valuenow', p);
+        progressbar.setAttribute('style', 'width: '+String(p)+'%');
+        textInBar.innerHTML = String(p)+'%';
     });
 </script>
 
