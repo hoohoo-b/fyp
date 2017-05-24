@@ -135,20 +135,9 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button> -->
             <a class="navbar-brand" href="#">PERC Crowdsourcing Entity Resolution Platform</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <!-- <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul> -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
@@ -164,15 +153,10 @@
 
             <div class="well text-left" id="Input-well">
                 <div class="text-inside-well">Input</div>
-                <!-- <button>Target Dataset</button>
-                <button>Initial Data(if any)</button>
-                <button>Gold Answer(if any)</button> -->
-                <!-- <div class="btn-group-vertical"> -->
                 <label for="fileUpload" class="btn btn-success btn-block">Target Dataset</label>
                 <input id="fileUpload" type="file">
                 <button type="button" class="btn btn-success btn-block">Initial Data(if any)</button>
                 <button type="button" class="btn btn-success btn-block">Gold Answer(if any)</button>
-                <!-- </div> -->
             </div>
 
             <div class="well text-left" id="Config-well">
@@ -232,20 +216,6 @@
                             <div id="text-in-bar">9%</div>
                         </div>
                     </div>
-
-                    <!-- <div data-role="page">
-                      <div>
-                        <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-                        <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-                        <div data-role="main" class="ui-content">
-                          <form method="post" action="demoform.asp">
-                            <label for="points">进度:</label>
-                            <input type="range" name="points" id="points" value="50" min="0" max="100">
-                            <input type="submit" data-inline="true" value="提交">
-                          </form>
-                        </div>
-                      </div>
-                    </div> -->
                 </div>
 
                 <div class="col-sm-3 text-left">
@@ -268,7 +238,6 @@
                 .links line {
                     stroke: #999;
                     stroke-opacity: 0.6;
-
                 }
 
                 .nodes circle {
@@ -287,24 +256,14 @@
 
                 var color = d3.scaleOrdinal(d3.schemeCategory20b);
 
-                /*var simulation = d3.forceSimulation()
-                 .force("link", d3.forceLink().id(function(d) { return d.id; }))
-                 .force("charge", d3.forceManyBody())
-                 .force("center", d3.forceCenter( w/2, h/2 ));
-                 */
                 var vis = d3.select("svg")
                         .append('g')
                         .attr("transform", "translate(1,1)");
 
-                /*var stratify = d3.stratify()
-                 .id(function(d) { return d.id; })
-                 .parentId(function(d) { return d.group; });
-                 */
                 var pack = d3.pack()
                         .size([w-2,h-2])
                         .padding(3);
 
-//                {
                 d3.json("graphData//clustering_with_1800.json", function(error, data) {
                     if (error) throw error;
                     root = d3.hierarchy(data)
@@ -314,7 +273,6 @@
                             .sort(function (a, b) {
                                 return b.height - a.height || b.size - a.size;
                             });
-//         .count();
 
                     pack(root);
 
@@ -330,10 +288,8 @@
                             .each(function (d) {
                                 d.node = this;
                             });
-                    // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
 
                     node.append("circle")
-                    //                            .transition(t)
                             .attr("id", function (d) {
                                 return 'c' + d.data.name;
                             })
@@ -351,14 +307,12 @@
                                 return d.children ? d.data.name : d.data.name + " " + d.data.truth;
                             }); // Do you have children? Yes/No
 
-
                     var leafNodes = vis.selectAll(".node--leaf");
 
                     leafNodes.on('mouseenter', mouseenter)
                             .on('mouseleave', mouseleave);
 
                     function mouseenter(d) {
-
                         d3.select(this.parentNode)
                                 .append('image')
                                 .attr('id', 'zoomImage')
@@ -367,16 +321,10 @@
                                 .attr("y", 0)
                                 .attr('width', 200)
                                 .attr('height', 200);
-
-// leafNodes.select('circle').interrupt().transition(t)
-//            .attr("r", 30);
                     };
 
-
                     function mouseleave() {
-
-                        var zoomImage = d3.select('#zoomImage')
-                                .remove();
+                        d3.select('#zoomImage').remove();
                     };
 
                 });
@@ -407,8 +355,7 @@
                 <div class="text-center" >
 
                     <script>
-                        var graphTable = d3.select("#uncertain-graph")
-                                .select("div")
+                        var graphTable = d3.select("#uncertain-graph").select("div")
                                 .append("table")
                                 .attr("class", "table table-condensed");
 
@@ -563,16 +510,9 @@
     progressbar.setAttribute('style', 'width: '+String(p)+'%');
     textInBar.innerHTML = String(p)+'%';
 
-    d3.select('#start-button').on('click', function () {
+    function update(selection, count) {
 
-        if (a<20000) a += 200; else return;
-        p = Math.round((a/20000) * 100);
-        ansCount.innerHTML = a;
-        progressbar.setAttribute('aria-valuenow', p);
-        progressbar.setAttribute('style', 'width: '+String(p)+'%');
-        textInBar.innerHTML = String(p)+'%';
-
-        d3.json("graphData//clustering_with_"+String(a)+".json", function (error, data) {
+        d3.json("graphData//clustering_with_"+String(count)+".json", function (error, data) {
             if (error) throw error;
             root = d3.hierarchy(data)
                     .sum(function (d) {
@@ -581,23 +521,17 @@
                     .sort(function (a, b) {
                         return b.height - a.height || b.size - a.size;
                     });
-//         .count();
 
             pack(root);
 
             var t = d3.transition()
-                    .duration(500)
+                    .duration(200)
                     .ease(d3.easeLinear);
 
             var t2 = d3.transition()
                     .duration(100);
 
-//                node.remove();
-
-            node = vis.selectAll(".node")
-                    .data(root.descendants());
-            //                        .enter().append("g")
-            node.transition(t)
+            selection.transition(t)
                     .attr("transform", function (d) {
                         return "translate(" + d.x + "," + d.y + ")";
                     })
@@ -607,9 +541,8 @@
                     .each(function (d) {
                         d.node = this;
                     });
-            // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
 
-            node.select("circle")
+            selection.select("circle")
                     .attr("id", function (d) {
                         return 'c' + d.data.name;
                     })
@@ -622,13 +555,19 @@
                         else return color(d.data.truth);
                     });
 
+            selection.select("title")
+                    .text(function (d) {
+                        return d.children ? d.data.name : d.data.name + " " + d.data.truth;
+                    }); // Do you have children? Yes/No
+
+            selection.exit().transition(t2).style('opacity', 0).remove();
+
             var leafNodes = vis.selectAll(".node--leaf");
 
             leafNodes.on('mouseenter', mouseenter)
                     .on('mouseleave', mouseleave);
 
             function mouseenter(d) {
-
                 d3.select(this.parentNode)
                         .append('image')
                         .attr('id', 'zoomImage')
@@ -637,26 +576,29 @@
                         .attr("y", 0)
                         .attr('width', 200)
                         .attr('height', 200);
-
-// leafNodes.select('circle').interrupt().transition(t)
-//            .attr("r", 30);
             };
-
 
             function mouseleave() {
-
-                var zoomImage = d3.select('#zoomImage')
-                        .remove();
+                d3.select('#zoomImage').remove();
             };
 
-            node.select("title")
-                    .text(function (d) {
-                        return d.children ? d.data.name : d.data.name + " " + d.data.truth;
-                    }); // Do you have children? Yes/No
-
-            node.exit().transition(t2).style('opacity', 0).remove();
-
         });
+
+    }
+
+    d3.select('#start-button').on('click', function () {
+
+        if (a<20000) a += 200; else return;
+        p = Math.round((a/20000) * 100);
+        ansCount.innerHTML = a;
+        progressbar.setAttribute('aria-valuenow', p);
+        progressbar.setAttribute('style', 'width: '+String(p)+'%');
+        textInBar.innerHTML = String(p)+'%';
+
+        var t3 = d3.transition().duration(200);
+
+        vis.selectAll(".node")
+                .call(update, a);
 
         d3.text("uncertainGraph//uncertain_graph_"+String(a)+".csv", function(error, data) {
             if (error) throw error;
@@ -670,16 +612,17 @@
                     .text(function(d) { return d; });
 
             gt.enter().append("tr")
-                .selectAll("td")
-                .data(function(d) { return d; })
-                .enter().append("td")
-                .text(function(d) { return d; });
+                    .selectAll("td")
+                    .data(function(d) { return d; })
+                    .enter().append("td")
+                    .text(function(d) { return d; });
 
             gt.selectAll("td")
                     .data(function(d) { return d; })
                     .exit().remove();
 
             gt.exit().remove();
+
         });
 
         d3.text("clusterList//cluster_list_"+String(a)+".tsv", function(error, data) {
@@ -704,8 +647,8 @@
                     .exit().remove();
 
             gt2.exit().remove();
-        });
 
+        });
 
         d3.text("nextQn//next_qn_"+String(a)+".csv", function(error, data) {
             if (error) throw error;
@@ -729,6 +672,7 @@
                     .exit().remove();
 
             gt3.exit().remove();
+
         });
     });
 </script>
