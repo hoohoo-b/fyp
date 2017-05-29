@@ -1,4 +1,4 @@
-<!-- Switching between CSV data in tables -->
+<!-- Trying to make the start button work 2 *spoilt* -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/d3.min.js"></script>
     <script src="js/bootstrap-filestyle.min.js"> </script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
@@ -529,14 +529,11 @@
                     .ease(d3.easeLinear);
 
             var t2 = d3.transition()
-                    .duration(100);
-
-            var t = d3.transition()
-                    .duration(1000)
-                    .ease(d3.easeLinear);
+                    .duration(1000);
 
             node = vis.selectAll(".node")
                     .data(root.descendants(), function(d) { return d.data.truth; });
+/*
 
             node.enter().append("g")
                     .attr("transform", function (d) {
@@ -564,6 +561,7 @@
                     .text(function (d) {
                         return d.children ? d.data.name : d.data.name + " " + d.data.truth;
                     }); // Do you have children? Yes/No;
+*/
 
             node.transition(t)
                     .attr("transform", function (d) {

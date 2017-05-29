@@ -219,12 +219,12 @@ if __name__ == "__main__":
 
     # generate uncertain graph in csv
     g2 = open('./uncertain_graph_'+str(num)+'.csv', 'a')
-    for i in temp_data:
-    	 if float(i[2])<0.5:
-    	 	continue
-    	 else:
-             i[2]=str(int(float(i[2])*20+1))
-             g2.write(i[0]+", "+i[1]+", "+str(float(i[2])/100)+"\n")
+#    for i in temp_data:
+#    	 if float(i[2])<0.5:
+#    	 	continue
+#    	 else:
+#             i[2]=str(int(float(i[2])*20+1))
+             g2.write(i[0]+", "+i[1]+", "+str(float(i[2]))+"\n")
 
     # generate cluster list in tsv
     g3 = open('./cluster_list_'+str(num)+'.tsv', 'a')

@@ -1,13 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="js/bootstrap-filestyle.min.js"> </script>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/d3.min.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -120,11 +119,6 @@
       }
       .row.content {height:auto;} 
     }
-
-    #fileUpload {
-      visibility: hidden;
-      height: 5px;
-    }
   </style>
 </head>
 <body>
@@ -165,8 +159,7 @@
         <button>Initial Data(if any)</button>
         <button>Gold Answer(if any)</button> -->
         <!-- <div class="btn-group-vertical"> -->
-          <label for="fileUpload" class="btn btn-success btn-block">Target Dataset</label>
-          <input id="fileUpload" type="file">
+          <button type="button" class="btn btn-success btn-block">Target Dataset</button>
           <button type="button" class="btn btn-success btn-block">Initial Data(if any)</button>
           <button type="button" class="btn btn-success btn-block">Gold Answer(if any)</button>
         <!-- </div> -->
@@ -265,7 +258,6 @@
       .links line {
         stroke: #999;
         stroke-opacity: 0.6;
-  
       }
 
       .nodes circle {
@@ -275,60 +267,84 @@
 
       </style>
       <svg width="720" height="500" style="margin-left: -5px"></svg>
-      <script src="https://d3js.org/d3.v4.min.js"></script>
-      
-<script>
+      <script>
 
-var w = +d3.select("svg").attr("width"),
-    h = +d3.select("svg").attr("height"),
-    root,
-    node;
+      var svg = d3.select("svg"),
+          width = +svg.attr("width"),
+          height = +svg.attr("height"),
+          radius = 5;
 
-var color = d3.scaleOrdinal(d3.schemeCategory20b);
+      var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-/*var simulation = d3.forceSimulation()
-   .force("link", d3.forceLink().id(function(d) { return d.id; }))
-   .force("charge", d3.forceManyBody())
-   .force("center", d3.forceCenter( w/2, h/2 ));
-*/
-var vis = d3.select("svg")
-      .append('g')
-      .attr("transform", "translate(1,1)");
+      var simulation = d3.forceSimulation()
+          .force("link", d3.forceLink().id(function(d) { return d.id; }))
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
 
-/*var stratify = d3.stratify()
-   .id(function(d) { return d.id; })
-   .parentId(function(d) { return d.group; });
-*/
-var pack = d3.pack()
-   .size([w-2,h-2])
-   .padding(3);
+      d3.json("old_force_layout_JSON//15000.json", function(error, graph) {
+        if (error) throw error;
 
-d3.json("clustering_with_15000_3APR.json", function(error, data) {
-   var root = d3.hierarchy(data)
-      .count();
+        var simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(30))
+                .force("charge", d3.forceManyBody().strength(-2))
+                .force("center", d3.forceCenter(width / 2, height / 2));
 
-   pack(root);
+        var link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(graph.links)
+                .enter().append("line")
+                .attr("stroke-width", function(d) { return Math.sqrt(Math.sqrt(Math.sqrt(d.value))); });
 
-   var node = vis.selectAll("g")
-      .data(root.descendants())
-      .enter().append("g")
-         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-         .attr("class", function(d) { return "node" + (d.children ? d.depth ? " node--internal" : " node--root" : " node--leaf"); })
-         .each(function(d) { d.node = this; });
-   // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
+        var node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle")
+                .data(graph.nodes)
+                .enter().append("circle")
+                .attr("r", radius)
+                .attr("fill", function(d) { return color(d.group); });
 
-   node.append("circle")
-      .attr("id", function(d) { return "node-" + d.data.name; })
-      .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { if (d.data.name==="root") {return "none";} else {return color(d.data.truth);}})
-         
-   vis.selectAll(".node--internal").select("circle")
-         .style("fill", "lightblue");
+        node.append("title")
+                .text(function(d) { return d.id; });
 
-   node.append("title")
-      .text(function(d) { return d.data.name; });
-});
-</script>
+        simulation
+                .nodes(graph.nodes)
+                .on("tick", ticked);
+
+        simulation.force("link")
+                .links(graph.links);
+
+        function ticked() {
+          link
+              .attr("x1", function(d) { return d.source.x; })
+              .attr("y1", function(d) { return d.source.y; })
+              .attr("x2", function(d) { return d.target.x; })
+              .attr("y2", function(d) { return d.target.y; });
+
+          node
+              .attr("cx", function(d) { return d.x; })
+              .attr("cy", function(d) { return d.y; });
+        }
+      });
+
+      function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      }
+
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+
+      </script>
     </div>
 
     <div class="col-sm-3 sidenav text-left">

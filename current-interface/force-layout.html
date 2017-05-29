@@ -13,7 +13,8 @@
 
       </style>
       <svg width="720" height="500" style="margin-left: -5px"></svg>
-      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="js/d3.min.js"></script>
+      <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       var svg = d3.select("svg"),
           width = +svg.attr("width"),
@@ -32,7 +33,7 @@
         .id(function(d) { return d.id; })
         .parentId(function(d) { return d.group; });*/
 
-      d3.json("10000.json", function(error, graph) {
+      d3.json("old_force_layout_JSON//15000.json", function(error, graph) {
         if (error) throw error;
 
       var simulation = d3.forceSimulation()
