@@ -23,67 +23,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="style2_9.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
+      <file leaf-file-name="style3_1.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/expt2/style3_1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="44" selection-start-line="0" selection-start-column="44" selection-end-line="0" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style3.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/expt2/style3.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="280" column="0" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
+            <state relative-caret-position="528">
+              <caret line="449" column="32" selection-start-line="449" selection-start-column="32" selection-end-line="449" selection-end-column="32" />
               <folding>
-                <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1497541855274" expanded="false" signature="8910:8927" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PERC_Interface.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PERC_Interface.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7008">
-              <caret line="292" column="39" selection-start-line="292" selection-start-column="39" selection-end-line="292" selection-end-column="39" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style2_8.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style2_7.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expt2/style2_7.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="force-layout.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/force-layout.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1896">
-              <caret line="79" column="0" selection-start-line="35" selection-start-column="6" selection-end-line="79" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -114,6 +61,7 @@
         <option value="$PROJECT_DIR$/expt2/style2_8.html" />
         <option value="$PROJECT_DIR$/expt2/style2_9.html" />
         <option value="$PROJECT_DIR$/expt2/style3.html" />
+        <option value="$PROJECT_DIR$/expt2/style3_1.html" />
       </list>
     </option>
   </component>
@@ -124,10 +72,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="22" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="x" value="-7" />
+    <option name="y" value="30" />
+    <option name="width" value="1932" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -154,6 +102,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -230,8 +180,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -249,10 +197,7 @@
       <recent name="C:\xampp\htdocs\fyp\current-interface\expt2" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.style3.html">
-    <configuration default="false" name="style1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style1.html">
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JavaScript Debug.style3_1.html">
     <configuration default="false" name="force-layout.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/force-layout.html">
       <method />
     </configuration>
@@ -263,6 +208,9 @@
       <method />
     </configuration>
     <configuration default="false" name="style3.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3.html">
+      <method />
+    </configuration>
+    <configuration default="false" name="style3_1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_1.html">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -319,19 +267,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style1.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.force-layout.html" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.PERC_Interface.html" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style2_9.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3.html" />
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.force-layout.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.PERC_Interface.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style2_9.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_1.html" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style2_9.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.PERC_Interface.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.force-layout.html" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style1.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_1.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style2_9.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.PERC_Interface.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.force-layout.html" />
       </list>
     </recent_temporary>
   </component>
@@ -358,18 +306,21 @@
       <workItem from="1495703616200" duration="1157000" />
       <workItem from="1496013970393" duration="1058000" />
       <workItem from="1496016236683" duration="7272000" />
-      <workItem from="1496031681650" duration="276000" />
+      <workItem from="1496031681650" duration="522000" />
+      <workItem from="1497337119086" duration="645000" />
+      <workItem from="1497503263621" duration="2177000" />
+      <workItem from="1497509199541" duration="8999000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51685000" />
+    <option name="totallyTimeSpent" value="63752000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="22" width="1936" height="1066" extended-state="7" />
+    <frame x="-7" y="30" width="1932" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24762908" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15575501" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -400,11 +351,39 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="JavascriptDebugType">
+        <watch expression="d.id" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style2_7.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/force-layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1896">
+          <caret line="79" column="0" selection-start-line="35" selection-start-column="6" selection-end-line="79" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -666,17 +645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PERC_Interface.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7008">
-          <caret line="292" column="39" selection-start-line="292" selection-start-column="39" selection-end-line="292" selection-end-column="39" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style2_7.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -693,14 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="44" selection-start-line="0" selection-start-column="44" selection-end-line="0" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/force-layout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1896">
@@ -711,10 +671,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="280" column="0" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
+        <state relative-caret-position="32">
+          <caret line="441" column="37" selection-start-line="441" selection-start-column="37" selection-end-line="441" selection-end-column="37" />
           <folding>
             <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="44" selection-start-line="0" selection-start-column="44" selection-end-line="0" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PERC_Interface.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="292" column="39" selection-start-line="292" selection-start-column="39" selection-end-line="292" selection-end-column="39" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style3_1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="449" column="32" selection-start-line="449" selection-start-column="32" selection-end-line="449" selection-end-column="32" />
+          <folding>
+            <marker date="1497541855274" expanded="false" signature="8910:8927" ph="..." />
           </folding>
         </state>
       </provider>
