@@ -262,33 +262,8 @@
             </style>
             <svg id="svg" width="720" height="500" style="margin-left: -5px"></svg>
             <svg id="svg2" width="720" height="500" style="margin-left: -5px"></svg>
-            <!--<svg id="svg3" width="720" height="500" style="margin-left: -5px"></svg>-->
 
             <script>
-                $(document).ready(function() {
-                    $("#svg").show();
-                    $("#svg2").hide();
-//                    $("#svg3").hide();
-
-                    $("#forceOption").click(function() {
-                        $("#svg").hide();
-                        $("#svg2").show();
-//                        $("#svg3").hide();
-                    });
-
-                    $("#clusterOption").click(function() {
-                        $("#svg").show();
-                        $("#svg2").hide();
-//                        $("#svg3").hide();
-                    });
-
-                    $("#nextQnOption").click(function() {
-                        $("#svg").hide();
-                        $("#svg2").show();
-//                        $("#svg3").show();
-                    });
-                });
-
                 var w = +d3.select("svg").attr("width"),
                     h = +d3.select("svg").attr("height"),
                         root,
@@ -413,6 +388,9 @@
                     simulation.force("link")
                             .links(graph.links);
 
+                    var nodeArrayx = [];
+                    var nodeArrayy = [];
+
                     function ticked() {
                         link
                                 .attr("x1", function (d) {
@@ -428,13 +406,52 @@
                                     return d.target.y;
                                 });
 
+                        nodeArrayx = [];
+                        nodeArrayy = [];
+
                         fnode
                                 .attr("cx", function (d) {
                                     return d.x;
                                 })
                                 .attr("cy", function (d) {
                                     return d.y;
+                                })
+                                .each(function(d) {
+                                    nodeArrayx.push(d.x);
+                                    nodeArrayy.push(d.y);
                                 });
+
+                    }
+
+                    function ticked2() {
+                        fnode
+                                .attr("cx", function (d, i) {
+                                    return nodeArrayx[i];
+                                })
+                                .attr("cy", function (d, i) {
+                                    return nodeArrayy[i];
+                                })
+                                .attr("x", function (d, i) {
+                                    return nodeArrayx[i];
+                                })
+                                .attr("y", function (d, i) {
+                                    return nodeArrayy[i];
+                                });
+
+                        link
+                                .attr("x1", function (d) {
+                                    return d.source.x;
+                                })
+                                .attr("y1", function (d) {
+                                    return d.source.y;
+                                })
+                                .attr("x2", function (d) {
+                                    return d.target.x;
+                                })
+                                .attr("y2", function (d) {
+                                    return d.target.y;
+                                });
+
                     }
 
                     fnode.on('mouseenter', mouseenter)
@@ -473,7 +490,45 @@
                                 simulation.force("link")
                                         .links(graph.link2s);
 
-                            })
+//                                simulation.on("tick", ticked2);
+                            });
+
+                    /*d3.select("#graphOption")
+                            .on("click", function() {
+                                link = linkg.selectAll("line")
+                                        .data(graph.links)
+                                        .attr("stroke-width", function (d) {
+                                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
+                                        });
+
+                                link.exit().remove();
+
+                                simulation.force("link")
+                                        .links(graph.links);
+
+//                                simulation.on("tick", ticked);
+                            });*/
+
+                    $(document).ready(function() {
+                        $("#svg").show();
+                        $("#svg2").hide();
+
+                        $("#forceOption").click(function() {
+                            $("#svg").hide();
+                            $("#svg2").show();
+                            simulation.tick();
+                        });
+
+                        $("#clusterOption").click(function() {
+                            $("#svg").show();
+                            $("#svg2").hide();
+                        });
+
+                        $("#nextQnOption").click(function() {
+                            $("#svg").hide();
+                            $("#svg2").show();
+                        });
+                    });
                 });
 
             </script>
