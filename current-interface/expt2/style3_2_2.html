@@ -270,7 +270,6 @@
             <svg id="svg2" width="720" height="500" style="margin-left: -5px"></svg>
 
             <script>
-
                 var w = +d3.select("svg").attr("width"),
                     h = +d3.select("svg").attr("height"),
                         root,
@@ -359,7 +358,7 @@
 
                     var simulation = d3.forceSimulation()
                             .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30))
-                            .force("charge", d3.forceManyBody().strength(0))
+                            .force("charge", d3.forceManyBody().strength(-2))
                             .force("center", d3.forceCenter(w / 2, h / 2));
 
                     var link2g = svg2.append("g")
@@ -367,8 +366,8 @@
                         .attr("id", "link2g");
 
                     var linkg = svg2.append("g")
-                        .attr("class", "links")
-                        .attr("id", "linkg");
+                            .attr("class", "links")
+                            .attr("id", "linkg");
 
                     var link = linkg.selectAll("line")
                             .data(graph.links)
@@ -399,8 +398,8 @@
                     simulation.force("link")
                             .links(graph.links);
 
-                    var nodeFx = [];
-                    var nodeFy = [];
+                    var nodeArrayx = [];
+                    var nodeArrayy = [];
 
                     function ticked() {
                         link
@@ -417,8 +416,8 @@
                                     return d.target.y;
                                 });
 
-                        var nodeFx = [];
-                        var nodeFy = [];
+                        nodeArrayx = [];
+                        nodeArrayy = [];
 
                         fnode
                                 .attr("cx", function (d) {
@@ -428,11 +427,42 @@
                                     return d.y;
                                 })
                                 .each(function(d) {
-                                    nodeFx.push(d.x);
-                                    nodeFx.push(d.y);
+                                    nodeArrayx.push(d.x);
+                                    nodeArrayy.push(d.y);
                                 });
+
                     }
 
+                    function ticked2() {
+                        fnode
+                                .attr("cx", function (d, i) {
+                                    return nodeArrayx[i];
+                                })
+                                .attr("cy", function (d, i) {
+                                    return nodeArrayy[i];
+                                })
+                                .attr("x", function (d, i) {
+                                    return nodeArrayx[i];
+                                })
+                                .attr("y", function (d, i) {
+                                    return nodeArrayy[i];
+                                });
+
+                        link
+                                .attr("x1", function (d) {
+                                    return d.source.x;
+                                })
+                                .attr("y1", function (d) {
+                                    return d.source.y;
+                                })
+                                .attr("x2", function (d) {
+                                    return d.target.x;
+                                })
+                                .attr("y2", function (d) {
+                                    return d.target.y;
+                                });
+
+                    }
 
                     fnode.on('mouseenter', mouseenter)
                             .on('mouseleave', mouseleave);
@@ -454,7 +484,8 @@
 
                     d3.select("#nextQnOption")
                             .on("click", function() {
-//                                simulation.stop();
+
+                                simulation.stop();
 
                                 var link2 = link2g.selectAll("line")
                                         .data(graph.link2s)
@@ -473,11 +504,17 @@
                                         .links(graph.link2s);
 
                                 fnode
+                                    .attr("cx", function (d, i) {
+                                        return nodeArrayx[i];
+                                    })
+                                    .attr("cy", function (d, i) {
+                                        return nodeArrayy[i];
+                                    })
                                     .attr("x", function (d, i) {
-                                        return nodeFx[i];
+                                        return nodeArrayx[i];
                                     })
                                     .attr("y", function (d, i) {
-                                        return nodeFy[i];
+                                        return nodeArrayy[i];
                                     });
 
                                 link2
@@ -493,30 +530,48 @@
                                     .attr("y2", function (d) {
                                         return d.target.y;
                                     });
+
+//                                simulation.on("tick", ticked2);
                             });
-                });
 
-                $(document).ready(function() {
-                    $("#svg").show();
-                    $("#svg2").hide();
+                    /*d3.select("#graphOption")
+                            .on("click", function() {
+                                link = linkg.selectAll("line")
+                                        .data(graph.links)
+                                        .attr("stroke-width", function (d) {
+                                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
+                                        });
 
-                    $("#forceOption").click(function() {
-                        $("#svg").hide();
-                        $("#svg2").show();
-                        $("#linkg").show();
-                        $("#link2g").hide();
-                    });
+                                link.exit().remove();
 
-                    $("#clusterOption").click(function() {
+                                simulation.force("link")
+                                        .links(graph.links);
+
+//                                simulation.on("tick", ticked);
+                            });*/
+
+                    $(document).ready(function() {
                         $("#svg").show();
                         $("#svg2").hide();
-                    });
 
-                    $("#nextQnOption").click(function() {
-                        $("#svg").hide();
-                        $("#svg2").show();
-                        $("#linkg").hide();
-                        $("#link2g").show();
+                        $("#forceOption").click(function() {
+                            $("#svg").hide();
+                            $("#svg2").show();
+                            $("#linkg").show();
+                            $("#link2g").hide();
+                        });
+
+                        $("#clusterOption").click(function() {
+                            $("#svg").show();
+                            $("#svg2").hide();
+                        });
+
+                        $("#nextQnOption").click(function() {
+                            $("#svg").hide();
+                            $("#svg2").show();
+                            $("#linkg").hide();
+                            $("#link2g").show();
+                        });
                     });
                 });
 

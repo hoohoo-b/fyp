@@ -457,18 +457,18 @@
 
                     d3.select("#nextQnOption")
                             .on("click", function() {
-                                link = linkg.selectAll("line")
+                                var link2 = link2g.selectAll("line")
                                         .data(graph.link2s)
                                         .attr("stroke-width", function (d) {
                                             return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
                                         });
 
-                                link.enter().append("line")
+                                link2.enter().append("line")
                                         .attr("stroke-width", function (d) {
                                             return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
                                         });
 
-                                link.exit().remove();
+                                link2.exit().remove();
 
                                 simulation.force("link")
                                         .links(graph.link2s);
