@@ -234,10 +234,10 @@
                 <div class="col-sm-3 text-left">
                     <form id="form-choose-result">
                         <div class="radio">
-                            <label><input type="radio" id="forceOption" name="optradio" value="">Uncertain Graph</label>
+                            <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" id="clusterOption" name="optradio" value="" checked>Clustering Result</label>
+                            <label><input type="radio" id="clusterOption" name="optradio" value="">Clustering Result</label>
                         </div>
                         <div class="radio">
                             <label><input type="radio" id="nextQnOption" name="optradio" value="">Next Crowd Questions</label>
@@ -357,7 +357,7 @@
                     if (error) throw error;
 
                     var simulation = d3.forceSimulation()
-                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
                         .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
                         .force("center", d3.forceCenter(w / 2, h / 2))
                         .force("collide", d3.forceCollide().strength(1).iterations(2));
@@ -369,6 +369,13 @@
                     var linkg = svg2.append("g")
                             .attr("class", "links")
                             .attr("id", "linkg");
+
+                    var link2 = link2g.selectAll("line")
+                        .data(graph.link2s)
+                        .enter().append("line")
+                        .attr("stroke-width", function (d) {
+                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
+                        });
 
                     var link = linkg.selectAll("line")
                             .data(graph.links)
@@ -425,7 +432,7 @@
                                     return d.x = Math.max(radius, Math.min(w - radius, d.x));
                                 })
                                 .attr("cy", function (d) {
-                                    return Math.max(radius, Math.min(h - radius, d.y));
+                                    return d.y = Math.max(radius, Math.min(h - radius, d.y));
                                 })
                                 .each(function(d) {
                                     nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
@@ -465,6 +472,31 @@
 
                     }
 
+                    function ticked3() {
+                        link
+                            .attr("x1", function (d) {
+                                return d.source.x;
+                            })
+                            .attr("y1", function (d) {
+                                return d.source.y;
+                            })
+                            .attr("x2", function (d) {
+                                return d.target.x;
+                            })
+                            .attr("y2", function (d) {
+                                return d.target.y;
+                            });
+
+                        fnode
+                            .attr("cx", function (d) {
+                                return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                            })
+                            .attr("cy", function (d) {
+                                return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                            });
+
+                    }
+
                     fnode.on('mouseenter', mouseenter)
                             .on('mouseleave', mouseleave);
 
@@ -488,35 +520,8 @@
 
                                 simulation.stop();
 
-                                var link2 = link2g.selectAll("line")
-                                        .data(graph.link2s)
-                                        .attr("stroke-width", function (d) {
-                                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
-                                        });
-
-                                link2.enter().append("line")
-                                        .attr("stroke-width", function (d) {
-                                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
-                                        });
-
-                                link2.exit().remove();
-
                                 simulation.force("link")
                                         .links(graph.link2s);
-
-                                fnode
-                                    .attr("cx", function (d, i) {
-                                        return nodeArrayx[i];
-                                    })
-                                    .attr("cy", function (d, i) {
-                                        return nodeArrayy[i];
-                                    })
-                                    .attr("x", function (d, i) {
-                                        return nodeArrayx[i];
-                                    })
-                                    .attr("y", function (d, i) {
-                                        return nodeArrayy[i];
-                                    });
 
                                 link2
                                     .attr("x1", function (d) {
@@ -538,16 +543,40 @@
                     d3.select("#clusterOption")
                         .on("click", function() {
                             simulation
-                                .force("link", d3.forceLink().distance(10).strength(1))
-                                .force("charge", d3.forceManyBody().strength(-3).distanceMin(8).distanceMax(180).theta(0)) // Theta = no diff??
-                                .restart();
+                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                                .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                .force("center", d3.forceCenter(w / 2, h / 2))
+                                .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                            simulation
+                                .nodes(graph.nodes)
+                                .on("tick", ticked);
+
+                            simulation.force("link")
+                                .links(graph.links);
+
+                            simulation.alpha(0.1).restart();
+
                         });
 
-                    d3.select("#graphOption")
-                            .on("click", function() {
-                                simulation.force("collide", null);
-//                                simulation.on("tick", ticked);
-                            });
+                    d3.select("#forceOption")
+                        .on("click", function() {
+                            simulation
+                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                                .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                .force("center", d3.forceCenter(w / 2, h / 2))
+                                .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                            simulation
+                                .nodes(graph.nodes)
+                                .on("tick", ticked);
+
+                            simulation.force("link")
+                                .links(graph.links);
+
+                            simulation.alpha(0.1).restart();
+
+                        });
 
                     $(document).ready(function() {
                         $("#svg").hide();
