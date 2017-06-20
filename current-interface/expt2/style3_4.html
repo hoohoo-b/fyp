@@ -268,6 +268,23 @@
                     stroke-width: 1.5px;
                 }
 
+                .node--root circle {
+                    stroke: none;
+                    fill: none;
+                }
+                .node--internal circle {
+                    stroke:	#8b9dc3;
+                    stroke-width: 0.7px;
+                    fill: 	#e6f2ff;
+                    stroke-linecap: round;
+                }
+
+                .node--leaf circle {
+                    stroke: 	#c0c5ce;
+                    stroke-width: 0.5px;
+                    stroke-linecap: round;
+                }
+
             </style>
             <svg id="svg" width="720" height="500" style="margin-left: -5px"></svg>
             <svg id="svg2" width="720" height="500" style="margin-left: -5px"></svg>
@@ -323,9 +340,7 @@
                                 return d.r;
                             })
                             .style("fill", function (d) {
-                                if (d.data.name === "root") return "none";
-                                else if (d.data.name.indexOf('group') > -1)  return "lightblue"; // if Name contains the string "group "
-                                else return color(d.data.truth);
+                                if (d.data.name !== "root" && d.data.name.indexOf("group") === -1) return color(d.data.truth);
                             });
 
                     node.append("title")
@@ -365,20 +380,13 @@
                         .force("center", d3.forceCenter(w / 2, h / 2))
                         .force("collide", d3.forceCollide().strength(1).iterations(2));
 
+                    var linkg = svg2.append("g")
+                        .attr("class", "links")
+                            .attr("id", "linkg");
+
                     var link2g = svg2.append("g")
                         .attr("class", "link2s")
                         .attr("id", "link2g");
-
-                    var linkg = svg2.append("g")
-                            .attr("class", "links")
-                            .attr("id", "linkg");
-
-                    var link2 = link2g.selectAll("line")
-                        .data(graph.link2s)
-                        .enter().append("line")
-                        .attr("stroke-width", function (d) {
-                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
-                        });
 
                     var link = linkg.selectAll("line")
                             .data(graph.links)
@@ -386,6 +394,13 @@
                             .attr("stroke-width", function (d) {
                                 return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
                             });
+
+                    var link2 = link2g.selectAll("line")
+                        .data(graph.link2s)
+                        .enter().append("line")
+                        .attr("stroke-width", function (d) {
+                            return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
+                        });
 
                     var fnode = svg2.append("g")
                             .attr("class", "fnodes")
@@ -397,11 +412,6 @@
                                 return color(d.group);
                             });
 
-                    fnode.append("title")
-                            .text(function (d) {
-                                return d.id;
-                            });
-
                     simulation
                             .nodes(graph.nodes)
                             .on("tick", ticked);
@@ -409,96 +419,10 @@
                     simulation.force("link")
                             .links(graph.links);
 
-                    var nodeArrayx = [];
-                    var nodeArrayy = [];
-
-                    function ticked() {
-                        link
-                                .attr("x1", function (d) {
-                                    return d.source.x;
-                                })
-                                .attr("y1", function (d) {
-                                    return d.source.y;
-                                })
-                                .attr("x2", function (d) {
-                                    return d.target.x;
-                                })
-                                .attr("y2", function (d) {
-                                    return d.target.y;
-                                });
-
-                        nodeArrayx = [];
-                        nodeArrayy = [];
-
-                        fnode
-                                .attr("cx", function (d) {
-                                    return d.x = Math.max(radius, Math.min(w - radius, d.x));
-                                })
-                                .attr("cy", function (d) {
-                                    return d.y = Math.max(radius, Math.min(h - radius, d.y));
-                                })
-                                .each(function(d) {
-                                    nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
-                                    nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
-                                });
-
-                    }
-
-                    function ticked2() {
-                        fnode
-                                .attr("cx", function (d, i) {
-                                    return nodeArrayx[i];
-                                })
-                                .attr("cy", function (d, i) {
-                                    return nodeArrayy[i];
-                                })
-                                .attr("x", function (d, i) {
-                                    return nodeArrayx[i];
-                                })
-                                .attr("y", function (d, i) {
-                                    return nodeArrayy[i];
-                                });
-
-                        link
-                                .attr("x1", function (d) {
-                                    return d.source.x;
-                                })
-                                .attr("y1", function (d) {
-                                    return d.source.y;
-                                })
-                                .attr("x2", function (d) {
-                                    return d.target.x;
-                                })
-                                .attr("y2", function (d) {
-                                    return d.target.y;
-                                });
-
-                    }
-
-                    function ticked3() {
-                        link
-                            .attr("x1", function (d) {
-                                return d.source.x;
-                            })
-                            .attr("y1", function (d) {
-                                return d.source.y;
-                            })
-                            .attr("x2", function (d) {
-                                return d.target.x;
-                            })
-                            .attr("y2", function (d) {
-                                return d.target.y;
-                            });
-
-                        fnode
-                            .attr("cx", function (d) {
-                                return d.x = Math.max(radius, Math.min(w - radius, d.x));
-                            })
-                            .attr("cy", function (d) {
-                                return d.y = Math.max(radius, Math.min(h - radius, d.y));
-                            });
-
-                    }
+                    fnode.append("title")
+                        .text(function (d) {
+                            return d.id;
+                        });
 
                     fnode.on('mouseenter', mouseenter)
                             .on('mouseleave', mouseleave);
@@ -518,30 +442,59 @@
                         d3.select('#zoomImage').remove();
                     };
 
-                    d3.select("#nextQnOption")
-                            .on("click", function() {
+                    var nodeArrayx = [];
+                    var nodeArrayy = [];
 
-                                simulation.stop();
-
-                                simulation.force("link")
-                                        .links(graph.link2s);
-
-                                link2
-                                    .attr("x1", function (d) {
-                                        return Math.max(radius, Math.min(w - radius, d.source.x));
-                                    })
-                                    .attr("y1", function (d) {
-                                        return Math.max(radius, Math.min(h - radius, d.source.y));
-                                    })
-                                    .attr("x2", function (d) {
-                                        return Math.max(radius, Math.min(w - radius, d.target.x));
-                                    })
-                                    .attr("y2", function (d) {
-                                        return Math.max(radius, Math.min(h - radius, d.target.y));
-                                    });
-
-//                                simulation.on("tick", ticked2);
+                    function ticked() {
+                        link
+                            .attr("x1", function (d) {
+                                return d.source.x;
+                            })
+                            .attr("y1", function (d) {
+                                return d.source.y;
+                            })
+                            .attr("x2", function (d) {
+                                return d.target.x;
+                            })
+                            .attr("y2", function (d) {
+                                return d.target.y;
                             });
+
+                        nodeArrayx = [];
+                        nodeArrayy = [];
+
+                        fnode
+                            .attr("cx", function (d) {
+                                return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                            })
+                            .attr("cy", function (d) {
+                                return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                            })
+                            .each(function(d) {
+                                nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
+                                nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
+                            });
+
+                    }
+
+                    d3.select("#forceOption")
+                        .on("click", function() {
+                            simulation
+                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                                .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                .force("center", d3.forceCenter(w / 2, h / 2))
+                                .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                            simulation
+                                .nodes(graph.nodes)
+                                .on("tick", ticked);
+
+                            simulation.force("link")
+                                .links(graph.links);
+
+                            simulation.alpha(0.05).restart();
+
+                        });
 
                     d3.select("#clusterOption")
                         .on("click", function() {
@@ -562,23 +515,27 @@
 
                         });
 
-                    d3.select("#forceOption")
+                    d3.select("#nextQnOption")
                         .on("click", function() {
-                            simulation
-                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                                .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                .force("center", d3.forceCenter(w / 2, h / 2))
-                                .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                            simulation
-                                .nodes(graph.nodes)
-                                .on("tick", ticked);
+                            simulation.stop();
 
                             simulation.force("link")
-                                .links(graph.links);
+                                .links(graph.link2s);
 
-                            simulation.alpha(0.05).restart();
-
+                            link2
+                                .attr("x1", function (d) {
+                                    return Math.max(radius, Math.min(w - radius, d.source.x));
+                                })
+                                .attr("y1", function (d) {
+                                    return Math.max(radius, Math.min(h - radius, d.source.y));
+                                })
+                                .attr("x2", function (d) {
+                                    return Math.max(radius, Math.min(w - radius, d.target.x));
+                                })
+                                .attr("y2", function (d) {
+                                    return Math.max(radius, Math.min(h - radius, d.target.y));
+                                });
                         });
 
                     $(document).ready(function() {
@@ -849,9 +806,7 @@
                         return d.r;
                     })
                     .style("fill", function (d) {
-                        if (d.data.name === "root") return "none";
-                        else if (d.data.name.indexOf('group') > -1)  return "lightblue"; // if Name contains the string "group "
-                        else return color(d.data.truth);
+                        if (d.data.name !== "root" && d.data.name.indexOf('group') === -1)  return color(d.data.truth);
                     });
 
             var leafNodes = vis.selectAll(".node--leaf");

@@ -23,11 +23,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="style3_3_1.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style3_3_1.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/expt2/style3_3_1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="591" column="45" lean-forward="false" selection-start-line="591" selection-start-column="45" selection-end-line="591" selection-end-column="45" />
+            <state relative-caret-position="238">
+              <caret line="290" column="34" lean-forward="false" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style3_4.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/expt2/style3_4.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="542" column="32" lean-forward="false" selection-start-line="542" selection-start-column="32" selection-end-line="542" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clustering_with_1800.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -69,7 +89,9 @@
         <option value="$PROJECT_DIR$/expt2/style3_2_1.html" />
         <option value="$PROJECT_DIR$/expt2/style3_2_2.html" />
         <option value="$PROJECT_DIR$/expt2/style3_3.html" />
+        <option value="d3js.org/d3.v4.min.js" />
         <option value="$PROJECT_DIR$/expt2/style3_3_1.html" />
+        <option value="$PROJECT_DIR$/expt2/style3_4.html" />
       </list>
     </option>
   </component>
@@ -100,7 +122,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -166,12 +187,31 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="expt2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="graphData" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="current-interface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="current-interface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="expt" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,9 +242,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JavaScript Debug.style3_3_1.html">
-    <configuration default="false" name="style3_1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_1.html">
-      <method />
-    </configuration>
     <configuration default="false" name="style3_2_1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_2_1.html">
       <method />
     </configuration>
@@ -215,6 +252,9 @@
       <method />
     </configuration>
     <configuration default="false" name="style3_3_1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_3_1.html">
+      <method />
+    </configuration>
+    <configuration default="false" name="style3_4.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_4.html">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -284,19 +324,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_1.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_2.html" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_2.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_2.html" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_1.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_2.html" />
       </list>
     </recent_temporary>
   </component>
@@ -328,12 +368,13 @@
       <workItem from="1497503263621" duration="2177000" />
       <workItem from="1497509199541" duration="14910000" />
       <workItem from="1497871033209" duration="9154000" />
-      <workItem from="1497926743871" duration="4307000" />
+      <workItem from="1497926743871" duration="7922000" />
+      <workItem from="1497945345594" duration="2521000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83124000" />
+    <option name="totallyTimeSpent" value="89260000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -345,18 +386,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15520833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35163674" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28194296" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -389,40 +429,19 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="12" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
         <watch expression="d.id" />
+        <watch expression="this.parent.classed(&quot;node--leaf&quot;)" />
+        <watch expression="this" language="HTML" />
+        <watch expression="this.id" language="HTML" />
+        <watch expression="this.parent.classList.contains(&quot;node--leaf&quot;)" language="HTML" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/PERC_Interface.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7008">
-          <caret line="292" column="39" lean-forward="false" selection-start-line="292" selection-start-column="39" selection-end-line="292" selection-end-column="39" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_7.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/force-layout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1896">
@@ -476,10 +495,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -515,10 +530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -668,10 +679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="292" column="39" lean-forward="false" selection-start-line="292" selection-start-column="39" selection-end-line="292" selection-end-column="39" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#svg#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -701,7 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="360" column="71" lean-forward="false" selection-start-line="360" selection-start-column="71" selection-end-line="360" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -709,14 +715,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="358" column="57" lean-forward="false" selection-start-line="358" selection-start-column="57" selection-end-line="360" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="https://d3js.org/d3.v4.min.js">
+      <provider selected="true" editor-type-id="httpFileEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style3_3_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="591" column="45" lean-forward="false" selection-start-line="591" selection-start-column="45" selection-end-line="591" selection-end-column="45" />
+        <state relative-caret-position="238">
+          <caret line="290" column="34" lean-forward="false" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style3_4.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="542" column="32" lean-forward="false" selection-start-line="542" selection-start-column="32" selection-end-line="542" selection-end-column="32" />
           <folding />
         </state>
       </provider>
