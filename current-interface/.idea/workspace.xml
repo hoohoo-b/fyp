@@ -26,7 +26,7 @@
       <file leaf-file-name="style3_3_1.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/expt2/style3_3_1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="4930">
               <caret line="290" column="34" lean-forward="false" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
               <folding />
             </state>
@@ -36,18 +36,50 @@
       <file leaf-file-name="style3_4.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expt2/style3_4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="542" column="32" lean-forward="false" selection-start-line="542" selection-start-column="32" selection-end-line="542" selection-end-column="32" />
+            <state relative-caret-position="135">
+              <caret line="373" column="45" lean-forward="false" selection-start-line="373" selection-start-column="45" selection-end-line="373" selection-end-column="45" />
+              <folding>
+                <element signature="e#34469#35175#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="force_layout_with_10000.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expt2/force_layout_with_10000.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="267" column="40" lean-forward="false" selection-start-line="267" selection-start-column="40" selection-end-line="267" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="clustering_with_1800.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json">
+      <file leaf-file-name="10000_uncertain.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expt2/10000_uncertain.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="2814">
+              <caret line="447" column="49" lean-forward="true" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="10000.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/old_force_layout_JSON/10000.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4189">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clustering_with_10000.json" pinned="false" current-in-tab="false">
+        <entry file="file://D:/Downloads/FYP_Cluster Visualization/FYP_Cluster Visualization/Sample Dataset &amp; Code for Clustering/clustering_with_10000.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="268" column="31" lean-forward="true" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -65,6 +97,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>stop</find>
+      <find>force_layout_with_18force_layout_with_10000.json00.json</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -91,6 +124,9 @@
         <option value="$PROJECT_DIR$/expt2/style3_3.html" />
         <option value="d3js.org/d3.v4.min.js" />
         <option value="$PROJECT_DIR$/expt2/style3_3_1.html" />
+        <option value="D:/Downloads/FYP_Cluster Visualization/FYP_Cluster Visualization/Sample Dataset &amp; Code for Clustering/clustering_with_10000.json" />
+        <option value="$PROJECT_DIR$/expt2/clustering_with_10000.json" />
+        <option value="$PROJECT_DIR$/expt2/force_layout_with_10000.json" />
         <option value="$PROJECT_DIR$/expt2/style3_4.html" />
       </list>
     </option>
@@ -123,6 +159,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -187,31 +224,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="expt2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="graphData" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="current-interface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="current-interface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="expt" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -241,7 +259,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.style3_3_1.html">
+  <component name="RunManager" selected="JavaScript Debug.style3_4.html">
     <configuration default="false" name="style3_2_1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_2_1.html">
       <method />
     </configuration>
@@ -332,8 +350,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
         <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
         <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
         <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_2.html" />
@@ -370,11 +388,14 @@
       <workItem from="1497871033209" duration="9154000" />
       <workItem from="1497926743871" duration="7922000" />
       <workItem from="1497945345594" duration="2521000" />
+      <workItem from="1498123316969" duration="22000" />
+      <workItem from="1498195648041" duration="1705000" />
+      <workItem from="1498478723006" duration="2500000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89260000" />
+    <option name="totallyTimeSpent" value="93487000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -387,6 +408,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15520833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -442,41 +464,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/force-layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1896">
-          <caret line="79" column="0" lean-forward="false" selection-start-line="35" selection-start-column="6" selection-end-line="79" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12648">
-          <caret line="527" column="32" lean-forward="false" selection-start-line="527" selection-start-column="32" selection-end-line="527" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/force-layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="34" column="40" lean-forward="false" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expt4/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -718,14 +705,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json" />
     <entry file="https://d3js.org/d3.v4.min.js">
       <provider selected="true" editor-type-id="httpFileEditor">
         <state />
@@ -733,17 +713,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style3_3_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="4930">
           <caret line="290" column="34" lean-forward="false" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old_force_layout_JSON/10000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4189">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Downloads/FYP_Cluster Visualization/FYP_Cluster Visualization/Sample Dataset &amp; Code for Clustering/clustering_with_10000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="268" column="31" lean-forward="true" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/clustering_with_10000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="270" column="7" lean-forward="false" selection-start-line="270" selection-start-column="3" selection-end-line="270" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/10000_uncertain.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2814">
+          <caret line="447" column="49" lean-forward="true" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/force_layout_with_10000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="267" column="40" lean-forward="false" selection-start-line="267" selection-start-column="40" selection-end-line="267" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style3_4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="542" column="32" lean-forward="false" selection-start-line="542" selection-start-column="32" selection-end-line="542" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="135">
+          <caret line="373" column="45" lean-forward="false" selection-start-line="373" selection-start-column="45" selection-end-line="373" selection-end-column="45" />
+          <folding>
+            <element signature="e#34469#35175#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
