@@ -1,5 +1,5 @@
 """
-Generating customized .csv filesfor displaying table data in web app
+This edition produces the correct data for FORCE LAYOUT
 
 """
 import os
@@ -135,7 +135,6 @@ if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
     filename_1='data'
     filename_2='gold_allSports'
-    num = raw_input('Pls enter the num of records wanted:')
    
     f = open('./'+filename_1+'.csv', 'r')
     data = []
@@ -145,15 +144,6 @@ if __name__ == "__main__":
         max_num = max_num + 1
     # print data
 
-    temp_data = []
-    for i in range(int(num)):
-        # print i
-        temp_data.append(data[i])
-
-    next_data = []
-    for i in range(100):
-        next_data.append(data[i+int(num)])
-
     f2 = open('./'+filename_2+'.csv', 'r')
     data2 = []
     max_num2 = 0
@@ -161,127 +151,64 @@ if __name__ == "__main__":
     for line in f2.readlines():
         data2.append(line.split(','))
         max_num2 = max_num2 + 1
-    # print data
-
-#    GTAdict = dict()
-#    for i in range(max_num2):
-#        for j in range(len(data2[i])-1):
-#            key = data2[i][0]
-#            GTAdict.setdefault(key, [])
-#            GTAdict[key].append(int(data2[i][j+1])+1)
-
-    cluster_list,time_cost=SCC(temp_data)
-    for i in cluster_list:
-        for j in range(len(i)):
-            i[j]=str(int(i[j]))
-    # print cluster_list
-    # print len(cluster_list)
-    
-    # generate CIRCLE PACK node entries in json
-#    g = open('./circle_pack_with_'+str(num)+".json",'a')
-#    #g.write("{\n"+"  \"nodes\": [\n")
-#    #for i in range(len(cluster_list)):
-#    #	for j in cluster_list[i]:
-#    #		g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
-#    #g.write("  ],\n")
-#
-#    g.write("{\n"+"    \"name\": \"root\",\n    \"size\": 1,\n    \"children\": [\n")
-#    for i in range(len(cluster_list)-1):
-#        g.write("   {\n        \"name\": \"group-"+str(i)+"\",\n        \"size\": 1,\n        \"children\": [\n")
-#        for j in cluster_list[i][:-1]:
-#            g.write("            { \"name\": \""+str(j)+"\", \"size\": 1, \"truth\": \"")
-#            for k,v in GTAdict.iteritems():
-#                for m,n in enumerate(v):
-#                    if n == int(j):
-#                        g.write(k + "\" },\n") # comma
-#        g.write("            { \"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1, \"truth\": \"")
-#        j = cluster_list[i][-1]
-#        for k,v in GTAdict.iteritems():
-#            for m,n in enumerate(v):
-#                if n == int(j):
-#                    g.write(k + "\" }\n") # no comma
-#        g.write("        ]},\n")
-#    g.write("        { \"name\": \"group-"+str(len(cluster_list)-1)+"\",\n        \"size\": 1,\n        \"children\": [\n")
-#    for j in cluster_list[len(cluster_list)-1][:-1]:
-#        g.write("            { \"name\": \""+str(j)+"\", \"size\": 1, \"truth\": \"")
-#        for k,v in GTAdict.iteritems():
-#            for m,n in enumerate(v):
-#                if n == int(j):
-#                    g.write(k + "\" },\n") # comma
-#    g.write("            { \"name\": \""+str(cluster_list[i][-1])+"\", \"size\": 1, \"truth\": \"")
-#    j = cluster_list[len(cluster_list)-1][-1]
-#    for k,v in GTAdict.iteritems():
-#            for m,n in enumerate(v):
-#                if n == int(j):
-#                    g.write(k + "\" }\n") # no comma
-#    g.write("        ]}\n")
-#    g.write("]}\n")
-
-    # generate FORCE LAYOUT node entries in json
-    g2 = open('./force_layout_with_'+str(num)+".json",'a')
-    g2.write("{\n"+"  \"nodes\": [\n")
-    for i in range(len(cluster_list)-1):
-        for j in cluster_list[i]:
-    		g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
-    i = len(cluster_list)-1
-    for j in cluster_list[-1]:
-        if j != cluster_list[-1][-1]:
-            g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
-        else:
-            g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"}\n")
-    g2.write("  ],\n")
-    
-    g2.write("  \"links\": [\n")
-    for i in temp_data[:-1]:
-    	 if float(i[2])<0.5:
-    	 	continue
-    	 else:
-	    	i[2]=str(int(float(i[2])*20+1))
-	    	# print i
-	    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    i = temp_data[-1]
-    i[2]=str(int(float(i[2])*20+1))
-    if float(i[2])>0.5:
-        g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
-    g2.write("  ],\n")
-         
-    g2.write("  \"link2s\": [\n")
-    for i in next_data[:-1]:
-    	i[2]="10"
-    	# print i
-    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    i = next_data[-1]
-    i[2]="10"
-    g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
-    g2.write("  ]\n}")
-             
-    # generate TABLE DATA uncertain graph in csv
-#    g3 = open('./uncertain_graph_'+str(num)+'.csv', 'a')
-##    for i in temp_data:
-##    	 if float(i[2])<0.5:
-##    	 	continue
-##    	 else:
-##             i[2]=str(int(float(i[2])*20+1))
-#    g3.write(i[0]+", "+i[1]+", "+str(float(i[2]))+"\n")
-#
-#    # generate TABLE DATA cluster list in tsv
-#    g4 = open('./cluster_list_'+str(num)+'.tsv', 'a')
-#    for i in range(len(cluster_list)):
-#        g3.write(str(i)+"\t")
-#        for j in cluster_list[i][:-1]:
-#    		g3.write(str(j)+", ")
-#        j = cluster_list[i][-1]
-#        g4.write(str(j)+"\n")
-#        
-#    # generate TABLE DATA next questions in csv
-#    g5 = open("./next_qn_"+str(num)+".csv", 'a')
-#    for i in next_data:
-#    	g5.write(i[0]+", "+i[1]+"\n")
         
-#    g.close()
-    g2.close()
-#    g3.close()
-#    g4.close()
-#    g5.close()
-    f.close()
-    f2.close()
+    for num in range (1800, 20001, 200):
+        temp_data = []
+        for i in range(int(num)):
+            # print i
+            temp_data.append(data[i])
+    
+        next_data = []
+        for i in range(100):
+            next_data.append(data[i+int(num)])
+    
+        cluster_list,time_cost=SCC(temp_data)
+        for i in cluster_list:
+            for j in range(len(i)):
+                i[j]=str(int(i[j]))
+        
+        # generate FORCE LAYOUT node entries in json
+        g2 = open('./force_layout_with_'+str(num)+".json",'a')
+        g2.write("{\n"+"  \"nodes\": [\n")
+        for i in range(len(cluster_list)-1):
+            for j in cluster_list[i]:
+        		g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+        i = len(cluster_list)-1
+        for j in cluster_list[-1]:
+            if j != cluster_list[-1][-1]:
+                g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+            else:
+                g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"}\n")
+        g2.write("  ],\n")
+        
+        g2.write("  \"links\": [")
+        i = temp_data[0]
+        
+        flag = 0
+        for i in temp_data[:-1]:
+            if float(i[2])>0.5:
+                flag += 1
+                if flag == 1:
+                    g2.write("\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2][:-1]+"}")
+                    continue
+                g2.write(",\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2][:-1]+"}")
+        i = temp_data[-1]
+        if float(i[2])>0.5:
+            g2.write("\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
+        else: 
+            g2.write("\n")
+        g2.write("  ],\n")
+             
+        g2.write("  \"link2s\": [\n")
+        for i in next_data[:-1]:
+        	i[2]="10"
+        	# print i
+        	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+        i = next_data[-1]
+        i[2]="10"
+        g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
+        g2.write("  ]\n}")
+            
+        g2.close()
+        f.close()
+        f2.close()

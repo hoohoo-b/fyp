@@ -36,11 +36,19 @@
       <file leaf-file-name="style3_4.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expt2/style3_4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="373" column="45" lean-forward="false" selection-start-line="373" selection-start-column="45" selection-end-line="373" selection-end-column="45" />
-              <folding>
-                <element signature="e#34469#35175#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="645">
+              <caret line="1019" column="9" lean-forward="true" selection-start-line="1019" selection-start-column="9" selection-end-line="1019" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="force_layout_with_4600.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/force_layout_with_4600.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="269" column="4" lean-forward="false" selection-start-line="269" selection-start-column="4" selection-end-line="269" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/expt2/10000_uncertain.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2814">
-              <caret line="447" column="49" lean-forward="true" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
+              <caret line="447" column="49" lean-forward="false" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -79,7 +87,7 @@
         <entry file="file://D:/Downloads/FYP_Cluster Visualization/FYP_Cluster Visualization/Sample Dataset &amp; Code for Clustering/clustering_with_10000.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="311">
-              <caret line="268" column="31" lean-forward="true" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
+              <caret line="268" column="31" lean-forward="false" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -127,6 +135,8 @@
         <option value="D:/Downloads/FYP_Cluster Visualization/FYP_Cluster Visualization/Sample Dataset &amp; Code for Clustering/clustering_with_10000.json" />
         <option value="$PROJECT_DIR$/expt2/clustering_with_10000.json" />
         <option value="$PROJECT_DIR$/expt2/force_layout_with_10000.json" />
+        <option value="$PROJECT_DIR$/expt2/force_layout_with_4600.json" />
+        <option value="$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/force_layout_with_4600.json" />
         <option value="$PROJECT_DIR$/expt2/style3_4.html" />
       </list>
     </option>
@@ -390,12 +400,12 @@
       <workItem from="1497945345594" duration="2521000" />
       <workItem from="1498123316969" duration="22000" />
       <workItem from="1498195648041" duration="1705000" />
-      <workItem from="1498478723006" duration="2500000" />
+      <workItem from="1498478723006" duration="5903000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93487000" />
+    <option name="totallyTimeSpent" value="96890000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -464,20 +474,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/expt4/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt/index-w-force.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="46" lean-forward="false" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PERC_Interface.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -730,7 +726,7 @@
     <entry file="file://D:/Downloads/FYP_Cluster Visualization/FYP_Cluster Visualization/Sample Dataset &amp; Code for Clustering/clustering_with_10000.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
-          <caret line="268" column="31" lean-forward="true" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
+          <caret line="268" column="31" lean-forward="false" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -746,7 +742,7 @@
     <entry file="file://$PROJECT_DIR$/expt2/10000_uncertain.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2814">
-          <caret line="447" column="49" lean-forward="true" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
+          <caret line="447" column="49" lean-forward="false" selection-start-line="447" selection-start-column="49" selection-end-line="447" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -759,13 +755,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/force_layout_with_4600.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="723">
+          <caret line="313" column="48" lean-forward="false" selection-start-line="313" selection-start-column="48" selection-end-line="313" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/force_layout_with_4600.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="269" column="4" lean-forward="false" selection-start-line="269" selection-start-column="4" selection-end-line="269" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style3_4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="373" column="45" lean-forward="false" selection-start-line="373" selection-start-column="45" selection-end-line="373" selection-end-column="45" />
-          <folding>
-            <element signature="e#34469#35175#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="645">
+          <caret line="1019" column="9" lean-forward="true" selection-start-line="1019" selection-start-column="9" selection-end-line="1019" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,5 @@
 """
-Generating customized .csv filesfor displaying table data in web app
+This edition produces the correct data for FORCE LAYOUT
 
 """
 import os
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     filename_1='data'
     filename_2='gold_allSports'
     num = raw_input('Pls enter the num of records wanted:')
-
+   
     f = open('./'+filename_1+'.csv', 'r')
     data = []
     max_num = 0
@@ -221,22 +221,28 @@ if __name__ == "__main__":
     g2 = open('./force_layout_with_'+str(num)+".json",'a')
     g2.write("{\n"+"  \"nodes\": [\n")
     for i in range(len(cluster_list)-1):
-    	for j in cluster_list[i]:
+        for j in cluster_list[i]:
     		g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
-    for j in cluster_list[len(cluster_list)-1][:-1]:
-    		g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
-    g2.write("    {\"id\": \""+str(cluster_list[len(cluster_list)-1][-1])+"\", \"group\": \"group-"+str(len(cluster_list)-1)+"\"}\n")
+    i = len(cluster_list)-1
+    for j in cluster_list[-1]:
+        if j != cluster_list[-1][-1]:
+            g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+        else:
+            g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"}\n")
     g2.write("  ],\n")
     
-    g2.write("  \"link1s\": [\n")
+    g2.write("  \"links\": [\n")
     for i in temp_data[:-1]:
-    	# if float(i[2])<0.5:
-    	# 	continue
-    	# else:
+    	 if float(i[2])<0.5:
+    	 	continue
+    	 else:
 	    	i[2]=str(int(float(i[2])*20+1))
 	    	# print i
 	    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    g2.write("    {\"source\": \""+temp_data[-1][0]+"\", \"target\": \""+temp_data[-1][1]+"\", \"value\": "+temp_data[-1][2]+"}\n")
+    i = temp_data[-1]
+    i[2]=str(int(float(i[2])*20+1))
+    if float(i[2])>0.5:
+        g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
     g2.write("  ],\n")
          
     g2.write("  \"link2s\": [\n")
@@ -244,8 +250,9 @@ if __name__ == "__main__":
     	i[2]="10"
     	# print i
     	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    next_data[-1][2]="10"
-    g2.write("    {\"source\": \""+next_data[-1][0]+"\", \"target\": \""+next_data[-1][1]+"\", \"value\": "+next_data[-1][2]+"}\n")
+    i = next_data[-1]
+    i[2]="10"
+    g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
     g2.write("  ]\n}")
              
     # generate TABLE DATA uncertain graph in csv
