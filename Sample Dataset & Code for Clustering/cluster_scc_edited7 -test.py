@@ -172,31 +172,25 @@ if __name__ == "__main__":
         g2.write("{\n"+"  \"nodes\": [\n")
         for i in range(len(cluster_list)-1):
             for j in cluster_list[i]:
-        		g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+        		g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
         i = len(cluster_list)-1
         for j in cluster_list[-1]:
             if j != cluster_list[-1][-1]:
-                g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+                g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
             else:
-                g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"}\n")
+                g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
         g2.write("  ],\n")
         
-        g2.write("  \"links\": [")
-        i = temp_data[0]
-        
-        flag = 0
+        g2.write("  \"links\": [\n")
         for i in temp_data[:-1]:
-            if float(i[2])>0.5:
-                flag += 1
-                if flag == 1:
-                    g2.write("\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2][:-1]+"}")
-                    continue
-                g2.write(",\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2][:-1]+"}")
+            if float(i[2])>=0.5:
+                i[2]=str(int(float(i[2])*20+1))
+    	    	# print i
+    	    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
         i = temp_data[-1]
+        i[2]=str(int(float(i[2])*20+1))
         if float(i[2])>0.5:
-            g2.write("\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
-        else: 
-            g2.write("\n")
+            g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
         g2.write("  ],\n")
              
         g2.write("  \"link2s\": [\n")
@@ -208,7 +202,7 @@ if __name__ == "__main__":
         i[2]="10"
         g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
         g2.write("  ]\n}")
-            
+             
         g2.close()
         f.close()
         f2.close()

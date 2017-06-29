@@ -1,5 +1,8 @@
 """
-This edition produces the correct data for FORCE LAYOUT
+This edition produces the "correct" data for FORCE LAYOUT
+Ok maybe it is not so correct...
+TODO: Find out what's wrong with my edited code in comparison with the original code
+      Esp the force-layout data is wrong...
 
 """
 import os
@@ -222,13 +225,13 @@ if __name__ == "__main__":
     g2.write("{\n"+"  \"nodes\": [\n")
     for i in range(len(cluster_list)-1):
         for j in cluster_list[i]:
-    		g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+    		g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
     i = len(cluster_list)-1
     for j in cluster_list[-1]:
         if j != cluster_list[-1][-1]:
-            g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+            g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
         else:
-            g2.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"}\n")
+            g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
     g2.write("  ],\n")
     
     g2.write("  \"links\": [\n")

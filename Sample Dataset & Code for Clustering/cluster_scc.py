@@ -1,6 +1,3 @@
-"""
-Original cluster_scc.py for data format for Force Layout!
-"""
 import os
 import numpy as np
 import networkx as nx
@@ -165,7 +162,7 @@ if __name__ == "__main__":
     g.write("{\n"+"  \"nodes\": [\n")
     for i in range(len(cluster_list)):
     	for j in cluster_list[i]:
-    		g.write("    {\"id\": \""+str(j)+"\", \"group\": \"group-"+str(i)+"\"},\n")
+    		g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
     g.write("  ],\n")
 
     # generate uncertain graph in json
@@ -186,4 +183,4 @@ if __name__ == "__main__":
     	# print i
     	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
     g.write("  ]\n}")
-
+    g.close()

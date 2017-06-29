@@ -26,8 +26,28 @@
       <file leaf-file-name="style3_5.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expt2/style3_5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="878" column="0" lean-forward="true" selection-start-line="878" selection-start-column="0" selection-end-line="886" selection-end-column="34" />
+            <state relative-caret-position="3664">
+              <caret line="1024" column="107" lean-forward="true" selection-start-line="1024" selection-start-column="107" selection-end-line="1024" selection-end-column="107" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="5000.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/old_force_layout_JSON/5000.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1156">
+              <caret line="296" column="50" lean-forward="false" selection-start-line="296" selection-start-column="50" selection-end-line="296" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="force_layout_with_5000.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expt2/vizData/forceLayout/force_layout_with_5000.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3842">
+              <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -46,6 +66,8 @@
     <findStrings>
       <find>stop</find>
       <find>force_layout_with_18force_layout_with_10000.json00.json</find>
+      <find>64</find>
+      <find>strobel tr</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -78,6 +100,7 @@
         <option value="$PROJECT_DIR$/expt2/force_layout_with_4600.json" />
         <option value="$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/force_layout_with_4600.json" />
         <option value="$PROJECT_DIR$/expt2/style3_4.html" />
+        <option value="$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/circle_pack_with_2000.json" />
         <option value="$PROJECT_DIR$/expt2/style3_5.html" />
       </list>
     </option>
@@ -210,10 +233,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.style3_5.html">
-    <configuration default="false" name="style3_2_1.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_2_1.html">
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JavaScript Debug.index-w-force.html">
     <configuration default="false" name="style3_3.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_3.html">
       <method />
     </configuration>
@@ -224,6 +244,9 @@
       <method />
     </configuration>
     <configuration default="false" name="style3_5.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt2/style3_5.html">
+      <method />
+    </configuration>
+    <configuration default="false" name="index-w-force.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt/index-w-force.html">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -293,19 +316,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_5.html" />
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_5.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.index-w-force.html" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.style3_5.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_2_1.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index-w-force.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.style3_5.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.style3_4.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.style3_3_1.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.style3_3.html" />
       </list>
     </recent_temporary>
   </component>
@@ -343,12 +366,12 @@
       <workItem from="1498195648041" duration="1705000" />
       <workItem from="1498478723006" duration="6026000" />
       <workItem from="1498536864381" duration="5692000" />
-      <workItem from="1498721574900" duration="1516000" />
+      <workItem from="1498721574900" duration="5145000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104221000" />
+    <option name="totallyTimeSpent" value="107850000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -360,8 +383,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15520833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -417,62 +439,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12720">
-          <caret line="530" column="34" lean-forward="false" selection-start-line="530" selection-start-column="34" selection-end-line="530" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12648">
-          <caret line="527" column="32" lean-forward="false" selection-start-line="527" selection-start-column="32" selection-end-line="527" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/force-layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PERC_Interface.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_9.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt2/style2_8.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style2_6.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16464">
@@ -545,13 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt/index-w-force.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="46" lean-forward="false" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -570,13 +529,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/force-layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1896">
-          <caret line="79" column="0" lean-forward="false" selection-start-line="35" selection-start-column="6" selection-end-line="79" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -647,6 +599,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4930">
           <caret line="290" column="34" lean-forward="false" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -689,10 +642,93 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/vizData/circlePack/clustering_with_2000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="1512" column="58" lean-forward="false" selection-start-line="1512" selection-start-column="58" selection-end-line="1512" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/circle_pack_with_2000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-25151">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/force_layout_with_2000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5873">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Sample Dataset &amp; Code for Clustering/clustering_with_2000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27795">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/vizData/forceLayout/force_layout_with_2000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="229" column="32" lean-forward="false" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
+          <folding>
+            <marker date="1498726256919" expanded="true" signature="13:27" ph="[...]" />
+            <marker date="1498726256919" expanded="true" signature="14825:14830" ph="[...]" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/style2_3_1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10174">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt/index-w-force.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-782">
+          <caret line="2" column="46" lean-forward="false" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt2/vizData/forceLayout/force_layout_with_5000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3842">
+          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/force-layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old_force_layout_JSON/5000.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="296" column="50" lean-forward="false" selection-start-line="296" selection-start-column="50" selection-end-line="296" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/expt2/style3_5.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="878" column="0" lean-forward="true" selection-start-line="878" selection-start-column="0" selection-end-line="886" selection-end-column="34" />
+        <state relative-caret-position="3664">
+          <caret line="1024" column="107" lean-forward="true" selection-start-line="1024" selection-start-column="107" selection-end-line="1024" selection-end-column="107" />
           <folding />
         </state>
       </provider>
