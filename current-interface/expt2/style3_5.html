@@ -416,7 +416,7 @@
 
                 });
 
-                d3.json("vizData//forceLayout//force_layout_with_1800.json", function(error, graph) {
+                d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
                     if (error) throw error;
 
                     simulation = d3.forceSimulation()
@@ -850,7 +850,7 @@
 
         // TODO: Resolve if Python edited output is same as original... What's wrong?!
 
-        d3.json("vizData//forceLayout//force_layout_with_" + String(a) + ".json", function (error, graph) {
+        d3.json("vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
             if (error) throw error;
 
             link = linkg.selectAll("line")

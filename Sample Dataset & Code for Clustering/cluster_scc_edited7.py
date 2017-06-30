@@ -1,8 +1,11 @@
 """
 This edition produces the "correct" data for FORCE LAYOUT
 Ok maybe it is not so correct...
-TODO: Find out what's wrong with my edited code in comparison with the original code
-      Esp the force-layout data is wrong...
+TODO: 
+  File "C:/Users/PREDATOR/Documents/GitHub/fyp/Sample Dataset & Code for Clustering/cluster_scc_edited7.py", line 242, in <module>
+    i[2]=str(int(float(i[2])*20+1))
+
+OverflowError: cannot convert float infinity to integer
 
 """
 import os
@@ -221,42 +224,42 @@ if __name__ == "__main__":
     g.write("]}\n")
 
     # generate FORCE LAYOUT node entries in json
-    g2 = open('./force_layout_with_'+str(num)+".json",'a')
+    g2 = open('./force_layout_with_'+str(num)+'.json', 'a')
     g2.write("{\n"+"  \"nodes\": [\n")
     for i in range(len(cluster_list)-1):
         for j in cluster_list[i]:
-    		g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
-    i = len(cluster_list)-1
-    for j in cluster_list[-1]:
-        if j != cluster_list[-1][-1]:
-            g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
-        else:
-            g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
-    g2.write("  ],\n")
+        		g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+        i = len(cluster_list)-1
+        for j in cluster_list[i]:
+            if j != cluster_list[i][-1]:
+                g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+            else:
+                g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
+        g2.write("  ],\n")
     
-    g2.write("  \"links\": [\n")
-    for i in temp_data[:-1]:
-    	 if float(i[2])<0.5:
-    	 	continue
-    	 else:
-	    	i[2]=str(int(float(i[2])*20+1))
-	    	# print i
-	    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    i = temp_data[-1]
-    i[2]=str(int(float(i[2])*20+1))
-    if float(i[2])>0.5:
+        # generate uncertain graph in json
+        g2.write("  \"links\": [\n")
+        flag=0
+        for i in temp_data:
+            if float(i[2])>=0.5:
+                i[2]=str(int(float(i[2])*20+1))
+                flag+=1
+                if flag==1:
+                    g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
+                else:
+                    g2.write(",\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
+        g2.write("\n  ],\n")
+    
+        # generate next questions in json
+        g2.write("  \"link2s\": [\n")
+        for i in next_data[:-1]:
+        	i[2]="10"
+        	# print i
+        	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+        i = next_data[-1]
+        i[2] = "10"
         g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
-    g2.write("  ],\n")
-         
-    g2.write("  \"link2s\": [\n")
-    for i in next_data[:-1]:
-    	i[2]="10"
-    	# print i
-    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-    i = next_data[-1]
-    i[2]="10"
-    g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
-    g2.write("  ]\n}")
+        g2.write("  ]\n}")
              
     # generate TABLE DATA uncertain graph in csv
     g3 = open('./uncertain_graph_'+str(num)+'.csv', 'a')
