@@ -148,12 +148,10 @@ if __name__ == "__main__":
     max_num = 0
     for line in f.readlines():
         data.append(line.split(','))
-        max_num = max_num + 1
-    # print data
+        max_num += 1
 
     temp_data = []
     for i in range(int(num)):
-        # print i
         temp_data.append(data[i])
 
     next_data = []
@@ -166,8 +164,7 @@ if __name__ == "__main__":
 
     for line in f2.readlines():
         data2.append(line.split(','))
-        max_num2 = max_num2 + 1
-    # print data
+        max_num2 += 1
 
     GTAdict = dict()
     for i in range(max_num2):
@@ -180,17 +177,9 @@ if __name__ == "__main__":
     for i in cluster_list:
         for j in range(len(i)):
             i[j]=str(int(i[j]))
-    # print cluster_list
-    # print len(cluster_list)
     
     # generate CIRCLE PACK node entries in json
-    g = open('./circle_pack_with_'+str(num)+".json",'a')
-    #g.write("{\n"+"  \"nodes\": [\n")
-    #for i in range(len(cluster_list)):
-    #	for j in cluster_list[i]:
-    #		g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
-    #g.write("  ],\n")
-
+    g = open('./circlePack_'+str(num)+".json",'a')
     g.write("{\n"+"    \"name\": \"root\",\n    \"size\": 1,\n    \"children\": [\n")
     for i in range(len(cluster_list)-1):
         g.write("   {\n        \"name\": \"group-"+str(i)+"\",\n        \"size\": 1,\n        \"children\": [\n")
@@ -263,19 +252,15 @@ if __name__ == "__main__":
              
     # generate TABLE DATA uncertain graph in csv
     g3 = open('./uncertain_graph_'+str(num)+'.csv', 'a')
-#    for i in temp_data:
-#    	 if float(i[2])<0.5:
-#    	 	continue
-#    	 else:
-#             i[2]=str(int(float(i[2])*20+1))
-    g3.write(i[0]+", "+i[1]+", "+str(float(i[2]))+"\n")
+    for i in temp_data:
+        g3.write(i[0]+", "+i[1]+", "+str(float(i[2]))+"\n")
 
     # generate TABLE DATA cluster list in tsv
     g4 = open('./cluster_list_'+str(num)+'.tsv', 'a')
     for i in range(len(cluster_list)):
-        g3.write(str(i)+"\t")
+        g4.write(str(i)+"\t")
         for j in cluster_list[i][:-1]:
-    		g3.write(str(j)+", ")
+    		g4.write(str(j)+", ")
         j = cluster_list[i][-1]
         g4.write(str(j)+"\n")
         
