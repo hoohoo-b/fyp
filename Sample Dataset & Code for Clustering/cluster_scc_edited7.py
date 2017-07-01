@@ -213,50 +213,50 @@ if __name__ == "__main__":
     g.write("]}\n")
 
     # generate FORCE LAYOUT node entries in json
-    g2 = open('./force_layout_with_'+str(num)+'.json', 'a')
+    g2 = open('./forceLayout_'+str(num)+'.json', 'a')
     g2.write("{\n"+"  \"nodes\": [\n")
     for i in range(len(cluster_list)-1):
         for j in cluster_list[i]:
         		g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
-        i = len(cluster_list)-1
-        for j in cluster_list[i]:
-            if j != cluster_list[i][-1]:
-                g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+    i = len(cluster_list)-1
+    for j in cluster_list[i]:
+        if j != cluster_list[i][-1]:
+            g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+        else:
+            g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
+    g2.write("  ],\n")
+    
+    # generate uncertain graph in json
+    g2.write("  \"links\": [\n")
+    flag=0
+    for i in temp_data:
+        if float(i[2])>=0.5:
+            i[2]=str(int(float(i[2])*20+1))
+            flag+=1
+            if flag==1:
+                g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
             else:
-                g2.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
-        g2.write("  ],\n")
-    
-        # generate uncertain graph in json
-        g2.write("  \"links\": [\n")
-        flag=0
-        for i in temp_data:
-            if float(i[2])>=0.5:
-                i[2]=str(int(float(i[2])*20+1))
-                flag+=1
-                if flag==1:
-                    g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
-                else:
-                    g2.write(",\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
-        g2.write("\n  ],\n")
-    
-        # generate next questions in json
-        g2.write("  \"link2s\": [\n")
-        for i in next_data[:-1]:
-        	i[2]="10"
-        	# print i
-        	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-        i = next_data[-1]
-        i[2] = "10"
-        g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
-        g2.write("  ]\n}")
+                g2.write(",\n    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
+    g2.write("\n  ],\n")
+
+    # generate next questions in json
+    g2.write("  \"link2s\": [\n")
+    for i in next_data[:-1]:
+    	i[2]="10"
+    	# print i
+    	g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+    i = next_data[-1]
+    i[2] = "10"
+    g2.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
+    g2.write("  ]\n}")
              
     # generate TABLE DATA uncertain graph in csv
-    g3 = open('./uncertain_graph_'+str(num)+'.csv', 'a')
+    g3 = open('./uncertain_'+str(num)+'.csv', 'a')
     for i in temp_data:
         g3.write(i[0]+", "+i[1]+", "+str(float(i[2]))+"\n")
 
     # generate TABLE DATA cluster list in tsv
-    g4 = open('./cluster_list_'+str(num)+'.tsv', 'a')
+    g4 = open('./clusterList_'+str(num)+'.tsv', 'a')
     for i in range(len(cluster_list)):
         g4.write(str(i)+"\t")
         for j in cluster_list[i][:-1]:
@@ -265,7 +265,7 @@ if __name__ == "__main__":
         g4.write(str(j)+"\n")
         
     # generate TABLE DATA next questions in csv
-    g5 = open("./next_qn_"+str(num)+".csv", 'a')
+    g5 = open("./nextQn_"+str(num)+".csv", 'a')
     for i in next_data:
     	g5.write(i[0]+", "+i[1]+"\n")
         
