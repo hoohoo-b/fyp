@@ -132,80 +132,46 @@
 </head>
 <body>
 
-<nav class="navbar">
+<nav class="navbar navbar-inverse">
     <div class="container-fluid"> <!-- TODO: RE-ORGANISE the app layout to accomodate picture display w/o overlapping viz!! hee! -->
-        <div class="navbar-header">
+        <div class="navbar-header pull-right">
             <a class="navbar-brand" href="#">PERC Crowdsourcing Entity Resolution Platform</a>
         </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Target Dataset
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">AllSports</a></li>
+                    <li><a href="#">Gymnastics</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Animation <!-- TODO: ADD sliders!! -->
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Batch Size</a></li>
+                    <!-- TODO: ADD horizontal ruler!!: -->
+                    <li><a href="#"><b>Terminal Condition</b></a></li>
+                    <li><a href="#">Stop at:</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
 
 <div class="container-fluid text-center">
     <div class="row">
 
+        <div class="col-sm-9 text-center">
 
-            <div class="col-sm-2 sidenav">
-
-            <div class="well text-left" id="Input-well">
-                <div class="text-inside-well">Input</div>
-                <label for="fileUpload" class="btn btn-success btn-block">Target Dataset</label>
-                <input id="fileUpload" class="uploadHidden" type="file">
-                <label for="fileUpload2" class="btn btn-success btn-block">Initial Data(if any)</label>
-                <input id="fileUpload2" class="uploadHidden" type="file">
-                <label for="fileUpload3" class="btn btn-success btn-block">Gold Answer(if any)</label>
-                <input id="fileUpload3" class="uploadHidden" type="file">
-            </div>
-
-            <div class="well text-left" id="Config-well">
-                <div class="text-inside-well">Configuration</div>
-
-                <div class="well text-left">
-                    <div class="text-inside-well2">Batch Size:</div>
-                    <select class="form-control" id="batch_size">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                </div>
-
-                <div class="well text-left" id="config-well2">
-                    <div class="text-inside-well2">Terminal Condition:</div>
-                    <form class="Terminal-condition">
-                        <div class="radio">
-                            <label><input type="radio" name="optradio">Auto</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="optradio">Total loops:<input type="text" class="form-control" id="loops"></label>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="well text-left" id="config-well3">
-                    <div class="text-inside-well3">Clustering Algorithm:</div>
-                    <select class="form-control" id="algo">
-                        <option>SCC</option>
-                        <option>Best</option>
-                        <option>First</option>
-                        <option>Pivot</option>
-                    </select>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="col-sm-7 text-center">
-            <div class="row content" id="progress">
-
+            <div class="row" id="progress">
                 <div class="col-sm-2 text-center">
                     <button type="button" class="btn btn-success btn-block" id="start-button">Start</button>
                     <button type="button" class="btn btn-success btn-block" id="pause-button">Pause</button>
                 </div>
 
-                <div class="col-sm-5 text-center">
+                <div class="col-sm-7 text-center">
                     <p id="answer-count" style="margin-top: 8px; margin-bottom: -16px"></p>
                     <div class="progress" id="bar">
                         <div class="progress-bar progress-bar-info" role="progressbar" id="progressbar" aria-valuenow="9"
@@ -215,7 +181,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-5 text-left">
+                <div class="col-sm-3 text-left">
                     <form id="form-choose-result">
                         <div class="radio">
                             <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
@@ -224,290 +190,299 @@
                             <label><input type="radio" id="clusterOption" name="optradio" value="">Clustering Result</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" id="nextQnOption" name="optradio" value="">Next Crowd Questions</label>
+                            <label><input type="radio" id="nextQnOption" name="optradio" value="">Next Crowd Questions
+                                <div class="btn-group-xs">
+                                <button type="button" class="btn btn-success">5</button>
+                                <button type="button" class="btn btn-success">10</button>
+                                <button type="button" class="btn btn-success">15</button>
+                                <button type="button" class="btn btn-success">All</button>
+                            </div></label>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div class="container-fluid">
-                <div class="row content">
-                    <div class="col-sm-12">
-                        <style>
+                <div class="col-sm-4 text-center">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Photo display!!!:</div>
+                        <div class="panel-body" id="photoHere"></div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <style>
 
-                            .link2s line {
-                                stroke: #f00;
-                                stroke-opacity: 0.2;
+                        .link2s line {
+                            stroke: #f00;
+                            stroke-opacity: 0.2;
 
-                            }
+                        }
 
-                            .links line {
-                                stroke: #999;
-                                stroke-opacity: 0.6;
+                        .links line {
+                            stroke: #999;
+                            stroke-opacity: 0.6;
 
-                            }
+                        }
 
-                            .fnodes circle {
-                                stroke: #fff;
-                                stroke-width: 1.5px;
-                                fill-opacity: 1;
-                            }
+                        .fnodes circle {
+                            stroke: #fff;
+                            stroke-width: 1.5px;
+                            fill-opacity: 1;
+                        }
 
-                            .node--root circle {
-                                stroke: none;
-                                fill: none;
-                            }
-                            .node--internal circle {
-                                stroke:	#8b9dc3;
-                                stroke-width: 0.7px;
-                                fill: 	#e6f2ff;
-                                stroke-linecap: round;
-                            }
+                        .node--root circle {
+                            stroke: none;
+                            fill: none;
+                        }
+                        .node--internal circle {
+                            stroke:	#8b9dc3;
+                            stroke-width: 0.7px;
+                            fill: 	#e6f2ff;
+                            stroke-linecap: round;
+                        }
 
-                            .node--leaf circle {
-                                stroke: 	#c0c5ce;
-                                stroke-width: 0.5px;
-                                stroke-linecap: round;
-                            }
+                        .node--leaf circle {
+                            stroke: 	#c0c5ce;
+                            stroke-width: 0.5px;
+                            stroke-linecap: round;
+                        }
 
-                        </style>
-                        <svg id="svg2" width="720" height="500" style="margin-left: -5px"></svg>
+                    </style>
+                    <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg> <!-- TODO: FIGURE OUT CSS reason for overlap!! hm! -->
 
-                        <script> // TODO: Clear out what's remaining of the circle pack!
-                            var w = +d3.select("svg").attr("width"),
-                                h = +d3.select("svg").attr("height"),
-                                    node;
+                    <script> // TODO: Clear out what's remaining of the circle pack!
+                        var w = +d3.select("svg").attr("width"),
+                            h = +d3.select("svg").attr("height"),
+                                node;
 
-                            var radius = 5;
-                            var color = d3.scaleOrdinal(d3.schemeCategory20b);
-                            var svg2 = d3.select("#svg2");
+                        var radius = 5;
+                        var color = d3.scaleOrdinal(d3.schemeCategory20b);
+                        var svg2 = d3.select("#svg2");
 
-                            var simulation, link, link2, fnode;
+                        var simulation, link, link2, fnode;
 
-                            var fnodeg = svg2.append("g")
-                                .attr("class", "fnodes");
+                        var fnodeg = svg2.append("g")
+                            .attr("class", "fnodes");
 
-                            var linkg = svg2.append("g")
-                                .attr("class", "links")
-                                .attr("id", "linkg");
+                        var linkg = svg2.append("g")
+                            .attr("class", "links")
+                            .attr("id", "linkg");
 
-                            var link2g = svg2.append("g")
-                                .attr("class", "link2s")
-                                .attr("id", "link2g");
+                        var link2g = svg2.append("g")
+                            .attr("class", "link2s")
+                            .attr("id", "link2g");
 
-                            $(document).ready(function() {
+                        $(document).ready(function() {
 
-                                $("#forceOption").click(function() {
-                                    $("#linkg").show();
-                                    $("#link2g").hide();
-                                });
-
-                                $("#nextQnOption").click(function() {
-                                    $("#linkg").hide();
-                                    $("#link2g").show();
-                                });
+                            $("#forceOption").click(function() {
+                                $("#linkg").show();
+                                $("#link2g").hide();
                             });
 
-                            d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
-                                if (error) throw error;
+                            $("#nextQnOption").click(function() {
+                                $("#linkg").hide();
+                                $("#link2g").show();
+                            });
+                        });
 
-                                simulation = d3.forceSimulation()
-                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
-                                    .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
-                                    .force("center", d3.forceCenter(w / 2, h / 2))
-                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
+                        d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                            if (error) throw error;
+
+                            simulation = d3.forceSimulation()
+                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
+                                .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
+                                .force("center", d3.forceCenter(w / 2, h / 2))
+                                .force("collide", d3.forceCollide().strength(1).iterations(2));
 
 
-                                link = linkg.selectAll("line")
-                                        .data(graph.links)
-                                        .enter().append("line")
-                                        .attr("stroke-width", function (d) {
-                                            return Math.sqrt(d.value)*0.625;
-                                        });
-
-                                link2 = link2g.selectAll("line")
-                                    .data(graph.link2s)
+                            link = linkg.selectAll("line")
+                                    .data(graph.links)
                                     .enter().append("line")
                                     .attr("stroke-width", function (d) {
-                                        return Math.sqrt(Math.sqrt(d.value));
+                                        return Math.sqrt(d.value)*0.625;
                                     });
 
-                                fnode = fnodeg.selectAll("circle")
-                                        .data(graph.nodes)
-                                        .enter().append("circle")
-                                        .attr("r", radius)
-                                        .attr("fill", function (d) {
-                                            return color(d.group);
-                                        });
+                            link2 = link2g.selectAll("line")
+                                .data(graph.link2s)
+                                .enter().append("line")
+                                .attr("stroke-width", function (d) {
+                                    return Math.sqrt(Math.sqrt(d.value));
+                                });
 
-                                simulation
-                                        .nodes(graph.nodes)
-                                        .on("tick", ticked);
-
-                                simulation.force("link")
-                                        .links(graph.links);
-
-                                fnode.append("title")
-                                    .text(function (d) {
-                                        return d.id;
+                            fnode = fnodeg.selectAll("circle")
+                                    .data(graph.nodes)
+                                    .enter().append("circle")
+                                    .attr("r", radius)
+                                    .attr("fill", function (d) {
+                                        return color(d.group);
                                     });
 
-                                link.append("title")
-                                    .text(function(d) {
-                                        return (parseFloat(d.value)-1.00)/20; // TODO: EXPLAIN why
-                                    })
+                            simulation
+                                    .nodes(graph.nodes)
+                                    .on("tick", ticked);
 
-                                fnode.on('mouseenter', mouseenter)
-                                        .on('mouseleave', mouseleave);
+                            simulation.force("link")
+                                    .links(graph.links);
+
+                            fnode.append("title")
+                                .text(function (d) {
+                                    return d.id;
+                                });
+
+                            link.append("title")
+                                .text(function(d) {
+                                    return (parseFloat(d.value)-1.00)/20; // TODO: EXPLAIN this eqn
+                                })
+
+                            fnode.on('mouseenter', mouseenter)
+                                    .on('mouseleave', mouseleave);
 
 
-                                function mouseenter(d) {
-                                    d3.select(this.parentNode)
+                            function mouseenter(d) {
+                                d3.select("#photoHere") // to rollback, replace "#phtoHere" with "this.parentNode" !!!!
+                                    .append('image')
+                                    .attr('id', 'zoomImage')
+                                    .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                    .attr("x", 0)
+                                    .attr("y", 0)
+                                    .attr('width', 200)
+                                    .attr('height', 200);
+                            };
+
+                            function mouseleave() {
+                                d3.select('#zoomImage').remove();
+                            };
+
+                            function mouseenter2(d) {
+                                d3.select("#photoHere")
                                         .append('image')
                                         .attr('id', 'zoomImage')
-                                        .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                        .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
                                         .attr("x", 0)
                                         .attr("y", 0)
                                         .attr('width', 200)
                                         .attr('height', 200);
-                                };
+                                d3.select("#photoHere")
+                                    .append('image')
+                                    .attr('id', 'zoomImage2')
+                                    .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                                    .attr("x", 220)
+                                    .attr("y", 0)
+                                    .attr('width', 200)
+                                    .attr('height', 200);
+                            };
 
-                                function mouseleave() {
-                                    d3.select('#zoomImage').remove();
-                                };
+                            function mouseleave2() {
+                                d3.select('#zoomImage').remove();
+                                d3.select('#zoomImage2').remove();
 
-                                function mouseenter2(d) {
-                                    d3.select(this.parentNode)
-                                            .append('image')
-                                            .attr('id', 'zoomImage')
-                                            .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
-                                            .attr("x", 0)
-                                            .attr("y", 0)
-                                            .attr('width', 200)
-                                            .attr('height', 200);
-                                    d3.select(this.parentNode)
-                                        .append('image')
-                                        .attr('id', 'zoomImage2')
-                                        .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
-                                        .attr("x", 220)
-                                        .attr("y", 0)
-                                        .attr('width', 200)
-                                        .attr('height', 200);
-                                };
+                            };
 
-                                function mouseleave2() {
-                                    d3.select('#zoomImage').remove();
-                                    d3.select('#zoomImage2').remove();
+                            var nodeArrayx = [];
+                            var nodeArrayy = [];
 
-                                };
+                            link.on('mouseenter', mouseenter2)
+                                .on('mouseleave', mouseleave2);
 
-                                var nodeArrayx = [];
-                                var nodeArrayy = [];
+                            function ticked() {
+                                link
+                                    .attr("x1", function (d) {
+                                        return d.source.x;
+                                    })
+                                    .attr("y1", function (d) {
+                                        return d.source.y;
+                                    })
+                                    .attr("x2", function (d) {
+                                        return d.target.x;
+                                    })
+                                    .attr("y2", function (d) {
+                                        return d.target.y;
+                                    });
 
-                                link.on('mouseenter', mouseenter2)
-                                    .on('mouseleave', mouseleave2);
+                                nodeArrayx = [];
+                                nodeArrayy = [];
 
-                                function ticked() {
-                                    link
+                                fnode
+                                    .attr("cx", function (d) {
+                                        return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                                    })
+                                    .attr("cy", function (d) {
+                                        return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                                    })
+                                    .each(function(d) {
+                                        nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
+                                        nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
+                                    });
+
+                            }
+
+                            d3.select("#forceOption")
+                                .on("click", function() {
+                                    simulation
+                                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                        .force("center", d3.forceCenter(w / 2, h / 2))
+                                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                                    simulation
+                                        .nodes(graph.nodes)
+                                        .on("tick", ticked);
+
+                                    simulation.force("link")
+                                        .links(graph.links);
+
+                                    simulation.alpha(0.05).restart();
+
+                                });
+
+                            d3.select("#clusterOption")
+                                .on("click", function() {
+                                    simulation
+                                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                        .force("center", d3.forceCenter(w / 2, h / 2))
+                                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                                    simulation
+                                        .nodes(graph.nodes)
+                                        .on("tick", ticked);
+
+                                    simulation.force("link")
+                                        .links(graph.links);
+
+                                    simulation.alpha(0.1).restart();
+
+                                });
+
+                            d3.select("#nextQnOption")
+                                .on("click", function() {
+
+                                    simulation.stop();
+
+                                    simulation.force("link")
+                                        .links(graph.link2s);
+
+                                    link2
                                         .attr("x1", function (d) {
-                                            return d.source.x;
+                                            return Math.max(radius, Math.min(w - radius, d.source.x));
                                         })
                                         .attr("y1", function (d) {
-                                            return d.source.y;
+                                            return Math.max(radius, Math.min(h - radius, d.source.y));
                                         })
                                         .attr("x2", function (d) {
-                                            return d.target.x;
+                                            return Math.max(radius, Math.min(w - radius, d.target.x));
                                         })
                                         .attr("y2", function (d) {
-                                            return d.target.y;
+                                            return Math.max(radius, Math.min(h - radius, d.target.y));
                                         });
+                                });
+                        });
 
-                                    nodeArrayx = [];
-                                    nodeArrayy = [];
-
-                                    fnode
-                                        .attr("cx", function (d) {
-                                            return d.x = Math.max(radius, Math.min(w - radius, d.x));
-                                        })
-                                        .attr("cy", function (d) {
-                                            return d.y = Math.max(radius, Math.min(h - radius, d.y));
-                                        })
-                                        .each(function(d) {
-                                            nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
-                                            nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
-                                        });
-
-                                }
-
-                                d3.select("#forceOption")
-                                    .on("click", function() {
-                                        simulation
-                                            .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                                            .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                            .force("center", d3.forceCenter(w / 2, h / 2))
-                                            .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                                        simulation
-                                            .nodes(graph.nodes)
-                                            .on("tick", ticked);
-
-                                        simulation.force("link")
-                                            .links(graph.links);
-
-                                        simulation.alpha(0.05).restart();
-
-                                    });
-
-                                d3.select("#clusterOption")
-                                    .on("click", function() {
-                                        simulation
-                                            .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
-                                            .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                            .force("center", d3.forceCenter(w / 2, h / 2))
-                                            .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                                        simulation
-                                            .nodes(graph.nodes)
-                                            .on("tick", ticked);
-
-                                        simulation.force("link")
-                                            .links(graph.links);
-
-                                        simulation.alpha(0.1).restart();
-
-                                    });
-
-                                d3.select("#nextQnOption")
-                                    .on("click", function() {
-
-                                        simulation.stop();
-
-                                        simulation.force("link")
-                                            .links(graph.link2s);
-
-                                        link2
-                                            .attr("x1", function (d) {
-                                                return Math.max(radius, Math.min(w - radius, d.source.x));
-                                            })
-                                            .attr("y1", function (d) {
-                                                return Math.max(radius, Math.min(h - radius, d.source.y));
-                                            })
-                                            .attr("x2", function (d) {
-                                                return Math.max(radius, Math.min(w - radius, d.target.x));
-                                            })
-                                            .attr("y2", function (d) {
-                                                return Math.max(radius, Math.min(h - radius, d.target.y));
-                                            });
-                                    });
-                            });
-
-                        </script>
-                    </div>
+                    </script>
                 </div>
-            </div>
+
         </div>
 
-        <div class="col-sm-3 sidenav text-left">
+        <div class="col-sm-3 sidenav text-left"> <!-- TODO: CODEPEN.IO these tables!!! heheh!!!! -->
 
             <!-- this is the table of uncertain graph -->
             <h4 style="margin-top: -11px;margin-bottom:-3px; margin-left: -4px">Uncertain Graph</h4>
@@ -560,7 +535,9 @@
             </div>
 
             <!-- this is the table of clustering result -->
-            <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Clustering</h4>
+            <div class="text-left">
+                <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Clustering</h4>
+            </div>
             <div class="container-fluid text-center" style="margin-left: -20px">
                 <div class="text-center" >
                     <table class="table table-condensed" >
@@ -611,7 +588,9 @@
             </div>
 
             <!-- this is the table of NQ result -->
-            <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Next Questions</h4>
+            <div class="text-left">
+                <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Next Questions</h4>
+            </div>
             <div class="container-fluid text-center" style="margin-left: -20px">
                 <div class="text-center" >
                     <table class="table table-condensed" >
@@ -703,90 +682,6 @@
             }
         });
 
-        d3.json("vizData//circlePack//clustering_with_" + String(a) + ".json", function (error, data) {
-            if (error) throw error;
-            root = d3.hierarchy(data)
-                .sum(function (d) {
-                    return d.size;
-                })
-                .sort(function (a, b) {
-                    return b.height - a.height || b.size - a.size;
-                });
-//         .count();
-
-            pack(root);
-
-            var t = d3.transition()
-                .duration(500)
-                .ease(d3.easeLinear);
-
-            var t2 = d3.transition()
-                .duration(100);
-
-//                node.remove();
-
-            node = vis.selectAll(".node")
-                .data(root.descendants());
-            //                        .enter().append("g")
-            node.transition(t)
-                .attr("transform", function (d) {
-                    return "translate(" + d.x + "," + d.y + ")";
-                })
-                .attr("class", function (d) {
-                    return "node" + (d.children ? d.depth ? " node--internal" : " node--root" : " node--leaf");
-                })
-                .each(function (d) {
-                    d.node = this;
-                });
-            // { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; }
-
-            node.select("circle")
-                .attr("id", function (d) {
-                    return 'c' + d.data.name;
-                })
-                .attr("r", function (d) {
-                    return d.r;
-                })
-                .style("fill", function (d) {
-                    if (d.data.name !== "root" && d.data.name.indexOf('group') === -1)  return color(d.data.truth);
-                });
-
-            var leafNodes = vis.selectAll(".node--leaf");
-
-            leafNodes.on('mouseenter', mouseenter)
-                .on('mouseleave', mouseleave);
-
-            function mouseenter(d) {
-
-                d3.select(this.parentNode)
-                    .append('image')
-                    .attr('id', 'zoomImage')
-                    .attr('xlink:href', 'AllSports\\' + d.data.name + '.JPG')
-                    .attr("x", 0)
-                    .attr("y", 0)
-                    .attr('width', 200)
-                    .attr('height', 200);
-
-// leafNodes.select('circle').interrupt().transition(t)
-//            .attr("r", 30);
-            }
-
-            function mouseleave() {
-                var zoomImage = d3.select('#zoomImage')
-                    .remove();
-            }
-
-            node.select("title")
-                .text(function (d) {
-                    return d.children ? d.data.name : d.data.name + " " + d.data.truth;
-                }); // Do you have children? Yes/No
-
-            node.exit().transition(t2).style('opacity', 0).remove();
-
-        });
-
-        // TODO: Resolve if Python edited output is same as original... What's wrong?!
-
         d3.json("vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
             if (error) throw error;
 
@@ -842,7 +737,7 @@
                 .on('mouseleave', mouseleave);
 
             function mouseenter(d) {
-                d3.select(this.parentNode)
+                d3.select("#photoHere")
                     .append('image')
                     .attr('id', 'zoomImage')
                     .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
@@ -956,8 +851,6 @@
                         });
                 });
         });
-
-        // TODO: This data is obviously wrong...
 
             d3.text("tableData//uncertain//uncertain_graph_" + String(a) + ".csv", function (error, data) {
                 if (error) throw error;
