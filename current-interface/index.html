@@ -8,6 +8,8 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/d3.min.js"></script>
+    <script src="js/fisheye.js"></script>
+    <script src="js/d3-scale-chromatic.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -63,7 +65,7 @@
             margin-bottom: 5px;
         }
 
-        #link-prob-text {
+        #link-prob-div {
             padding-left: 80px;
         }
 
@@ -121,9 +123,9 @@
         <div class="col-sm-9 text-center">
 
             <div class="row" id="progress">
-                <div class="col-sm-3 text-center" id="link-prob-text">
+                <div class="col-sm-3 text-center" id="link-prob-div">
                     <h5>Link Probability:</h5>
-                    <h1>60%</h1>
+                    <h1 id="linkProbText"></h1>
                 </div>
 
                 <div class="col-sm-1 text-center">
@@ -169,7 +171,7 @@
                 <div class="col-sm-4 text-center">
                     <div class="panel panel-success">
                         <div class="panel-body">
-                            <svg width="auto" height="520" id="photoHere"></svg>
+                            <svg width="247" height="520" id="photoHere"></svg>
                         </div>
                     </div>
                 </div>
@@ -215,8 +217,14 @@
                     <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg> <!-- TODO: FIGURE OUT CSS reason for overlap!! hm! -->
 
                     <script> // TODO: Clear out what's remaining of the circle pack!
-                        var radius = 5;
+                        var radius = 5.5;
                         var color = d3.scaleOrdinal(d3.schemeCategory20b);
+                        var fisheye = d3.fisheye.circular()
+                            .radius(150)
+                            .distortion(2);
+                        var scale = d3.scaleLinear()
+                            .domain([10, 20])
+                            .range([1.6, 3]);
                         var svg2 = d3.select("#svg2");
                         var w = +svg2.attr("width"),
                             h = +svg2.attr("height");
@@ -261,14 +269,14 @@
                                     .data(graph.links)
                                     .enter().append("line")
                                     .attr("stroke-width", function (d) {
-                                        return Math.sqrt(d.value)*0.625;
+                                        return scale(d.value);
                                     });
 
                             link2 = link2g.selectAll("line")
                                 .data(graph.link2s)
                                 .enter().append("line")
                                 .attr("stroke-width", function (d) {
-                                    return Math.sqrt(Math.sqrt(d.value));
+                                    return scale(d.value);
                                 });
 
                             fnode = fnodeg.selectAll("circle")
@@ -299,7 +307,6 @@
                             fnode.on('mouseenter', mouseenter)
                                     .on('mouseleave', mouseleave);
 
-
                             function mouseenter(d) {
                                 d3.select("#photoHere") // to rollback, replace "#photoHere" with "this.parentNode" !!!!
                                     .append('image')
@@ -309,11 +316,11 @@
                                     .attr("y", 0)
                                     .attr('width', 247)
                                     .attr('height', 247);
-                            };
+                            }
 
                             function mouseleave() {
                                 d3.select('#zoomImage').remove();
-                            };
+                            }
 
                             function mouseenter2(d) {
                                 d3.select("#photoHere")
@@ -332,19 +339,24 @@
                                     .attr("y", 262)
                                     .attr('width', 247)
                                     .attr('height', 247);
-                            };
+
+                                d3.select("#linkProbText")
+                                    .text(((parseFloat(d.value)-1.00)/0.2).toString() + "%");
+                            }
 
                             function mouseleave2() {
                                 d3.select('#zoomImage').remove();
                                 d3.select('#zoomImage2').remove();
+                                d3.select("#linkProbText")
+                                    .text("");
 
-                            };
+                            }
+
+                            link.on('mouseenter', mouseenter2)
+                                    .on('mouseleave', mouseleave2);
 
                             var nodeArrayx = [];
                             var nodeArrayy = [];
-
-                            link.on('mouseenter', mouseenter2)
-                                .on('mouseleave', mouseleave2);
 
                             function ticked() {
                                 link
@@ -371,12 +383,32 @@
                                     .attr("cy", function (d) {
                                         return d.y = Math.max(radius, Math.min(h - radius, d.y));
                                     })
+                                    .attr("r", radius)
                                     .each(function(d) {
                                         nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
                                         nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
                                     });
 
-                            }
+                            };
+
+                            svg2.on("mousemove", function() {
+                                fisheye.focus(d3.mouse(this));
+
+                                fnode.each(function(d) { d.fisheye = fisheye(d); })
+                                    .attr("cx", function(d) { return d.fisheye.x; })
+                                    .attr("cy", function(d) { return d.fisheye.y; })
+                                    .attr("r", function (d) { return d.fisheye.z * radius } );
+
+                                link.attr("x1", function(d) { return d.source.fisheye.x; })
+                                    .attr("y1", function(d) { return d.source.fisheye.y; })
+                                    .attr("x2", function(d) { return d.target.fisheye.x; })
+                                    .attr("y2", function(d) { return d.target.fisheye.y; });
+
+                                link2.attr("x1", function(d) { return d.source.fisheye.x; })
+                                    .attr("y1", function(d) { return d.source.fisheye.y; })
+                                    .attr("x2", function(d) { return d.target.fisheye.x; })
+                                    .attr("y2", function(d) { return d.target.fisheye.y; });
+                            });
 
                             d3.select("#forceOption")
                                 .on("click", function() {
@@ -653,7 +685,7 @@
 
             link.enter().append("line")
                 .attr("stroke-width", function (d) {
-                    return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
+                    return scale(d.value);
                 })
                 .merge(link);
 
@@ -664,7 +696,7 @@
 
             link2.enter().append("line")
                 .attr("stroke-width", function (d) {
-                    return Math.sqrt(Math.sqrt(Math.sqrt(d.value)));
+                    return scale(d.value);
                 })
                 .merge(link2);
 
@@ -706,13 +738,46 @@
                     .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
                     .attr("x", 0)
                     .attr("y", 0)
-                    .attr('width', 200)
-                    .attr('height', 200);
+                    .attr('width', 247)
+                    .attr('height', 247);
             }
 
             function mouseleave() {
                 d3.select('#zoomImage').remove();
             }
+
+            function mouseenter2(d) {
+                d3.select("#photoHere")
+                    .append('image')
+                    .attr('id', 'zoomImage')
+                    .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr('width', 247)
+                    .attr('height', 247);
+                d3.select("#photoHere")
+                    .append('image')
+                    .attr('id', 'zoomImage2')
+                    .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                    .attr("x", 0)
+                    .attr("y", 262)
+                    .attr('width', 247)
+                    .attr('height', 247);
+
+                d3.select("#linkProbText")
+                    .text(((parseFloat(d.value)-1.00)/0.2).toString() + "%");
+            }
+
+            function mouseleave2() {
+                d3.select('#zoomImage').remove();
+                d3.select('#zoomImage2').remove();
+                d3.select("#linkProbText")
+                    .text("");
+
+            }
+
+            link.on('mouseenter', mouseenter2)
+                .on('mouseleave', mouseleave2);
 
             var nodeArrayx = [];
             var nodeArrayy = [];
@@ -742,6 +807,7 @@
                     .attr("cy", function (d) {
                         return d.y = Math.max(radius, Math.min(h - radius, d.y));
                     })
+                    .attr("r", radius)
                     .each(function (d) {
                         nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
                         nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
