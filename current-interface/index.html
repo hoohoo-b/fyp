@@ -90,7 +90,7 @@
 <body>
 
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid"> <!-- TODO: RE-ORGANISE the app layout to accomodate picture display w/o overlapping viz!! hee! -->
+    <div class="container-fluid">
         <div class="navbar-header navbar-right">
             <a class="navbar-brand" href="#">PERC Crowdsourcing Entity Resolution Platform</a>
         </div>
@@ -170,8 +170,11 @@
 
                 <div class="col-sm-4 text-center">
                     <div class="panel panel-success">
-                        <div class="panel-body">
-                            <svg width="247" height="520" id="photoHere"></svg>
+                        <div class="panel-body" id="photoHerePanel">
+                            <svg width="247" height="540">
+                                <g id="photo1"></g>
+                                <g id="photo2" transform="translate(0, 265)"></g>
+                            </svg>
                         </div>
                     </div>
                 </div>
@@ -180,13 +183,13 @@
 
                         .link2s line {
                             stroke: #f00;
-                            stroke-opacity: 0.2;
+                            stroke-opacity: 0.4;
 
                         }
 
                         .links line {
                             stroke: #999;
-                            stroke-opacity: 0.6;
+                            stroke-opacity: 0.8;
 
                         }
 
@@ -214,17 +217,17 @@
                         }
 
                     </style>
-                    <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg> <!-- TODO: FIGURE OUT CSS reason for overlap!! hm! -->
+                    <svg id="svg2" width="600" height="600" style="margin-left: -5px">
 
-                    <script> // TODO: Clear out what's remaining of the circle pack!
+                    <script>
                         var radius = 5.5;
                         var color = d3.scaleOrdinal(d3.schemeCategory20b);
                         var fisheye = d3.fisheye.circular()
                             .radius(150)
                             .distortion(2);
                         var scale = d3.scaleLinear()
-                            .domain([10, 20])
-                            .range([1.6, 3]);
+                            .domain([0.5, 1])
+                            .range([1.8, 3.8]);
                         var svg2 = d3.select("#svg2");
                         var w = +svg2.attr("width"),
                             h = +svg2.attr("height");
@@ -245,12 +248,10 @@
                         $(document).ready(function() {
 
                             $("#forceOption").click(function() {
-                                $("#linkg").show();
                                 $("#link2g").hide();
                             });
 
                             $("#nextQnOption").click(function() {
-                                $("#linkg").hide();
                                 $("#link2g").show();
                             });
                         });
@@ -263,6 +264,7 @@
                                 .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
                                 .force("center", d3.forceCenter(w / 2, h / 2))
                                 .force("collide", d3.forceCollide().strength(1).iterations(2));
+//                                .alphaDecay(0.025);
 
 
                             link = linkg.selectAll("line")
@@ -284,7 +286,7 @@
                                     .enter().append("circle")
                                     .attr("r", radius)
                                     .attr("fill", function (d) {
-                                        return color(d.group);
+                                        return color(d.truth);
                                     });
 
                             simulation
@@ -301,59 +303,85 @@
 
                             link.append("title")
                                 .text(function(d) {
-                                    return (parseFloat(d.value)-1.00)/20; // TODO: EXPLAIN this eqn
-                                })
+                                    return d.value;
+                                });
 
                             fnode.on('mouseenter', mouseenter)
                                     .on('mouseleave', mouseleave);
 
+                            link.on('mouseenter', mouseenter2)
+                                .on('mouseleave', mouseleave2);
+
                             function mouseenter(d) {
-                                d3.select("#photoHere") // to rollback, replace "#photoHere" with "this.parentNode" !!!!
+
+                                d3.select("#photo1")
                                     .append('image')
                                     .attr('id', 'zoomImage')
                                     .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
                                     .attr("x", 0)
-                                    .attr("y", 0)
+                                    .attr("y", 20)
                                     .attr('width', 247)
                                     .attr('height', 247);
+                                d3.select("#photo1")
+                                    .append('text')
+                                    .text(d.truth)
+                                    .attr('id', 'imgText')
+                                    .attr('text-anchor', 'middle')
+                                    .attr('x', 123)
+                                    .attr('y', 10);
                             }
 
                             function mouseleave() {
                                 d3.select('#zoomImage').remove();
+                                d3.select('#imgText').remove();
                             }
 
                             function mouseenter2(d) {
-                                d3.select("#photoHere")
+                                d3.select("#photo1")
                                         .append('image')
                                         .attr('id', 'zoomImage')
                                         .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
                                         .attr("x", 0)
-                                        .attr("y", 0)
+                                        .attr("y", 20)
                                         .attr('width', 247)
                                         .attr('height', 247);
-                                d3.select("#photoHere")
+
+                                d3.select("#photo1")
+                                    .append('text')
+                                    .text(d.source.truth)
+                                    .attr('id', 'imgText1')
+                                    .attr('text-anchor', 'middle')
+                                    .attr('x', 123)
+                                    .attr('y', 10);
+                                d3.select("#photo2")
                                     .append('image')
                                     .attr('id', 'zoomImage2')
                                     .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
                                     .attr("x", 0)
-                                    .attr("y", 262)
+                                    .attr("y", 20)
                                     .attr('width', 247)
                                     .attr('height', 247);
 
+                                d3.select("#photo2")
+                                    .append('text')
+                                    .text(d.target.truth)
+                                    .attr('id', 'imgText2')
+                                    .attr('text-anchor', 'middle')
+                                    .attr('x', 123)
+                                    .attr('y', 10);
                                 d3.select("#linkProbText")
-                                    .text(((parseFloat(d.value)-1.00)/0.2).toString() + "%");
+                                    .text((d.value*100).toString() + "%");
                             }
 
                             function mouseleave2() {
                                 d3.select('#zoomImage').remove();
+                                d3.select('#imgText1').remove();
                                 d3.select('#zoomImage2').remove();
+                                d3.select('#imgText2').remove();
+
                                 d3.select("#linkProbText")
                                     .text("");
-
                             }
-
-                            link.on('mouseenter', mouseenter2)
-                                    .on('mouseleave', mouseleave2);
 
                             var nodeArrayx = [];
                             var nodeArrayy = [];
@@ -389,7 +417,7 @@
                                         nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
                                     });
 
-                            };
+                            }
 
                             svg2.on("mousemove", function() {
                                 fisheye.focus(d3.mouse(this));
@@ -477,7 +505,7 @@
 
         </div>
 
-        <div class="col-sm-3 sidenav text-left"> <!-- TODO: CODEPEN.IO these tables!!! heheh!!!! -->
+        <div class="col-sm-3 sidenav text-left"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
 
             <!-- this is the table of uncertain graph -->
             <h4 style="margin-top: -11px;margin-bottom:-3px; margin-left: -4px">Uncertain Graph</h4>
@@ -708,7 +736,7 @@
             fnode.enter().append("circle")
                 .attr("r", radius)
                 .attr("fill", function (d) {
-                    return color(d.group);
+                    return color(d.truth);
                 })
                 .merge(fnode);
 
@@ -721,63 +749,98 @@
             simulation.force("link")
                 .links(graph.links);
 
-            simulation.alpha(1).restart();
+            simulation.alpha(1)
+//                .alphaDecay(0.025)
+                .restart();
 
             fnode.append("title")
                 .text(function (d) {
                     return d.id;
                 });
 
+            link.append("title")
+                .text(function(d) {
+                    return d.value;
+                });
+
             fnode.on('mouseenter', mouseenter)
                 .on('mouseleave', mouseleave);
 
+            link.on('mouseenter', mouseenter2)
+                .on('mouseleave', mouseleave2);
+
             function mouseenter(d) {
-                d3.select("#photoHere")
+
+                d3.select("#photo1")
                     .append('image')
                     .attr('id', 'zoomImage')
                     .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
                     .attr("x", 0)
-                    .attr("y", 0)
+                    .attr("y", 20)
                     .attr('width', 247)
                     .attr('height', 247);
+                d3.select("#photo1")
+                    .append('text')
+                    .text(d.truth)
+                    .attr('id', 'imgText')
+                    .attr('text-anchor', 'middle')
+                    .attr('x', 123)
+                    .attr('y', 10);
             }
 
             function mouseleave() {
                 d3.select('#zoomImage').remove();
+                d3.select('#imgText').remove();
             }
 
             function mouseenter2(d) {
-                d3.select("#photoHere")
+                d3.select("#photo1")
                     .append('image')
                     .attr('id', 'zoomImage')
                     .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
                     .attr("x", 0)
-                    .attr("y", 0)
+                    .attr("y", 20)
                     .attr('width', 247)
                     .attr('height', 247);
-                d3.select("#photoHere")
+
+                d3.select("#photo1")
+                    .append('text')
+                    .text(d.source.truth)
+                    .attr('id', 'imgText1')
+                    .attr('text-anchor', 'middle')
+                    .attr('x', 123)
+                    .attr('y', 10);
+                d3.select("#photo2")
                     .append('image')
                     .attr('id', 'zoomImage2')
                     .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
                     .attr("x", 0)
-                    .attr("y", 262)
+                    .attr("y", 20)
                     .attr('width', 247)
                     .attr('height', 247);
 
+                d3.select("#photo2")
+                    .append('text')
+                    .text(d.target.truth)
+                    .attr('id', 'imgText2')
+                    .attr('text-anchor', 'middle')
+                    .attr('x', 123)
+                    .attr('y', 10);
                 d3.select("#linkProbText")
-                    .text(((parseFloat(d.value)-1.00)/0.2).toString() + "%");
+                    .text((d.value*100).toString() + "%");
             }
 
             function mouseleave2() {
                 d3.select('#zoomImage').remove();
+                d3.select('#imgText1').remove();
                 d3.select('#zoomImage2').remove();
+                d3.select('#imgText2').remove();
+
                 d3.select("#linkProbText")
                     .text("");
-
             }
 
-            link.on('mouseenter', mouseenter2)
-                .on('mouseleave', mouseleave2);
+
 
             var nodeArrayx = [];
             var nodeArrayy = [];

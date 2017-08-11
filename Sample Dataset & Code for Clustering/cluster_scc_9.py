@@ -5,6 +5,7 @@ import collections, numpy
 from random import randint
 import time
 from pyExcelerator import *
+import re
 
 def SCC(data):
     blan = np.empty(shape=[0, 2])
@@ -129,47 +130,75 @@ def SCC(data):
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
     filename_1='data'
+    filename_2='gold_allSports'
 #    num = raw_input('Pls enter the num of records wanted:')
 
-    for num in range (1800, 20001, 200):
+    for num in range (5200, 20001, 200):
+    
         f = open('./'+filename_1+'.csv', 'r')
         data = []
         max_num = 0
         for line in f.readlines():
-            data.append(line.split(','))
-            max_num = max_num + 1
-        # print data
+            data.append(re.split(',|\n', line)[:-1])
+            max_num += 1
     
+        f2 = open('./'+filename_2+'.csv', 'r')
+        data2 = []
+        max_num2 = 0
+        for line in f2.readlines():
+            data2.append(re.split(',|\r\n', line))
+            max_num2 += 1
     
+        GTAdict = dict()
+        for i in range(max_num2):
+            for j in range(len(data2[i])-2):
+                key = data2[i][0]
+                GTAdict.setdefault(key, [])
+                GTAdict[key].append(int(data2[i][1+j]))
+                
         temp_data = []
         for i in range(int(num)):
-        	# print i
-        	temp_data.append(data[i])
+            temp_data.append(data[i])
     
         next_data = []
         for i in range(100):
-        	next_data.append(data[i+int(num)])
-    
-    
+            next_data.append(data[i+int(num)])
+                
         cluster_list,time_cost=SCC(temp_data)
         for i in cluster_list:
             for j in range(len(i)):
                 i[j]=str(int(i[j]))
-        # print cluster_list
-        # print len(cluster_list)
         
         # generate nodes entries in json
-        g = open('./origEdit1_'+str(num)+".json",'a')
+        g = open('./forceLayout_'+str(num)+".json",'a')
         g.write("{\n"+"  \"nodes\": [\n")
         for i in range(len(cluster_list)-1):
-        	for j in cluster_list[i]:
-        		g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+            for j in cluster_list[i]:
+                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"truth\": \"")
+                for k,v in GTAdict.iteritems():
+                    for m,n in enumerate(v):
+                        if n == int(j):
+                            g.write(k+"\"},\n")
+                            break
+
         i = len(cluster_list)-1
         for j in cluster_list[i]:
             if j != cluster_list[i][-1]:
-                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"truth\": \"")
+                for k,v in GTAdict.iteritems():
+                    for m,n in enumerate(v):
+                        if n == int(j):
+                            g.write(k+"\"},\n")
+                            break
+
             else:
-                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"}\n")
+                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"truth\": \"")
+                for k,v in GTAdict.iteritems():
+                    for m,n in enumerate(v):
+                        if n == int(j):
+                            g.write(k+"\"}\n")
+                            break
+
         g.write("  ],\n")
     
         # generate uncertain graph in json
@@ -177,7 +206,6 @@ if __name__ == "__main__":
         flag=0
         for i in temp_data:
             if float(i[2])>=0.5:
-                i[2]=str(int(float(i[2])*20+1))
                 flag+=1
                 if flag==1:
                     g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}")
@@ -188,11 +216,12 @@ if __name__ == "__main__":
         # generate next questions in json
         g.write("  \"link2s\": [\n")
         for i in next_data[:-1]:
-        	i[2]="10"
-        	# print i
+        	i[2]="0.8"
         	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
         i = next_data[-1]
-        i[2] = "10"
+        i[2] = "0.8"
         g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"}\n")
         g.write("  ]\n}")
         g.close()
+        f.close()
+        f2.close()
