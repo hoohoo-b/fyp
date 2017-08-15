@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    {"id": "172", "group": 17, "truth": "Maddie Secco"},
+    {"id": "176", "group": 17, "truth": "Maddie Secco"},
+    {"id": "175", "group": 17, "truth": "Maddie Secco"},
+    {"id": "188", "group": 17, "truth": "Maddie Secco"},
+    {"id": "223", "group": 9, "truth": "Bret Bonanni"},
+    {"id": "230", "group": 9, "truth": "Bret Bonanni"},
+    {"id": "238", "group": 9, "truth": "Bret Bonanni"},
+    {"id": "236", "group": 9, "truth": "Bret Bonanni"}
+	],
+  "links": [
+    {"source": "172", "target": "176", "value": 0.95},
+    {"source": "176", "target": "175", "value": 0.9},
+    {"source": "175", "target": "188", "value": 0.9},
+    {"source": "223", "target": "230", "value": 0.8},
+    {"source": "230", "target": "238", "value": 0.95},
+    {"source": "238", "target": "236", "value": 0.9}
+   ],
+  "link2s": []
+}
