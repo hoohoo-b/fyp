@@ -1,0 +1,165 @@
+<!-- something gone wrong with the debugger so i simplified everythang to check it out -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>simplified example</title>
+    <meta charset="utf-8">
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/d3.min.js"></script>
+    <script src="../js/fisheye.js"></script>
+
+    <style>
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.8;
+
+        }
+
+        .fnode circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+            fill-opacity: 1;
+        }
+
+        .hull {
+            fill: steelblue;
+            stroke: steelblue;
+            stroke-width: 32px;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+<body>
+<svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg>
+
+    <script>
+        var radius = 5.5;
+        var color = d3.scaleOrdinal(d3.schemeCategory20b);
+        var scale = d3.scaleLinear()
+            .domain([0.5, 1])
+            .range([1.8, 3.8]);
+        var svg2 = d3.select("#svg2");
+        var w = +svg2.attr("width"),
+            h = +svg2.attr("height");
+        var vertices = new Array([]);
+        var hull = svg2.append("path")
+            .attr("class", "hull");
+        var groupPath = function(d) { return "M" + d.join("L") + "Z"; };
+
+
+        function ticked() {
+            link
+                .attr("x1", function (d) {
+                    return d.source.x;
+                })
+                .attr("y1", function (d) {
+                    return d.source.y;
+                })
+                .attr("x2", function (d) {
+                    return d.target.x;
+                })
+                .attr("y2", function (d) {
+                    return d.target.y;
+                });
+
+            vertices.splice(0,4);
+
+            fnode
+                .attr("cx", function (d) {
+                    return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                })
+                .attr("cy", function (d) {
+                    return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                })
+                .attr("r", radius)
+                .each(function(d) { if (d.group == 66) vertices.push([d.x, d.y]) });
+
+//            for (i=0; i<268; i++) {
+//                if (fnode._groups[0][i].__data__.group == "66") {
+//                    vertices.push([fnode._groups[0][i].__data__.x, fnode._groups[0][i].__data__.y]);
+//                }
+//            }
+
+//            svg2.selectAll("path")
+//                .data(d3.polygonHull(graph.nodes))
+//                .attr("d", groupPath)
+//                .enter()
+//                .append("path")
+//                .attr("class", "hull")
+//                .attr("d", groupPath);
+
+            hull.datum(d3.polygonHull(vertices)).attr("d", groupPath);
+        }
+
+        var simulation, link, fnode;
+
+        var fnodeg = svg2.append("g")
+            .attr("class", "fnode");
+
+        var linkg = svg2.append("g")
+            .attr("class", "links")
+            .attr("id", "linkg");
+
+        d3.json("..//vizData//forceLayout//forceLayout_15000.json", function(error, graph) {
+            if (error) throw error;
+
+//            var groups = d3.nest().key(function(d) { return d.group & 267; }).entries(graph.nodes);
+
+
+            simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(function (d) {
+                    return d.id;
+                }).distance(30).strength(1))
+                .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
+                .force("center", d3.forceCenter(w / 2, h / 2))
+                .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+            link = linkg.selectAll("line")
+                .data(graph.links)
+                .enter().append("line")
+                .attr("stroke-width", function (d) {
+                    return scale(d.value);
+                });
+
+            fnode = fnodeg.selectAll("circle")
+                .data(graph.nodes)
+                .enter().append("circle")
+                .attr("r", radius)
+                .attr("fill", function (d) {
+                    return color(d.truth);
+                });
+
+            simulation
+                .nodes(graph.nodes)
+                .on("tick", ticked);
+
+            simulation.force("link")
+                .links(graph.links);
+
+            fnode.append("title")
+                .text(function (d) {
+                    return d.id;
+                });
+
+            link.append("title")
+                .text(function (d) {
+                    return d.value;
+                });
+
+
+//            for (i=0; i<268; i++) {
+//                if (fnode._groups[0][i].__data__.group == "66") {
+//                    vertices.push([fnode._groups[0][i].__data__.x, fnode._groups[0][i].__data__.y]);
+//                }
+//            }
+
+//            vertices.push([300, 300]);
+//            vertices.push([400, 200]);
+//            vertices.push([30, 330]);
+
+//            vertices = [[20,230],[100,100],[300,200]];
+
+        })
+    </script>
+</body>
+</html>
