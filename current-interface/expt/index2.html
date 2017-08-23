@@ -24,7 +24,9 @@
         .hull {
             fill: steelblue;
             stroke: steelblue;
-            stroke-width: 32px;
+            fill-opacity: 0.3;
+            stroke-opacity: 0.3;
+            stroke-width: 10px;
             stroke-linejoin: round;
         }
     </style>
@@ -44,7 +46,7 @@
         var vertices = new Array([]);
         var hull = svg2.append("path")
             .attr("class", "hull");
-        var groupPath = function(d) { return "M" + d.join("L") + "Z"; };
+        var groupPath = function(d) { return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; })).join("L") + "Z"; };
 
 
         function ticked() {
@@ -71,8 +73,8 @@
                 .attr("cy", function (d) {
                     return d.y = Math.max(radius, Math.min(h - radius, d.y));
                 })
-                .attr("r", radius)
-                .each(function(d) { if (d.group == 66) vertices.push([d.x, d.y]) });
+                .attr("r", radius);
+//                .each(function(d) { if (d.group == 66) vertices.push([d.x, d.y]) });
 
 //            for (i=0; i<268; i++) {
 //                if (fnode._groups[0][i].__data__.group == "66") {
@@ -80,18 +82,18 @@
 //                }
 //            }
 
-//            svg2.selectAll("path")
-//                .data(d3.polygonHull(graph.nodes))
-//                .attr("d", groupPath)
-//                .enter()
-//                .append("path")
-//                .attr("class", "hull")
-//                .attr("d", groupPath);
+            svg2.selectAll("path")
+                .data(groups)
+                .attr("d", groupPath)
+                .enter()
+                .insert("path")
+                .attr("class", "hull")
+                .attr("d", groupPath);
 
             hull.datum(d3.polygonHull(vertices)).attr("d", groupPath);
         }
 
-        var simulation, link, fnode;
+        var simulation, link, fnode, groups;
 
         var fnodeg = svg2.append("g")
             .attr("class", "fnode");
@@ -103,8 +105,8 @@
         d3.json("..//vizData//forceLayout//forceLayout_15000.json", function(error, graph) {
             if (error) throw error;
 
-//            var groups = d3.nest().key(function(d) { return d.group & 267; }).entries(graph.nodes);
-
+            groups = d3.nest().key(function(d) {
+                return d.group; }).entries(graph.nodes);
 
             simulation = d3.forceSimulation()
                 .force("link", d3.forceLink().id(function (d) {
