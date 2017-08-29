@@ -1,5 +1,4 @@
-<!-- AM REVERTING BACK TO D3 V3 TO SEE IF THAT SOLVES THE PROBLEM -->
-<!-- OR I COULD ADD THE TINY FAKE ARRAY TO SEE IF THAT HELPS -->
+<!-- something gone wrong with the debugger so i simplified everythang to check it out -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,18 +45,8 @@
             h = +svg2.attr("height");
         var hull = svg2.append("path")
             .attr("class", "hull");
-        var groupPath = function(d) {
-            if (d.values.length === 2) {
-                var arr = d.values.map(function(i) {
-                    return [i.x, i.y];
-                });
-                arr.push([arr[0][0], arr[0][1]]);
-                return "M" + d3.polygonHull(arr).join("L") + "Z";
-            } else {
-                return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
-                    .join("L") + "Z";
-            }
-        };
+        var groupPath = function(d) { return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
+            .join("L") + "Z"; };
 
         function ticked() {
             link
@@ -82,16 +71,8 @@
                     return d.y = Math.max(radius, Math.min(h - radius, d.y));
                 })
                 .attr("r", radius);
-//            .each(function(d) { if (d.group == 66) vertices.push([d.x, d.y]) });
-
-//            for (i=0; i<268; i++) {
-//                if (fnode._groups[0][i].__data__.group == "66") {
-//                    vertices.push([fnode._groups[0][i].__data__.x, fnode._groups[0][i].__data__.y]);
-//                }
-//            }
 
             delayHull(3000);
-
         }
 
         function delayHull(delay) {
@@ -147,17 +128,21 @@
             simulation.force("link")
                 .links(graph.links);
 
-            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes); // the 'd' belongs to entries(graph.nodes)
 
             simulation.on("tick", ticked);
 
             fnode.append("title")
-                .text(function (d) { return d.id; });
+                .text(function (d) {
+                    return d.id;
+                });
 
             link.append("title")
-                .text(function (d) { return d.value; });
+                .text(function (d) {
+                    return d.value;
+                });
 
-        })
+        });
     </script>
 </body>
 </html>
