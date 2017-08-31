@@ -199,29 +199,127 @@
                             fill-opacity: 1;
                         }
 
-                        .node--root circle {
-                            stroke: none;
+                        .hull {
                             fill: none;
-                        }
-                        .node--internal circle {
-                            stroke:	#8b9dc3;
-                            stroke-width: 0.7px;
-                            fill: 	#e6f2ff;
-                            stroke-linecap: round;
-                        }
-
-                        .node--leaf circle {
-                            stroke: 	#c0c5ce;
-                            stroke-width: 0.5px;
-                            stroke-linecap: round;
+                            stroke: darkseagreen;
+                            fill-opacity: 0.3;
+                            stroke-opacity: 0.3;
+                            stroke-width: 20px;
+                            stroke-linejoin: round;
                         }
 
                     </style>
                     <svg id="svg2" width="600" height="600" style="margin-left: -5px">
 
                     <script>
+
+                        function mouseenter(d) {
+
+                            d3.select("#photo1")
+                                .append('image')
+                                .attr('id', 'zoomImage')
+                                .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                .attr("x", 0)
+                                .attr("y", 20)
+                                .attr('width', 247)
+                                .attr('height', 247);
+                            d3.select("#photo1")
+                                .append('text')
+                                .text(d.truth)
+                                .attr('id', 'imgText')
+                                .attr('text-anchor', 'middle')
+                                .attr('x', 123)
+                                .attr('y', 10);
+                        }
+
+                        function mouseleave() {
+                            d3.select('#zoomImage').remove();
+                            d3.select('#imgText').remove();
+                        }
+
+                        function mouseenter2(d) {
+                            d3.select("#photo1")
+                                .append('image')
+                                .attr('id', 'zoomImage')
+                                .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                                .attr("x", 0)
+                                .attr("y", 20)
+                                .attr('width', 247)
+                                .attr('height', 247);
+
+                            d3.select("#photo1")
+                                .append('text')
+                                .text(d.source.truth)
+                                .attr('id', 'imgText1')
+                                .attr('text-anchor', 'middle')
+                                .attr('x', 123)
+                                .attr('y', 10);
+                            d3.select("#photo2")
+                                .append('image')
+                                .attr('id', 'zoomImage2')
+                                .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                                .attr("x", 0)
+                                .attr("y", 20)
+                                .attr('width', 247)
+                                .attr('height', 247);
+
+                            d3.select("#photo2")
+                                .append('text')
+                                .text(d.target.truth)
+                                .attr('id', 'imgText2')
+                                .attr('text-anchor', 'middle')
+                                .attr('x', 123)
+                                .attr('y', 10);
+                            d3.select("#linkProbText")
+                                .text((d.value*100).toString() + "%");
+                        }
+
+                        function mouseleave2() {
+                            d3.select('#zoomImage').remove();
+                            d3.select('#imgText1').remove();
+                            d3.select('#zoomImage2').remove();
+                            d3.select('#imgText2').remove();
+
+                            d3.select("#linkProbText")
+                                .text("");
+                        }
+
+                        function ticked() {
+                            link
+                                .attr("x1", function (d) {
+                                    return d.source.x;
+                                })
+                                .attr("y1", function (d) {
+                                    return d.source.y;
+                                })
+                                .attr("x2", function (d) {
+                                    return d.target.x;
+                                })
+                                .attr("y2", function (d) {
+                                    return d.target.y;
+                                });
+
+                            fnode
+                                .attr("cx", function (d) {
+                                    return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                                })
+                                .attr("cy", function (d) {
+                                    return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                                })
+                                .attr("r", radius);
+
+                            linkg.selectAll("path")
+                                .data(groups)
+                                .attr("d", groupPath)
+                                .enter()
+                                .insert("path", "line")
+                                .attr("class", "hull")
+                                .attr("d", groupPath);
+
+                        }
+
                         var radius = 5.5;
-                        var color = d3.scaleOrdinal(d3.schemeCategory20b); // TODO: make a smaller version to see if colors go haywire too...s
+                        var color = d3.scaleOrdinal(d3.schemeCategory20b);
                         var fisheye = d3.fisheye.circular()
                             .radius(150)
                             .distortion(2);
@@ -231,7 +329,18 @@
                         var svg2 = d3.select("#svg2");
                         var w = +svg2.attr("width"),
                             h = +svg2.attr("height");
-
+                        var groupPath = function(d) {
+                            if (d.values.length === 2) {
+                                var arr = d.values.map(function(i) {
+                                    return [i.x, i.y];
+                                });
+                                arr.push([arr[0][0], arr[0][1]]);
+                                return "M" + d3.polygonHull(arr).join("L") + "Z";
+                            } else {
+                                return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
+                                    .join("L") + "Z";
+                            }
+                        };
                         var simulation, link, link2, fnode;
 
                         var fnodeg = svg2.append("g")
@@ -289,6 +398,8 @@
                                         return color(d.truth);
                                     });
 
+                            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
                             simulation
                                     .nodes(graph.nodes)
                                     .on("tick", ticked);
@@ -311,113 +422,6 @@
 
                             link.on('mouseenter', mouseenter2)
                                 .on('mouseleave', mouseleave2);
-
-                            function mouseenter(d) {
-
-                                d3.select("#photo1")
-                                    .append('image')
-                                    .attr('id', 'zoomImage')
-                                    .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
-                                    .attr("x", 0)
-                                    .attr("y", 20)
-                                    .attr('width', 247)
-                                    .attr('height', 247);
-                                d3.select("#photo1")
-                                    .append('text')
-                                    .text(d.truth)
-                                    .attr('id', 'imgText')
-                                    .attr('text-anchor', 'middle')
-                                    .attr('x', 123)
-                                    .attr('y', 10);
-                            }
-
-                            function mouseleave() {
-                                d3.select('#zoomImage').remove();
-                                d3.select('#imgText').remove();
-                            }
-
-                            function mouseenter2(d) {
-                                d3.select("#photo1")
-                                        .append('image')
-                                        .attr('id', 'zoomImage')
-                                        .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
-                                        .attr("x", 0)
-                                        .attr("y", 20)
-                                        .attr('width', 247)
-                                        .attr('height', 247);
-
-                                d3.select("#photo1")
-                                    .append('text')
-                                    .text(d.source.truth)
-                                    .attr('id', 'imgText1')
-                                    .attr('text-anchor', 'middle')
-                                    .attr('x', 123)
-                                    .attr('y', 10);
-                                d3.select("#photo2")
-                                    .append('image')
-                                    .attr('id', 'zoomImage2')
-                                    .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
-                                    .attr("x", 0)
-                                    .attr("y", 20)
-                                    .attr('width', 247)
-                                    .attr('height', 247);
-
-                                d3.select("#photo2")
-                                    .append('text')
-                                    .text(d.target.truth)
-                                    .attr('id', 'imgText2')
-                                    .attr('text-anchor', 'middle')
-                                    .attr('x', 123)
-                                    .attr('y', 10);
-                                d3.select("#linkProbText")
-                                    .text((d.value*100).toString() + "%");
-                            }
-
-                            function mouseleave2() {
-                                d3.select('#zoomImage').remove();
-                                d3.select('#imgText1').remove();
-                                d3.select('#zoomImage2').remove();
-                                d3.select('#imgText2').remove();
-
-                                d3.select("#linkProbText")
-                                    .text("");
-                            }
-
-                            var nodeArrayx = [];
-                            var nodeArrayy = [];
-
-                            function ticked() {
-                                link
-                                    .attr("x1", function (d) {
-                                        return d.source.x;
-                                    })
-                                    .attr("y1", function (d) {
-                                        return d.source.y;
-                                    })
-                                    .attr("x2", function (d) {
-                                        return d.target.x;
-                                    })
-                                    .attr("y2", function (d) {
-                                        return d.target.y;
-                                    });
-
-                                nodeArrayx = [];
-                                nodeArrayy = [];
-
-                                fnode
-                                    .attr("cx", function (d) {
-                                        return d.x = Math.max(radius, Math.min(w - radius, d.x));
-                                    })
-                                    .attr("cy", function (d) {
-                                        return d.y = Math.max(radius, Math.min(h - radius, d.y));
-                                    })
-                                    .attr("r", radius)
-                                    .each(function(d) {
-                                        nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
-                                        nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
-                                    });
-
-                            }
 
                             svg2.on("mousemove", function() {
                                 fisheye.focus(d3.mouse(this));
@@ -734,6 +738,8 @@
                 .data(graph.nodes)
                 .attr("fill", function(d) { return color(d.truth); });
 
+            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
             simulation
                 .nodes(graph.nodes)
                 .on("tick", ticked);
@@ -760,113 +766,6 @@
 
             link.on('mouseenter', mouseenter2)
                 .on('mouseleave', mouseleave2);
-
-            function mouseenter(d) {
-
-                d3.select("#photo1")
-                    .append('image')
-                    .attr('id', 'zoomImage')
-                    .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
-                    .attr("x", 0)
-                    .attr("y", 20)
-                    .attr('width', 247)
-                    .attr('height', 247);
-                d3.select("#photo1")
-                    .append('text')
-                    .text(d.truth)
-                    .attr('id', 'imgText')
-                    .attr('text-anchor', 'middle')
-                    .attr('x', 123)
-                    .attr('y', 10);
-            }
-
-            function mouseleave() {
-                d3.select('#zoomImage').remove();
-                d3.select('#imgText').remove();
-            }
-
-            function mouseenter2(d) {
-                d3.select("#photo1")
-                    .append('image')
-                    .attr('id', 'zoomImage')
-                    .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
-                    .attr("x", 0)
-                    .attr("y", 20)
-                    .attr('width', 247)
-                    .attr('height', 247);
-
-                d3.select("#photo1")
-                    .append('text')
-                    .text(d.source.truth)
-                    .attr('id', 'imgText1')
-                    .attr('text-anchor', 'middle')
-                    .attr('x', 123)
-                    .attr('y', 10);
-                d3.select("#photo2")
-                    .append('image')
-                    .attr('id', 'zoomImage2')
-                    .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
-                    .attr("x", 0)
-                    .attr("y", 20)
-                    .attr('width', 247)
-                    .attr('height', 247);
-
-                d3.select("#photo2")
-                    .append('text')
-                    .text(d.target.truth)
-                    .attr('id', 'imgText2')
-                    .attr('text-anchor', 'middle')
-                    .attr('x', 123)
-                    .attr('y', 10);
-                d3.select("#linkProbText")
-                    .text((d.value*100).toString() + "%");
-            }
-
-            function mouseleave2() {
-                d3.select('#zoomImage').remove();
-                d3.select('#imgText1').remove();
-                d3.select('#zoomImage2').remove();
-                d3.select('#imgText2').remove();
-
-                d3.select("#linkProbText")
-                    .text("");
-            }
-
-            var nodeArrayx = [];
-            var nodeArrayy = [];
-
-            function ticked() {
-                link
-                    .attr("x1", function (d) {
-                        return d.source.x;
-                    })
-                    .attr("y1", function (d) {
-                        return d.source.y;
-                    })
-                    .attr("x2", function (d) {
-                        return d.target.x;
-                    })
-                    .attr("y2", function (d) {
-                        return d.target.y;
-                    });
-
-                nodeArrayx = [];
-                nodeArrayy = [];
-
-                fnode
-                    .attr("cx", function (d) {
-                        return d.x = Math.max(radius, Math.min(w - radius, d.x));
-                    })
-                    .attr("cy", function (d) {
-                        return d.y = Math.max(radius, Math.min(h - radius, d.y));
-                    })
-                    .attr("r", radius)
-                    .each(function (d) {
-                        nodeArrayx.push(Math.max(radius, Math.min(w - radius, d.x)));
-                        nodeArrayy.push(Math.max(radius, Math.min(h - radius, d.y)));
-                    });
-
-            }
 
             d3.select("#forceOption")
                 .on("click", function () {
