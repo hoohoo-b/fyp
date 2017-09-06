@@ -4,12 +4,12 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="js/bootstrap.min.css"> <!-- REMEMBER to change to CDN web version after you're done with the entire project! -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/d3.min.js"></script>
-    <script src="js/fisheye.js"></script>
-    <script src="js/d3-scale-chromatic.min.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap.min.css"> <!-- REMEMBER to change to CDN web version after you're done with the entire project! -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/d3.min.js"></script>
+    <script src="../js/fisheye.js"></script>
+    <script src="../js/d3-scale-chromatic.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -201,7 +201,7 @@
 
                         .hull {
                             fill: none;
-                            stroke: lawngreen;
+                            stroke: darkseagreen;
                             fill-opacity: 0.3;
                             stroke-opacity: 0.3;
                             stroke-width: 20px;
@@ -269,7 +269,7 @@
                                 .attr('id', 'imgText2')
                                 .attr('text-anchor', 'middle')
                                 .attr('x', 123)
-                                .attr('y', 18);
+                                .attr('y', 10);
                             d3.select("#linkProbText")
                                 .text((d.value*100).toString() + "%");
                         }
@@ -356,17 +356,8 @@
 
                         $(document).ready(function() {
 
-                            $("#link2g").hide();
-                            $(".hull").hide();
-
                             $("#forceOption").click(function() {
                                 $("#link2g").hide();
-                                $(".hull").hide();
-                            });
-
-                            $("#clusterOption").click(function() {
-                                $("#link2g").hide();
-                                $(".hull").show();
                             });
 
                             $("#nextQnOption").click(function() {
@@ -374,7 +365,7 @@
                             });
                         });
 
-                        d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                        d3.json("../vizData/forceLayout/forceLayout_1800.json", function(error, graph) {
                             if (error) throw error;
 
                             simulation = d3.forceSimulation()
@@ -718,7 +709,7 @@
             }
         });
 
-        d3.json("vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
+        d3.json("..//vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
             if (error) throw error;
 
             link = linkg.selectAll("line")
