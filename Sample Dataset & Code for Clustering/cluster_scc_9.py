@@ -129,11 +129,11 @@ def SCC(data):
 
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
-    filename_1='data'
-    filename_2='gold_allSports'
+    filename_1='data_gymnastics'
+    filename_2='gold_gymnastics'
 #    num = raw_input('Pls enter the num of records wanted:')
 
-    for num in range (15000, 15001, 200):
+    for num in range (1800, 1801, 200):
     
         f = open('./'+filename_1+'.csv', 'r')
         data = []
@@ -174,7 +174,7 @@ if __name__ == "__main__":
         g.write("{\n"+"  \"nodes\": [\n")
         for i in range(len(cluster_list)-1):
             for j in cluster_list[i]:
-                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"x\": 55, \"y\": 55, \"truth\": \"")
+                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"truth\": \"")
                 for k,v in GTAdict.iteritems():
                     for m,n in enumerate(v):
                         if n == int(j):
@@ -184,7 +184,7 @@ if __name__ == "__main__":
         i = len(cluster_list)-1
         for j in cluster_list[i]:
             if j != cluster_list[i][-1]:
-                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"x\": 55, \"y\": 55, \"truth\": \"")
+                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"truth\": \"")
                 for k,v in GTAdict.iteritems():
                     for m,n in enumerate(v):
                         if n == int(j):
@@ -192,7 +192,7 @@ if __name__ == "__main__":
                             break
 
             else:
-                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"x\": 55, \"y\": 55, \"truth\": \"")
+                g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+", \"truth\": \"")
                 for k,v in GTAdict.iteritems():
                     for m,n in enumerate(v):
                         if n == int(j):
