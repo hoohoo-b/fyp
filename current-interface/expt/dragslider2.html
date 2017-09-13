@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../js/bootstrap.min.css"> <!-- REMEMBER to change to CDN web version after you're done with the entire project! -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/d3.min.js"></script>
+    <script src="../js/d3-scale-chromatic.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 600px}
+
+        #progress{height: 60px}
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        #start-button{
+            margin-top: 8px;
+        }
+
+        #pause-button{
+            margin-bottom: 8px;
+        }
+
+        #bar{
+            margin-top: 25px;
+            margin-left: -12px;
+            margin-right: -60px;
+            height: 35px;
+        }
+
+        #text-in-bar{
+            margin-top: 7px;
+            font-size: 13px;
+        }
+
+        #form-choose-result{
+            margin-top: -3px;
+            margin-left: 48px;
+        }
+
+        .graph-table{
+            height: 100px;
+            /*margin-left: -20px;*/
+            overflow: scroll;
+            margin-top: -10px;
+        }
+
+        #next-crowd-text {
+            margin-bottom: 5px;
+        }
+
+        #link-prob-div {
+            padding-left: 80px;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-right">
+            <a class="navbar-brand" href="#">PERC Crowdsourcing Entity Resolution Platform</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Target Dataset
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">AllSports</a></li>
+                    <li><a href="#">Gymnastics</a></li>
+                    <li><a href="#">Landmark</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Animation <!-- TODO: ADD sliders!! -->
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Batch Size</a></li>
+                    <!-- TODO: ADD horizontal ruler!!: -->
+                    <li><a href="#"><b>Terminal Condition</b></a></li>
+                    <li><a href="#">Stop at:</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid text-center">
+    <div class="row">
+
+        <div class="col-sm-9 text-center">
+
+            <div class="row" id="progress">
+                <div class="col-sm-3 text-center" id="link-prob-div">
+                    <h5>Link Probability:</h5>
+                    <h1 id="linkProbText"></h1>
+                </div>
+
+                <div class="col-sm-1 text-center">
+                    <button type="button" class="btn btn-success btn-block" id="start-button">
+                        <span class="glyphicon glyphicon-play" aria-label="play"></span>
+                    </button>
+                    <button type="button" class="btn btn-success btn-block" id="pause-button">
+                        <span class="glyphicon glyphicon-pause" aria-label="pause"></span>
+                    </button>
+                </div>
+
+                <div class="col-sm-5 text-center">
+                    <p id="answer-count" style="margin-top: 8px; margin-bottom: -16px"></p>
+                    <svg id="svg3" width="350" height="30"></svg>
+                    <script>
+
+                        var arr = [];
+                        for (var i =0; i<20001; i+=200) arr.push(i);
+                        var svg3 = d3.select("#svg3"),
+                            width = +svg3.attr("width"),
+                            height = +svg3.attr("height");
+                        var margin = { top: 0, right: 0, bottom: 0, left: 0 };
+                        var slider = svg3.append("g")
+                            .attr("class", "slider")
+                            .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
+
+                        var scale2 = d3.scaleQuantize()
+                            .domain([0, width])
+                            .range(arr);
+
+                        slider.append("line")
+                            .attr("class", "track")
+                            .attr("x1", 0)
+                            .attr("x2", width)
+                            .call(d3.drag()
+                            //            .on("start.interrupt", function() { slider.interrupt(); })
+                                .on("start drag", function() { sliderFunction(scale2(d3.event.x)); }));
+
+                        function sliderFunction(x) {
+                            d3.select("#answer-count")
+                                .text(x);
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+                <div class="col-sm-3 text-left">
+                    <form id="form-choose-result">
+                        <div class="radio">
+                            <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" id="clusterOption" name="optradio" value="">Clustering Result</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" id="nextQnOption" name="optradio" value=""><p id="next-crowd-text">Next Crowd Questions</p>
+                                <div class="btn-group-xs">
+                                <button type="button" class="btn btn-success">5</button>
+                                <button type="button" class="btn btn-success">10</button>
+                                <button type="button" class="btn btn-success">15</button>
+                                <button type="button" class="btn btn-success">All</button>
+                            </div></label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+                <div class="col-sm-4 text-center">
+                    <div class="panel panel-success">
+                        <div class="panel-body" id="photoHerePanel">
+                            <svg width="247" height="540">
+                                <g id="photo1"></g>
+                                <g id="photo2" transform="translate(0, 265)"></g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <style>
+
+                        .link2s line {
+                            stroke: #f00;
+                            stroke-opacity: 0.4;
+
+                        }
+
+                        .links line {
+                            stroke: #999;
+                            stroke-opacity: 0.8;
+
+                        }
+
+                        .fnodes circle {
+                            stroke: #fff;
+                            stroke-width: 1.5px;
+                            fill-opacity: 1;
+                        }
+
+                        .hull {
+                            fill: black;
+                            stroke: green;
+                            fill-opacity: 0.3;
+                            stroke-opacity: 0.3;
+                            stroke-width: 20px;
+                            stroke-linejoin: round;
+                        }
+
+
+                        .ticks {
+                            font: 10px sans-serif;
+                        }
+
+                        .track,
+                        .track-inset,
+                        .track-overlay {
+                            stroke-linecap: round;
+                        }
+
+                        .track {
+                            stroke: #000;
+                            stroke-opacity: 0.3;
+                            stroke-width: 10px;
+                        }
+
+                        .track-inset {
+                            stroke: #ddd;
+                            stroke-width: 8px;
+                        }
+
+                        .track-overlay {
+                            pointer-events: stroke;
+                            stroke-width: 50px;
+                            stroke: transparent;
+                            cursor: crosshair;
+                        }
+
+                        .handle {
+                            fill: #fff;
+                            stroke: #000;
+                            stroke-opacity: 0.5;
+                            stroke-width: 1.25px;
+                        }
+
+                    </style>
+                    <svg id="svg2" width="600" height="600" style="margin-left: -5px">
+
+                    <script>
+
+                        function mouseenter(d) {
+
+                            d3.select("#photo1")
+                                .append('image')
+                                .attr('id', 'zoomImage')
+                                .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                .attr("x", 0)
+                                .attr("y", 20)
+                                .attr('width', 247)
+                                .attr('height', 247);
+                            d3.select("#photo1")
+                                .append('text')
+                                .text(d.truth)
+                                .attr('id', 'imgText')
+                                .attr('text-anchor', 'middle')
+                                .attr('x', 123)
+                                .attr('y', 10);
+                        }
+
+                        function mouseleave() {
+                            d3.select('#zoomImage').remove();
+                            d3.select('#imgText').remove();
+                        }
+
+                        function mouseenter2(d) {
+                            d3.select("#photo1")
+                                .append('image')
+                                .attr('id', 'zoomImage')
+                                .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                                .attr("x", 0)
+                                .attr("y", 20)
+                                .attr('width', 247)
+                                .attr('height', 247);
+
+                            d3.select("#photo1")
+                                .append('text')
+                                .text(d.source.truth)
+                                .attr('id', 'imgText1')
+                                .attr('text-anchor', 'middle')
+                                .attr('x', 123)
+                                .attr('y', 10);
+                            d3.select("#photo2")
+                                .append('image')
+                                .attr('id', 'zoomImage2')
+                                .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                                .attr("x", 0)
+                                .attr("y", 20)
+                                .attr('width', 247)
+                                .attr('height', 247);
+
+                            d3.select("#photo2")
+                                .append('text')
+                                .text(d.target.truth)
+                                .attr('id', 'imgText2')
+                                .attr('text-anchor', 'middle')
+                                .attr('x', 123)
+                                .attr('y', 18);
+                            d3.select("#linkProbText")
+                                .text((d.value*100).toString() + "%");
+                        }
+
+                        function mouseleave2() {
+                            d3.select('#zoomImage').remove();
+                            d3.select('#imgText1').remove();
+                            d3.select('#zoomImage2').remove();
+                            d3.select('#imgText2').remove();
+
+                            d3.select("#linkProbText")
+                                .text("");
+                        }
+
+                        function ticked() {
+                            link
+                                .attr("x1", function (d) {
+                                    return d.source.x;
+                                })
+                                .attr("y1", function (d) {
+                                    return d.source.y;
+                                })
+                                .attr("x2", function (d) {
+                                    return d.target.x;
+                                })
+                                .attr("y2", function (d) {
+                                    return d.target.y;
+                                });
+
+                            fnode
+                                .attr("cx", function (d) {
+                                    return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                                })
+                                .attr("cy", function (d) {
+                                    return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                                })
+                                .attr("r", radius);
+
+                            linkg.selectAll("path")
+                                .data(groups)
+                                .attr("d", groupPath)
+                                .enter()
+                                .insert("path", "line")
+                                .attr("class", "hull")
+                                .attr("d", groupPath);
+
+                        }
+
+                        var radius = 5.5;
+                        var color = d3.scaleOrdinal(d3.schemeCategory20b);
+                        var scale = d3.scaleLinear()
+                            .domain([0.5, 1])
+                            .range([1.8, 3.8]);
+                        var svg2 = d3.select("#svg2");
+                        var w = +svg2.attr("width"),
+                            h = +svg2.attr("height");
+                        var groupPath = function(d) {
+                            if (d.values.length === 2) {
+                                var arr = d.values.map(function(i) {
+                                    return [i.x, i.y];
+                                });
+                                arr.push([arr[0][0], arr[0][1]]);
+                                return "M" + d3.polygonHull(arr).join("L") + "Z";
+                            } else {
+                                return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
+                                    .join("L") + "Z";
+                            }
+                        };
+                        var simulation, link, link2, fnode;
+
+                        var fnodeg = svg2.append("g")
+                            .attr("class", "fnodes");
+
+                        var linkg = svg2.append("g")
+                            .attr("class", "links")
+                            .attr("id", "linkg");
+
+                        var link2g = svg2.append("g")
+                            .attr("class", "link2s")
+                            .attr("id", "link2g");
+
+                        $(document).ready(function() {
+
+                            $("#link2g").hide();
+                            $(".hull").hide();
+
+                            $("#forceOption").click(function() {
+                                $("#link2g").hide();
+                                $(".hull").hide();
+                            });
+
+                            $("#clusterOption").click(function() {
+                                $("#link2g").hide();
+                                $(".hull").show();
+                            });
+
+                            $("#nextQnOption").click(function() {
+                                $("#link2g").show();
+                            });
+                        });
+
+                        d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                            if (error) throw error;
+
+                            simulation = d3.forceSimulation()
+                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
+                                .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
+                                .force("center", d3.forceCenter(w / 2, h / 2))
+                                .force("collide", d3.forceCollide().strength(1).iterations(2));
+//                                .alphaDecay(0.025);
+
+
+                            link = linkg.selectAll("line")
+                                    .data(graph.links)
+                                    .enter().append("line")
+                                    .attr("stroke-width", function (d) {
+                                        return scale(d.value);
+                                    });
+
+                            link2 = link2g.selectAll("line")
+                                .data(graph.link2s)
+                                .enter().append("line")
+                                .attr("stroke-width", function (d) {
+                                    return scale(d.value);
+                                });
+
+                            fnode = fnodeg.selectAll("circle")
+                                    .data(graph.nodes)
+                                    .enter().append("circle")
+                                    .attr("r", radius)
+                                    .attr("fill", function (d) {
+                                        return color(d.truth);
+                                    });
+
+                            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
+                            simulation
+                                    .nodes(graph.nodes)
+                                    .on("tick", ticked);
+
+                            simulation.force("link")
+                                    .links(graph.links);
+
+                            fnode.append("title")
+                                .text(function (d) {
+                                    return d.id;
+                                });
+
+                            link.append("title")
+                                .text(function(d) {
+                                    return d.value;
+                                });
+
+                            fnode.on('mouseenter', mouseenter)
+                                    .on('mouseleave', mouseleave);
+
+                            link.on('mouseenter', mouseenter2)
+                                .on('mouseleave', mouseleave2);
+
+                            d3.select("#forceOption")
+                                .on("click", function() {
+                                    simulation
+                                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                        .force("center", d3.forceCenter(w / 2, h / 2))
+                                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                                    simulation
+                                        .nodes(graph.nodes)
+                                        .on("tick", ticked);
+
+                                    simulation.force("link")
+                                        .links(graph.links);
+
+                                    simulation.alpha(0.05).restart();
+
+                                });
+
+                            d3.select("#clusterOption")
+                                .on("click", function() {
+                                    simulation
+                                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                        .force("center", d3.forceCenter(w / 2, h / 2))
+                                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                                    simulation
+                                        .nodes(graph.nodes)
+                                        .on("tick", ticked);
+
+                                    simulation.force("link")
+                                        .links(graph.links);
+
+                                    simulation.alpha(0.1).restart();
+
+                                });
+
+                            d3.select("#nextQnOption")
+                                .on("click", function() {
+
+                                    simulation.stop();
+
+                                    simulation.force("link")
+                                        .links(graph.link2s);
+
+                                    link2
+                                        .attr("x1", function (d) {
+                                            return Math.max(radius, Math.min(w - radius, d.source.x));
+                                        })
+                                        .attr("y1", function (d) {
+                                            return Math.max(radius, Math.min(h - radius, d.source.y));
+                                        })
+                                        .attr("x2", function (d) {
+                                            return Math.max(radius, Math.min(w - radius, d.target.x));
+                                        })
+                                        .attr("y2", function (d) {
+                                            return Math.max(radius, Math.min(h - radius, d.target.y));
+                                        });
+                                });
+                        });
+
+                    </script>
+                </div>
+
+        </div>
+
+        <div class="col-sm-3 sidenav text-left"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
+
+            <!-- this is the table of uncertain graph -->
+            <h4 style="margin-top: -11px;margin-bottom:-3px; margin-left: -4px">Uncertain Graph</h4>
+            <div class="container-fluid text-center" style="margin-left: -20px">
+                <div class="text-center" >
+                    <table class="table table-condensed" >
+                        <thead>
+                        <tr>
+                            <th>Record 1</th>
+                            <th>Record 2</th>
+                            <th>Probability</th>
+                        </tr>
+                        </thead>
+                        <div style="overflow: auto;">
+                            <tbody></tbody>
+                        </div>
+                    </table>
+                </div>
+            <div id="uncertain-graph" class="graph-table" style="margin-top: -22px">
+                <div class="text-center" >
+
+                    <script>
+                        var graphTable = d3.select("#uncertain-graph")
+                                .select("div")
+                                .append("table")
+                                .attr("class", "table table-condensed");
+
+                        graphTable.append('thead');
+                        graphTable.append('tbody');
+
+                        d3.text("tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
+                            if (error) throw error;
+
+                            var parsedRows = d3.csvParseRows(data);
+
+                            graphTable.select("tbody").selectAll("tr")
+                                    .data(parsedRows)
+                                    .enter().append("tr")
+
+                                    .selectAll("td")
+                                    .data(function(d) { return d; })
+                                    .enter().append("td")
+                                    .text(function(d) { return d; });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
+            </div>
+
+            <!-- this is the table of clustering result -->
+            <div class="text-left">
+                <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Clustering</h4>
+            </div>
+            <div class="container-fluid text-center" style="margin-left: -20px">
+                <div class="text-center" >
+                    <table class="table table-condensed" >
+                        <thead>
+                        <tr>
+                            <th width="60%"><div style="margin-left: 30px">Cluster</div></th>
+                            <th width="40%"><div style="margin-left: -6px">Records</div></th>
+                        </tr>
+                        </thead>
+                        <div style="overflow: auto;">
+                            <tbody></tbody>
+                        </div>
+                    </table>
+                </div>
+            <div id="cluster-graph" class="graph-table" style="margin-top: -22px">
+                <div class="text-center" >
+
+                    <script>
+                        var graphTable2 = d3.select("#cluster-graph").select("div")
+                                .append("table")
+                                .attr("class", "table table-condensed");
+
+                        graphTable2.append("thead");
+                        graphTable2.append("tbody");
+
+                        d3.text("tableData//cluster//cluster_list_1800.tsv", function(error, data) {
+                            if (error) throw error;
+
+                            var parsedRows = d3.tsvParseRows(data);
+
+                            graphTable2.select("tbody").selectAll("tr")
+                                    .data(parsedRows)
+                                    .enter().append("tr")
+
+                                    .selectAll("td")
+                                    .data(function(d) { return d; })
+                                    .enter().append("td")
+                                    .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
+                                    .text(function(d) { return d; });
+                        });
+
+                    </script>
+                </div>
+
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
+            </div>
+
+            <!-- this is the table of NQ result -->
+            <div class="text-left">
+                <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Next Questions</h4>
+            </div>
+            <div class="container-fluid text-center" style="margin-left: -20px">
+                <div class="text-center" >
+                    <table class="table table-condensed" >
+                        <thead>
+                        <tr>
+                            <th width="60%"><div style="margin-left: 30px">Record 1</div></th>
+                            <th width="40%"><div style="margin-left: -6px">Record 2</div></th>
+                        </tr>
+                        </thead>
+                        <div style="overflow: auto;">
+                            <tbody></tbody>
+                        </div>
+                    </table>
+                </div>
+            <div id="next-qn" class="graph-table" style="margin-top: -22px">
+                <div class="text-center" >
+
+                    <script>
+                        var graphTable3 = d3.select("#next-qn").select("div")
+                                .append("table")
+                                .attr("class", "table table-condensed");
+
+                        graphTable3.append("thead");
+                        graphTable3.append("tbody");
+
+                        d3.text("tableData//nextQn//next_qn_1800.csv", function(error, data) {
+                            if (error) throw error;
+
+                            var parsedRows = d3.csvParseRows(data);
+
+                            graphTable3.select("tbody").selectAll("tr")
+                                    .data(parsedRows)
+                                    .enter().append("tr")
+
+                                    .selectAll("td")
+                                    .data(function(d) { return d; })
+                                    .enter().append("td")
+                                    .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
+                                    .text(function(d) { return d; })
+                        });
+
+                    </script>
+
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
+            </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<footer class="container-fluid text-center">
+    <p>Copyright @ Nanyang Technological University</p>
+</footer>
+
+</div>
+
+<script>
+    var ansCount = document.getElementById('answer-count');
+    var progressbar = document.getElementById('progressbar');
+    var textInBar = document.getElementById('text-in-bar');
+
+    var a = 1800;
+    var p = (a/20000) * 100;
+    ansCount.innerHTML = a;
+    progressbar.setAttribute('aria-valuenow', p);
+    progressbar.setAttribute('style', 'width: '+String(p)+'%');
+    textInBar.innerHTML = String(p)+'%';
+
+    d3.select('#start-button').on('click', function () {
+
+        if (a < 20000) a += 200; else return;
+        p = Math.round((a / 20000) * 100);
+        ansCount.innerHTML = a;
+        progressbar.setAttribute('aria-valuenow', p);
+        progressbar.setAttribute('style', 'width: ' + String(p) + '%');
+        textInBar.innerHTML = String(p) + '%';
+
+        $(function() {
+            if (document.getElementById("nextQnOption").checked) {
+                document.getElementById("nextQnOption").checked = false;
+                document.getElementById("forceOption").checked = true;
+                $("#link2g").hide();
+                $("#linkg").show();
+                $("#forceOption").click();
+            }
+        });
+
+        d3.json("vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
+            if (error) throw error;
+
+            link = linkg.selectAll("line")
+                .data(graph.links);
+
+            link.enter().append("line")
+                .attr("stroke-width", function (d) {
+                    return scale(d.value);
+                })
+                .merge(link);
+
+            link.exit().remove();
+
+            link2 = link2g.selectAll("line")
+                .data(graph.link2s);
+
+            link2.enter().append("line")
+                .attr("stroke-width", function (d) {
+                    return scale(d.value);
+                })
+                .merge(link2);
+
+            link2.exit().remove();
+
+            fnode = fnodeg.selectAll("circle")
+                .data(graph.nodes)
+                .attr("fill", function(d) { return color(d.truth); });
+
+            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
+            simulation
+                .nodes(graph.nodes)
+                .on("tick", ticked);
+
+            simulation.force("link")
+                .links(graph.links);
+
+            simulation.alpha(1)
+//                .alphaDecay(0.025)
+                .restart();
+
+            fnode.append("title")
+                .text(function (d) {
+                    return d.id;
+                });
+
+            link.append("title")
+                .text(function(d) {
+                    return d.value;
+                });
+
+            fnode.on('mouseenter', mouseenter)
+                .on('mouseleave', mouseleave);
+
+            link.on('mouseenter', mouseenter2)
+                .on('mouseleave', mouseleave2);
+
+            d3.select("#forceOption")
+                .on("click", function () {
+                    simulation
+                        .force("link", d3.forceLink().id(function (d) {
+                            return d.id;
+                        }).distance(20).strength(1))
+                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                        .force("center", d3.forceCenter(w / 2, h / 2))
+                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    simulation.alpha(0.05).restart();
+
+                });
+
+            d3.select("#clusterOption")
+                .on("click", function () {
+                    simulation
+                        .force("link", d3.forceLink().id(function (d) {
+                            return d.id;
+                        }).distance(10).strength(1))
+                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                        .force("center", d3.forceCenter(w / 2, h / 2))
+                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    simulation.alpha(0.1).restart();
+
+                });
+
+            d3.select("#nextQnOption")
+                .on("click", function () {
+
+                    simulation.stop();
+
+                    simulation.force("link")
+                        .links(graph.link2s);
+
+                    link2
+                        .attr("x1", function (d) {
+                            return Math.max(radius, Math.min(w - radius, d.source.x));
+                        })
+                        .attr("y1", function (d) {
+                            return Math.max(radius, Math.min(h - radius, d.source.y));
+                        })
+                        .attr("x2", function (d) {
+                            return Math.max(radius, Math.min(w - radius, d.target.x));
+                        })
+                        .attr("y2", function (d) {
+                            return Math.max(radius, Math.min(h - radius, d.target.y));
+                        });
+                });
+        });
+
+            d3.text("tableData//uncertain//uncertain_graph_" + String(a) + ".csv", function (error, data) {
+                if (error) throw error;
+
+                var parsedRows = d3.csvParseRows(data);
+                var gt = graphTable.select("tbody").selectAll("tr")
+                    .data(parsedRows);
+
+                gt.selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .text(function (d) {
+                        return d;
+                    });
+
+                gt.enter().append("tr")
+                    .selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .enter().append("td")
+                    .text(function (d) {
+                        return d;
+                    });
+
+                gt.selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .exit().remove();
+
+                gt.exit().remove();
+            });
+
+            d3.text("tableData//cluster//cluster_list_" + String(a) + ".tsv", function (error, data) {
+                if (error) throw error;
+
+                var parsedRows = d3.tsvParseRows(data);
+
+                var gt2 = graphTable2.select("tbody").selectAll("tr")
+                    .data(parsedRows);
+
+                gt2.selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .text(function (d) {
+                        return d;
+                    });
+
+                gt2.enter().append("tr")
+                    .selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .enter().append("td")
+                    .text(function (d) {
+                        return d;
+                    });
+
+                gt2.selectAll("td").data(function (d) {
+                    return d;
+                })
+                    .exit().remove();
+
+                gt2.exit().remove();
+            });
+
+
+            d3.text("tableData//nextQn//next_qn_" + String(a) + ".csv", function (error, data) {
+                if (error) throw error;
+
+                var parsedRows = d3.csvParseRows(data);
+
+                var gt3 = graphTable3.select("tbody").selectAll("tr")
+                    .data(parsedRows);
+
+                gt3.selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .text(function (d) {
+                        return d;
+                    });
+
+                gt3.enter().append("tr")
+                    .selectAll("td")
+                    .data(function (d) {
+                        return d;
+                    })
+                    .enter().append("td")
+                    .text(function (d) {
+                        return d;
+                    });
+
+                gt3.selectAll("td").data(function (d) {
+                    return d;
+                })
+                    .exit().remove();
+
+                gt3.exit().remove();
+            });
+        });
+</script>
+
+</body>
+</html>
