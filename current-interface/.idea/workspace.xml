@@ -25,8 +25,8 @@
       <file leaf-file-name="dragslider2.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expt/dragslider2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-211">
-              <caret line="156" column="40" lean-forward="false" selection-start-line="156" selection-start-column="40" selection-end-line="156" selection-end-column="40" />
+            <state relative-caret-position="-12220">
+              <caret line="149" column="106" lean-forward="false" selection-start-line="149" selection-start-column="106" selection-end-line="149" selection-end-column="106" />
               <folding />
             </state>
           </provider>
@@ -43,13 +43,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>autohi</find>
-      <find>sidenav</find>
-      <find>well</find>
-      <find>well-</find>
-      <find>photo dis</find>
-      <find>470</find>
-      <find>panel</find>
       <find>230</find>
       <find>60%</find>
       <find>mouseen</find>
@@ -73,6 +66,13 @@
       <find>forcel</find>
       <find>allspo</find>
       <find>map</find>
+      <find>i</find>
+      <find>arr</find>
+      <find>vizdata</find>
+      <find>allsports</find>
+      <find>output</find>
+      <find>p</find>
+      <find>1800</find>
     </findStrings>
     <replaceStrings>
       <replace>svg2</replace>
@@ -83,6 +83,8 @@
       <replace>.y</replace>
       <replace>../</replace>
       <replace>randomNormal</replace>
+      <replace>paragraph</replace>
+      <replace>input</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -135,6 +137,7 @@
         <option value="$PROJECT_DIR$/expt/dragslider.html" />
         <option value="$PROJECT_DIR$/expt/dragslider3.html" />
         <option value="$PROJECT_DIR$/expt/dragsliderscale.html" />
+        <option value="$PROJECT_DIR$/expt/detectVarChange.html" />
         <option value="$PROJECT_DIR$/expt/dragslider2.html" />
       </list>
     </option>
@@ -164,7 +167,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -187,6 +189,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -409,12 +412,15 @@
       <workItem from="1505108670497" duration="2482000" />
       <workItem from="1505144146031" duration="262000" />
       <workItem from="1505180730865" duration="4025000" />
-      <workItem from="1505269226045" duration="1494000" />
+      <workItem from="1505269226045" duration="1690000" />
+      <workItem from="1505458150729" duration="96000" />
+      <workItem from="1505570065797" duration="2224000" />
+      <workItem from="1505703104037" duration="2901000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="253715000" />
+    <option name="totallyTimeSpent" value="259132000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -478,7 +484,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/expt2/style3_2_2.html" />
     <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json" />
     <entry file="https://d3js.org/d3.v4.min.js">
       <provider selected="true" editor-type-id="httpFileEditor">
@@ -637,41 +642,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/expt/dragsliderscale.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="277" column="60" lean-forward="true" selection-start-line="277" selection-start-column="60" selection-end-line="277" selection-end-column="60" />
+        <state relative-caret-position="15">
+          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="3" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt/dragslider3.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="66" column="30" lean-forward="false" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="30" />
+        <state relative-caret-position="615">
+          <caret line="277" column="60" lean-forward="false" selection-start-line="277" selection-start-column="60" selection-end-line="277" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/expt/dragslider.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
+        <state relative-caret-position="620">
           <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="85" selection-end-column="5" />
+          <folding>
+            <marker date="1505181947000" expanded="true" signature="45:635" ph="..." />
+            <marker date="1505181947000" expanded="true" signature="59:97" ph="{...}" />
+            <marker date="1505181947000" expanded="true" signature="148:186" ph="{...}" />
+            <marker date="1505181947000" expanded="true" signature="199:285" ph="{...}" />
+            <marker date="1505181947000" expanded="true" signature="304:360" ph="{...}" />
+            <marker date="1505181947000" expanded="true" signature="381:504" ph="{...}" />
+            <marker date="1505181947000" expanded="true" signature="518:626" ph="{...}" />
+            <marker date="1505181947000" expanded="true" signature="729:2179" ph="..." />
+            <marker date="1505181947000" expanded="true" signature="1287:1418" ph="//..." />
+            <marker date="1505181947000" expanded="true" signature="1837:2047" ph="/*...*/" />
+            <marker date="1505181947000" expanded="true" signature="2069:2169" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt/dragsliderscale.html">
+    <entry file="file://$PROJECT_DIR$/expt/dragslider3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="3" selection-end-column="48" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="22" />
           <folding>
-            <marker date="1505270730000" expanded="true" signature="61:220" ph="..." />
+            <marker date="1505182164000" expanded="true" signature="45:635" ph="..." />
+            <marker date="1505182164000" expanded="true" signature="59:97" ph="{...}" />
+            <marker date="1505182164000" expanded="true" signature="148:186" ph="{...}" />
+            <marker date="1505182164000" expanded="true" signature="199:285" ph="{...}" />
+            <marker date="1505182164000" expanded="true" signature="304:360" ph="{...}" />
+            <marker date="1505182164000" expanded="true" signature="381:504" ph="{...}" />
+            <marker date="1505182164000" expanded="true" signature="518:626" ph="{...}" />
+            <marker date="1505182164000" expanded="true" signature="728:1618" ph="..." />
+            <marker date="1505182164000" expanded="true" signature="1512:1609" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt/detectVarChange.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="37" lean-forward="false" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+          <folding>
+            <marker date="1505714784000" expanded="true" signature="95:272" ph="..." />
+            <marker date="1505714784000" expanded="true" signature="107:264" ph="{...}" />
+            <marker date="1505714784000" expanded="true" signature="279:860" ph="..." />
+            <marker date="1505714784000" expanded="true" signature="363:852" ph="..." />
+            <marker date="1505714784000" expanded="true" signature="488:837" ph="{...}" />
+            <marker date="1505714784000" expanded="true" signature="532:646" ph="{...}" />
+            <marker date="1505714784000" expanded="true" signature="767:825" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/expt/dragslider2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-211">
-          <caret line="156" column="40" lean-forward="false" selection-start-line="156" selection-start-column="40" selection-end-line="156" selection-end-column="40" />
+        <state relative-caret-position="-12220">
+          <caret line="149" column="106" lean-forward="false" selection-start-line="149" selection-start-column="106" selection-end-line="149" selection-end-column="106" />
           <folding />
         </state>
       </provider>

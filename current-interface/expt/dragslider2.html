@@ -84,6 +84,15 @@
             .row.content {height:auto;}
         }
 
+        #answer-count {
+            border: none;
+            display: inline;
+            font-family: inherit;
+            font-size: inherit;
+            padding: unset;
+            width: auto;
+        }
+
     </style>
 </head>
 <body>
@@ -138,9 +147,12 @@
                 </div>
 
                 <div class="col-sm-5 text-center">
-                    <p id="answer-count" style="margin-top: 8px; margin-bottom: -16px"></p>
+                    <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 150px"></input>
                     <svg id="svg3" width="350" height="30"></svg>
                     <script>
+                        var e = jQuery.Event("enter");
+                        e.which = 13;
+                        e.keyCode = 13;
 
                         var arr = [];
                         for (var i =0; i<20001; i+=200) arr.push(i);
@@ -166,8 +178,14 @@
 
                         function sliderFunction(x) {
                             d3.select("#answer-count")
-                                .text(x);
+                                .attr("value", x);
+                            $("#answer-count").trigger(e);
                         }
+
+                        var ansCount = d3.select("#answer-count");
+                        ansCount.on("change", function() {
+                            window.alert("hi!");
+                        })
                     </script>
                 </div>
             </div>
@@ -280,7 +298,7 @@
                             d3.select("#photo1")
                                 .append('image')
                                 .attr('id', 'zoomImage')
-                                .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 20)
                                 .attr('width', 247)
@@ -303,7 +321,7 @@
                             d3.select("#photo1")
                                 .append('image')
                                 .attr('id', 'zoomImage')
-                                .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.source.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 20)
                                 .attr('width', 247)
@@ -319,7 +337,7 @@
                             d3.select("#photo2")
                                 .append('image')
                                 .attr('id', 'zoomImage2')
-                                .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.target.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 20)
                                 .attr('width', 247)
@@ -433,7 +451,7 @@
                             });
                         });
 
-                        d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                        d3.json("..//vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
                             if (error) throw error;
 
                             simulation = d3.forceSimulation()
@@ -728,7 +746,6 @@
 </div>
 
 <script>
-    var ansCount = document.getElementById('answer-count');
     var progressbar = document.getElementById('progressbar');
     var textInBar = document.getElementById('text-in-bar');
 
@@ -739,14 +756,18 @@
     progressbar.setAttribute('style', 'width: '+String(p)+'%');
     textInBar.innerHTML = String(p)+'%';
 
-    d3.select('#start-button').on('click', function () {
+    $('#answer-count').on('e', function () {
 
+        var ansCount = document.getElementById('answer-count');
+/*
+fd
         if (a < 20000) a += 200; else return;
         p = Math.round((a / 20000) * 100);
         ansCount.innerHTML = a;
         progressbar.setAttribute('aria-valuenow', p);
         progressbar.setAttribute('style', 'width: ' + String(p) + '%');
         textInBar.innerHTML = String(p) + '%';
+*/
 
         $(function() {
             if (document.getElementById("nextQnOption").checked) {
@@ -758,7 +779,7 @@
             }
         });
 
-        d3.json("vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
+        d3.json("..//vizData//forceLayout//forceLayout_" + String(ansCount.innerHTML) + ".json", function (error, graph) {
             if (error) throw error;
 
             link = linkg.selectAll("line")

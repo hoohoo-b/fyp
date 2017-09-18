@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../js/jquery-3.2.1.min.js"></script>
+<style>
+    input {
+        border: none;
+        display: inline;
+        font-family: inherit;
+        font-size: inherit;
+        padding: unset;
+        width: auto;
+    }
+</style>
+<body>
+    <input type="text" value="hi"></input>
+    <button>button</button>
+    <script>
+
+        var e = jQuery.Event("enter");
+        e.which = 13;
+        e.keyCode = 13;
+        $(document).ready(function() {
+            $("button").click(function () {
+                $("input").attr("value", "Hello world!");
+                $("input").trigger("e");
+            });
+
+//            $("input").trigger('change');
+
+            // event handler
+            $("input").on('e', function () {
+                $("button").after("hi!");
+
+            });
+        });
+    </script>
+</body>
