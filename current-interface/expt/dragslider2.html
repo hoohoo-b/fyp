@@ -19,7 +19,7 @@
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 600px}
 
-        #progress{height: 60px}
+        #top-row-div{height: 60px}
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -48,7 +48,7 @@
             font-size: 13px;
         }
 
-        #form-choose-result{
+        #form-simulation-options{
             margin-top: -3px;
             margin-left: 48px;
         }
@@ -127,17 +127,15 @@
 </nav>
 
 <div class="container-fluid text-center">
-    <div class="row">
+        <div class="col-sm-9 text-center" id="top-row">
 
-        <div class="col-sm-9 text-center">
-
-            <div class="row" id="progress">
-                <div class="col-sm-3 text-center" id="link-prob-div">
+            <div class="row" id="top-row-div">
+                <div class="col-sm-3 text-center" id="link-probability-textarea">
                     <h5>Link Probability:</h5>
                     <h1 id="linkProbText"></h1>
                 </div>
 
-                <div class="col-sm-1 text-center">
+                <div class="col-sm-1 text-center" id="play-pause-btn">
                     <button type="button" class="btn btn-success btn-block" id="start-button">
                         <span class="glyphicon glyphicon-play" aria-label="play"></span>
                     </button>
@@ -146,13 +144,10 @@
                     </button>
                 </div>
 
-                <div class="col-sm-5 text-center">
+                <div class="col-sm-5 text-center" id="progress">
                     <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 150px"></input>
                     <svg id="svg3" width="350" height="30"></svg>
                     <script>
-                        var e = jQuery.Event("enter");
-                        e.which = 13;
-                        e.keyCode = 13;
 
                         var arr = [];
                         for (var i =0; i<20001; i+=200) arr.push(i);
@@ -174,25 +169,22 @@
                             .attr("x2", width)
                             .call(d3.drag()
                             //            .on("start.interrupt", function() { slider.interrupt(); })
-                                .on("start drag", function() { sliderFunction(scale2(d3.event.x)); }));
+                            .on("drag", function() { sliderFunction(scale2(d3.event.x)); }));
+//                            .on("end", function() { sliderFunction2(); }));
 
                         function sliderFunction(x) {
                             d3.select("#answer-count")
                                 .attr("value", x);
-                            $("#answer-count").trigger(e);
                         }
 
-                        var ansCount = d3.select("#answer-count");
-                        ansCount.on("change", function() {
-                            window.alert("hi!");
-                        })
+                        function sliderFunction2() {
+                            updateSimulation();
+                        }
                     </script>
                 </div>
-            </div>
-        </div>
 
-                <div class="col-sm-3 text-left">
-                    <form id="form-choose-result">
+                <div class="col-sm-3 text-left" id="simulation-options">
+                    <form id="form-simulation-options">
                         <div class="radio">
                             <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
                         </div>
@@ -211,10 +203,11 @@
                     </form>
                 </div>
             </div>
+        </div>
 
-                <div class="col-sm-4 text-center">
+                <div class="col-sm-4 text-center" id="photo-panel">
                     <div class="panel panel-success">
-                        <div class="panel-body" id="photoHerePanel">
+                        <div class="panel-body">
                             <svg width="247" height="540">
                                 <g id="photo1"></g>
                                 <g id="photo2" transform="translate(0, 265)"></g>
@@ -222,7 +215,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" id="simulation">
                     <style>
 
                         .link2s line {
@@ -289,12 +282,11 @@
                         }
 
                     </style>
-                    <svg id="svg2" width="600" height="600" style="margin-left: -5px">
+                    <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg>
 
                     <script>
 
                         function mouseenter(d) {
-
                             d3.select("#photo1")
                                 .append('image')
                                 .attr('id', 'zoomImage')
@@ -570,13 +562,12 @@
                                         });
                                 });
                         });
-
                     </script>
                 </div>
 
         </div>
 
-        <div class="col-sm-3 sidenav text-left"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
+        <div class="col-sm-3 sidenav text-left" id="graph-tables"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
 
             <!-- this is the table of uncertain graph -->
             <h4 style="margin-top: -11px;margin-bottom:-3px; margin-left: -4px">Uncertain Graph</h4>
@@ -746,40 +737,12 @@
 </div>
 
 <script>
-    var progressbar = document.getElementById('progressbar');
-    var textInBar = document.getElementById('text-in-bar');
 
-    var a = 1800;
-    var p = (a/20000) * 100;
-    ansCount.innerHTML = a;
-    progressbar.setAttribute('aria-valuenow', p);
-    progressbar.setAttribute('style', 'width: '+String(p)+'%');
-    textInBar.innerHTML = String(p)+'%';
+    d3.select('#start-button').on('click', function () { updateSimulation(2200); });
 
-    $('#answer-count').on('e', function () {
+    function updateSimulation(x) {
 
-        var ansCount = document.getElementById('answer-count');
-/*
-fd
-        if (a < 20000) a += 200; else return;
-        p = Math.round((a / 20000) * 100);
-        ansCount.innerHTML = a;
-        progressbar.setAttribute('aria-valuenow', p);
-        progressbar.setAttribute('style', 'width: ' + String(p) + '%');
-        textInBar.innerHTML = String(p) + '%';
-*/
-
-        $(function() {
-            if (document.getElementById("nextQnOption").checked) {
-                document.getElementById("nextQnOption").checked = false;
-                document.getElementById("forceOption").checked = true;
-                $("#link2g").hide();
-                $("#linkg").show();
-                $("#forceOption").click();
-            }
-        });
-
-        d3.json("..//vizData//forceLayout//forceLayout_" + String(ansCount.innerHTML) + ".json", function (error, graph) {
+        d3.json("..//vizData//forceLayout//forceLayout_" + String(x) + ".json", function (error, graph) {
             if (error) throw error;
 
             link = linkg.selectAll("line")
