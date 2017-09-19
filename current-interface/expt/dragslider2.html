@@ -168,17 +168,16 @@
                             .attr("x1", 0)
                             .attr("x2", width)
                             .call(d3.drag()
-                            //            .on("start.interrupt", function() { slider.interrupt(); })
-                            .on("drag", function() { sliderFunction(scale2(d3.event.x)); }));
-//                            .on("end", function() { sliderFunction2(); }));
+                            .on("drag", function() { sliderFunction(scale2(d3.event.x)); })
+                            .on("end", function() { sliderFunction2(scale2(d3.event.x)); }));
 
                         function sliderFunction(x) {
                             d3.select("#answer-count")
                                 .attr("value", x);
                         }
 
-                        function sliderFunction2() {
-                            updateSimulation();
+                        function sliderFunction2(x) {
+                            updateSimulation(x);
                         }
                     </script>
                 </div>
@@ -204,7 +203,7 @@
                 </div>
             </div>
         </div>
-
+            <div class="row" id="main-body">
                 <div class="col-sm-4 text-center" id="photo-panel">
                     <div class="panel panel-success">
                         <div class="panel-body">
@@ -398,19 +397,7 @@
                         var svg2 = d3.select("#svg2");
                         var w = +svg2.attr("width"),
                             h = +svg2.attr("height");
-                        var groupPath = function(d) {
-                            if (d.values.length === 2) {
-                                var arr = d.values.map(function(i) {
-                                    return [i.x, i.y];
-                                });
-                                arr.push([arr[0][0], arr[0][1]]);
-                                return "M" + d3.polygonHull(arr).join("L") + "Z";
-                            } else {
-                                return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
-                                    .join("L") + "Z";
-                            }
-                        };
-                        var simulation, link, link2, fnode;
+                        var simulation, link, fnode;
 
                         var fnodeg = svg2.append("g")
                             .attr("class", "fnodes");
@@ -418,30 +405,6 @@
                         var linkg = svg2.append("g")
                             .attr("class", "links")
                             .attr("id", "linkg");
-
-                        var link2g = svg2.append("g")
-                            .attr("class", "link2s")
-                            .attr("id", "link2g");
-
-                        $(document).ready(function() {
-
-                            $("#link2g").hide();
-                            $(".hull").hide();
-
-                            $("#forceOption").click(function() {
-                                $("#link2g").hide();
-                                $(".hull").hide();
-                            });
-
-                            $("#clusterOption").click(function() {
-                                $("#link2g").hide();
-                                $(".hull").show();
-                            });
-
-                            $("#nextQnOption").click(function() {
-                                $("#link2g").show();
-                            });
-                        });
 
                         d3.json("..//vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
                             if (error) throw error;
@@ -451,8 +414,6 @@
                                 .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
                                 .force("center", d3.forceCenter(w / 2, h / 2))
                                 .force("collide", d3.forceCollide().strength(1).iterations(2));
-//                                .alphaDecay(0.025);
-
 
                             link = linkg.selectAll("line")
                                     .data(graph.links)
@@ -461,13 +422,6 @@
                                         return scale(d.value);
                                     });
 
-                            link2 = link2g.selectAll("line")
-                                .data(graph.link2s)
-                                .enter().append("line")
-                                .attr("stroke-width", function (d) {
-                                    return scale(d.value);
-                                });
-
                             fnode = fnodeg.selectAll("circle")
                                     .data(graph.nodes)
                                     .enter().append("circle")
@@ -475,8 +429,6 @@
                                     .attr("fill", function (d) {
                                         return color(d.truth);
                                     });
-
-                            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
 
                             simulation
                                     .nodes(graph.nodes)
@@ -501,70 +453,160 @@
                             link.on('mouseenter', mouseenter2)
                                 .on('mouseleave', mouseleave2);
 
-                            d3.select("#forceOption")
-                                .on("click", function() {
-                                    simulation
-                                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                        .force("center", d3.forceCenter(w / 2, h / 2))
-                                        .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                                    simulation
-                                        .nodes(graph.nodes)
-                                        .on("tick", ticked);
-
-                                    simulation.force("link")
-                                        .links(graph.links);
-
-                                    simulation.alpha(0.05).restart();
-
-                                });
-
-                            d3.select("#clusterOption")
-                                .on("click", function() {
-                                    simulation
-                                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
-                                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                        .force("center", d3.forceCenter(w / 2, h / 2))
-                                        .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                                    simulation
-                                        .nodes(graph.nodes)
-                                        .on("tick", ticked);
-
-                                    simulation.force("link")
-                                        .links(graph.links);
-
-                                    simulation.alpha(0.1).restart();
-
-                                });
-
-                            d3.select("#nextQnOption")
-                                .on("click", function() {
-
-                                    simulation.stop();
-
-                                    simulation.force("link")
-                                        .links(graph.link2s);
-
-                                    link2
-                                        .attr("x1", function (d) {
-                                            return Math.max(radius, Math.min(w - radius, d.source.x));
-                                        })
-                                        .attr("y1", function (d) {
-                                            return Math.max(radius, Math.min(h - radius, d.source.y));
-                                        })
-                                        .attr("x2", function (d) {
-                                            return Math.max(radius, Math.min(w - radius, d.target.x));
-                                        })
-                                        .attr("y2", function (d) {
-                                            return Math.max(radius, Math.min(h - radius, d.target.y));
-                                        });
-                                });
                         });
+
+//                        d3.select("#start-button").on("click", updateSimulation(20000));
+
+
+                        function updateSimulation(x) {
+
+                            d3.json("..//vizData//forceLayout//forceLayout_" + String(x) + ".json", function (error, graph) {
+                                if (error) throw error;
+
+                                link = linkg.selectAll("line")
+                                    .data(graph.links);
+
+                                link.enter().append("line")
+                                    .attr("stroke-width", function (d) {
+                                        return scale(d.value);
+                                    })
+                                    .merge(link);
+
+                                link.exit().remove();
+
+                                fnode = fnodeg.selectAll("circle")
+                                    .data(graph.nodes)
+                                    .attr("fill", function(d) { return color(d.truth); });
+
+                                simulation
+                                    .nodes(graph.nodes)
+                                    .on("tick", ticked);
+
+                                simulation.force("link")
+                                    .links(graph.links);
+
+                                fnode.append("title")
+                                    .text(function (d) { return d.id; });
+
+                                link.append("title")
+                                    .text(function(d) { return d.value; });
+
+                                fnode.on('mouseenter', mouseenter)
+                                    .on('mouseleave', mouseleave);
+
+                                link.on('mouseenter', mouseenter2)
+                                    .on('mouseleave', mouseleave2);
+
+                                simulation.alpha(1).restart();
+
+                            });
+
+                            d3.text("tableData//uncertain//uncertain_graph_" + String(x) + ".csv", function (error, data) {
+                                if (error) throw error;
+
+                                var parsedRows = d3.csvParseRows(data);
+                                var gt = graphTable.select("tbody").selectAll("tr")
+                                    .data(parsedRows);
+
+                                gt.selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .text(function (d) {
+                                        return d;
+                                    });
+
+                                gt.enter().append("tr")
+                                    .selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .enter().append("td")
+                                    .text(function (d) {
+                                        return d;
+                                    });
+
+                                gt.selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .exit().remove();
+
+                                gt.exit().remove();
+                            });
+
+                            d3.text("tableData//cluster//cluster_list_" + String(x) + ".tsv", function (error, data) {
+                                if (error) throw error;
+
+                                var parsedRows = d3.tsvParseRows(data);
+
+                                var gt2 = graphTable2.select("tbody").selectAll("tr")
+                                    .data(parsedRows);
+
+                                gt2.selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .text(function (d) {
+                                        return d;
+                                    });
+
+                                gt2.enter().append("tr")
+                                    .selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .enter().append("td")
+                                    .text(function (d) {
+                                        return d;
+                                    });
+
+                                gt2.selectAll("td").data(function (d) {
+                                    return d;
+                                })
+                                    .exit().remove();
+
+                                gt2.exit().remove();
+                            });
+
+
+                            d3.text("tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
+                                if (error) throw error;
+
+                                var parsedRows = d3.csvParseRows(data);
+
+                                var gt3 = graphTable3.select("tbody").selectAll("tr")
+                                    .data(parsedRows);
+
+                                gt3.selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .text(function (d) {
+                                        return d;
+                                    });
+
+                                gt3.enter().append("tr")
+                                    .selectAll("td")
+                                    .data(function (d) {
+                                        return d;
+                                    })
+                                    .enter().append("td")
+                                    .text(function (d) {
+                                        return d;
+                                    });
+
+                                gt3.selectAll("td").data(function (d) {
+                                    return d;
+                                })
+                                    .exit().remove();
+
+                                gt3.exit().remove();
+                            });
+                        }
                     </script>
                 </div>
-
+            </div>
         </div>
 
         <div class="col-sm-3 sidenav text-left" id="graph-tables"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
@@ -738,237 +780,6 @@
 
 <script>
 
-    d3.select('#start-button').on('click', function () { updateSimulation(2200); });
-
-    function updateSimulation(x) {
-
-        d3.json("..//vizData//forceLayout//forceLayout_" + String(x) + ".json", function (error, graph) {
-            if (error) throw error;
-
-            link = linkg.selectAll("line")
-                .data(graph.links);
-
-            link.enter().append("line")
-                .attr("stroke-width", function (d) {
-                    return scale(d.value);
-                })
-                .merge(link);
-
-            link.exit().remove();
-
-            link2 = link2g.selectAll("line")
-                .data(graph.link2s);
-
-            link2.enter().append("line")
-                .attr("stroke-width", function (d) {
-                    return scale(d.value);
-                })
-                .merge(link2);
-
-            link2.exit().remove();
-
-            fnode = fnodeg.selectAll("circle")
-                .data(graph.nodes)
-                .attr("fill", function(d) { return color(d.truth); });
-
-            groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
-
-            simulation
-                .nodes(graph.nodes)
-                .on("tick", ticked);
-
-            simulation.force("link")
-                .links(graph.links);
-
-            simulation.alpha(1)
-//                .alphaDecay(0.025)
-                .restart();
-
-            fnode.append("title")
-                .text(function (d) {
-                    return d.id;
-                });
-
-            link.append("title")
-                .text(function(d) {
-                    return d.value;
-                });
-
-            fnode.on('mouseenter', mouseenter)
-                .on('mouseleave', mouseleave);
-
-            link.on('mouseenter', mouseenter2)
-                .on('mouseleave', mouseleave2);
-
-            d3.select("#forceOption")
-                .on("click", function () {
-                    simulation
-                        .force("link", d3.forceLink().id(function (d) {
-                            return d.id;
-                        }).distance(20).strength(1))
-                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                        .force("center", d3.forceCenter(w / 2, h / 2))
-                        .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                    simulation
-                        .nodes(graph.nodes)
-                        .on("tick", ticked);
-
-                    simulation.force("link")
-                        .links(graph.links);
-
-                    simulation.alpha(0.05).restart();
-
-                });
-
-            d3.select("#clusterOption")
-                .on("click", function () {
-                    simulation
-                        .force("link", d3.forceLink().id(function (d) {
-                            return d.id;
-                        }).distance(10).strength(1))
-                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                        .force("center", d3.forceCenter(w / 2, h / 2))
-                        .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                    simulation
-                        .nodes(graph.nodes)
-                        .on("tick", ticked);
-
-                    simulation.force("link")
-                        .links(graph.links);
-
-                    simulation.alpha(0.1).restart();
-
-                });
-
-            d3.select("#nextQnOption")
-                .on("click", function () {
-
-                    simulation.stop();
-
-                    simulation.force("link")
-                        .links(graph.link2s);
-
-                    link2
-                        .attr("x1", function (d) {
-                            return Math.max(radius, Math.min(w - radius, d.source.x));
-                        })
-                        .attr("y1", function (d) {
-                            return Math.max(radius, Math.min(h - radius, d.source.y));
-                        })
-                        .attr("x2", function (d) {
-                            return Math.max(radius, Math.min(w - radius, d.target.x));
-                        })
-                        .attr("y2", function (d) {
-                            return Math.max(radius, Math.min(h - radius, d.target.y));
-                        });
-                });
-        });
-
-            d3.text("tableData//uncertain//uncertain_graph_" + String(a) + ".csv", function (error, data) {
-                if (error) throw error;
-
-                var parsedRows = d3.csvParseRows(data);
-                var gt = graphTable.select("tbody").selectAll("tr")
-                    .data(parsedRows);
-
-                gt.selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .text(function (d) {
-                        return d;
-                    });
-
-                gt.enter().append("tr")
-                    .selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .enter().append("td")
-                    .text(function (d) {
-                        return d;
-                    });
-
-                gt.selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .exit().remove();
-
-                gt.exit().remove();
-            });
-
-            d3.text("tableData//cluster//cluster_list_" + String(a) + ".tsv", function (error, data) {
-                if (error) throw error;
-
-                var parsedRows = d3.tsvParseRows(data);
-
-                var gt2 = graphTable2.select("tbody").selectAll("tr")
-                    .data(parsedRows);
-
-                gt2.selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .text(function (d) {
-                        return d;
-                    });
-
-                gt2.enter().append("tr")
-                    .selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .enter().append("td")
-                    .text(function (d) {
-                        return d;
-                    });
-
-                gt2.selectAll("td").data(function (d) {
-                    return d;
-                })
-                    .exit().remove();
-
-                gt2.exit().remove();
-            });
-
-
-            d3.text("tableData//nextQn//next_qn_" + String(a) + ".csv", function (error, data) {
-                if (error) throw error;
-
-                var parsedRows = d3.csvParseRows(data);
-
-                var gt3 = graphTable3.select("tbody").selectAll("tr")
-                    .data(parsedRows);
-
-                gt3.selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .text(function (d) {
-                        return d;
-                    });
-
-                gt3.enter().append("tr")
-                    .selectAll("td")
-                    .data(function (d) {
-                        return d;
-                    })
-                    .enter().append("td")
-                    .text(function (d) {
-                        return d;
-                    });
-
-                gt3.selectAll("td").data(function (d) {
-                    return d;
-                })
-                    .exit().remove();
-
-                gt3.exit().remove();
-            });
-        });
 </script>
 
 </body>
