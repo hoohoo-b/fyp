@@ -54,10 +54,9 @@
         }
 
         .graph-table{
-            height: 100px;
-            /*margin-left: -20px;*/
+            height: 10cm;
             overflow: scroll;
-            margin-top: -10px;
+            margin-top: -22px;
         }
 
         #next-crowd-text {
@@ -202,7 +201,7 @@
         </div>
     </div>
 
-    <div class="row" id="main-body">
+    <div class="row row-eq-height" id="main-body">
         <div class="col-sm-3 text-center" id="photo-panel">
             <div class="panel panel-success">
                 <div class="panel-body">
@@ -488,95 +487,194 @@
                         simulation.alpha(1).restart();
 
                     });
+
+                    d3.text("..//tableData//uncertain//uncertain_graph_" + String(x) + ".csv", function (error, data) {
+                        if (error) throw error;
+
+                        var parsedRows = d3.csvParseRows(data);
+                        var gt = graphTable.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                        gt.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt.enter().append("tr")
+                            .selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .enter().append("td")
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .exit().remove();
+
+                        gt.exit().remove();
+                    });
+
+                    d3.text("..//tableData//cluster//cluster_list_" + String(x) + ".tsv", function (error, data) {
+                        if (error) throw error;
+
+                        var parsedRows = d3.tsvParseRows(data);
+
+                        var gt2 = graphTable2.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                        gt2.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt2.enter().append("tr")
+                            .selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .enter().append("td")
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt2.selectAll("td").data(function (d) {
+                            return d;
+                        })
+                            .exit().remove();
+
+                        gt2.exit().remove();
+                    });
+
+
+                    d3.text("..//..//tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
+                        if (error) throw error;
+
+                        var parsedRows = d3.csvParseRows(data);
+
+                        var gt3 = graphTable3.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                        gt3.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt3.enter().append("tr")
+                            .selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .enter().append("td")
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt3.selectAll("td").data(function (d) {
+                            return d;
+                        })
+                            .exit().remove();
+
+                        gt3.exit().remove();
+                    });
                 }
             </script>
         </div>
         <div class="col-sm-3 sidenav text-left" id="graph-tables"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
 
+
             <!-- this is the table of uncertain graph -->
-            <h4 style="margin-top: -11px;margin-bottom:-3px; margin-left: -4px">Uncertain Graph</h4>
-            <div class="container-fluid text-center" style="margin-left: -20px">
-                <div class="text-center" >
-                    <table class="table table-condensed" >
-                        <thead>
-                        <tr>
-                            <th>Record 1</th>
-                            <th>Record 2</th>
-                            <th>Probability</th>
-                        </tr>
-                        </thead>
-                        <div style="overflow: auto;">
-                            <tbody></tbody>
-                        </div>
-                    </table>
-                </div>
-            <div id="uncertain-graph" class="graph-table" style="margin-top: -22px">
-                <div class="text-center" >
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#uncertain-graph-panel">Uncertain Graph</a>
+                        </h4>
+                    </div>
 
-                    <script>
-                        var graphTable = d3.select("#uncertain-graph")
-                                .select("div")
+                    <div id="uncertain-graph-panel" class="panel-collapse collapse in">
+                        <div class="panel-body text-center">
+                            <table class="table table-condensed" >
+                                <thead>
+                                <tr>
+                                    <th>Record 1</th>
+                                    <th>Record 2</th>
+                                    <th>Probability</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        <div id="uncertain-graph-body" class="graph-table text-center"></div>
+                        <script>
+                            var graphTable = d3.select("#uncertain-graph-body")
                                 .append("table")
                                 .attr("class", "table table-condensed");
 
-                        graphTable.append('thead');
-                        graphTable.append('tbody');
+                            graphTable.append('thead');
+                            graphTable.append('tbody');
 
-                        d3.text("..//tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
-                            if (error) throw error;
+                            d3.text("..//tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
+                                if (error) throw error;
 
-                            var parsedRows = d3.csvParseRows(data);
+                                var parsedRows = d3.csvParseRows(data);
 
-                            graphTable.select("tbody").selectAll("tr")
+                                graphTable.select("tbody").selectAll("tr")
                                     .data(parsedRows)
                                     .enter().append("tr")
                                     .selectAll("td")
                                     .data(function(d) { return d; })
                                     .enter().append("td")
                                     .text(function(d) { return d; });
-                        });
-                    </script>
+                            });
+                        </script>
+                    </div>
                 </div>
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
-            </div>
-
-            <!-- this is the table of clustering result -->
-            <div class="text-left">
-                <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Clustering</h4>
-            </div>
-            <div class="container-fluid text-center" style="margin-left: -20px">
-                <div class="text-center" >
-                    <table class="table table-condensed" >
-                        <thead>
-                        <tr>
-                            <th width="60%"><div style="margin-left: 30px">Cluster</div></th>
-                            <th width="40%"><div style="margin-left: -6px">Records</div></th>
-                        </tr>
-                        </thead>
-                        <div style="overflow: auto;">
-                            <tbody></tbody>
-                        </div>
-                    </table>
                 </div>
-            <div id="cluster-graph" class="graph-table" style="margin-top: -22px">
-                <div class="text-center" >
 
-                    <script>
-                        var graphTable2 = d3.select("#cluster-graph").select("div")
+                <!-- this is the table of clustering result -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#cluster-graph-panel">Clustering</a>
+                        </h4>
+                    </div>
+                    <div id="cluster-graph-panel" class="panel-collapse collapse">
+                        <div class="panel-body text-center">
+                            <table class="table table-condensed" >
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Cluster</th>
+                                    <th class="text-center">Records</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        <div id="cluster-graph-body" class="graph-table text-center"></div>
+                        <script>
+                            var graphTable2 = d3.select("#cluster-graph-body")
                                 .append("table")
                                 .attr("class", "table table-condensed");
 
-                        graphTable2.append("thead");
-                        graphTable2.append("tbody");
+                            graphTable2.append("thead");
+                            graphTable2.append("tbody");
 
-                        d3.text("..//tableData//cluster//cluster_list_1800.tsv", function(error, data) {
-                            if (error) throw error;
+                            d3.text("..//..//tableData//cluster//cluster_list_1800.tsv", function(error, data) {
+                                if (error) throw error;
 
-                            var parsedRows = d3.tsvParseRows(data);
+                                var parsedRows = d3.tsvParseRows(data);
 
-                            graphTable2.select("tbody").selectAll("tr")
+                                graphTable2.select("tbody").selectAll("tr")
                                     .data(parsedRows)
                                     .enter().append("tr")
 
@@ -585,81 +683,71 @@
                                     .enter().append("td")
                                     .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
                                     .text(function(d) { return d; });
-                        });
+                            });
 
-                    </script>
+                        </script>
+
+                    </div>
+                </div>
                 </div>
 
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
-            </div>
+                <!-- this is the table of NQ result -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#next-qn-panel">Next Questions</a>
+                        </h4>
+                    </div>
+                    <div id="next-qn-panel" class="panel-collapse collapse">
+                        <div class="panel-body text-center">
+                            <table class="table table-condensed" >
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Record 1</th>
+                                    <th class="text-center">Record 2</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div id="next-qn-body" class="graph-table text-center"></div>
 
-            <!-- this is the table of NQ result -->
-            <div class="text-left">
-                <h4 style="margin-top: 10px;margin-bottom:-3px; margin-left: -4px">Next Questions</h4>
-            </div>
-            <div class="container-fluid text-center" style="margin-left: -20px">
-                <div class="text-center" >
-                    <table class="table table-condensed" >
-                        <thead>
-                        <tr>
-                            <th width="60%"><div style="margin-left: 30px">Record 1</div></th>
-                            <th width="40%"><div style="margin-left: -6px">Record 2</div></th>
-                        </tr>
-                        </thead>
-                        <div style="overflow: auto;">
-                            <tbody></tbody>
+                            <script>
+                                var graphTable3 = d3.select("#next-qn-body")
+                                    .append("table")
+                                    .attr("class", "table table-condensed");
+
+                                graphTable3.append("thead");
+                                graphTable3.append("tbody");
+
+                                d3.text("..//..//tableData//nextQn//next_qn_1800.csv", function(error, data) {
+                                    if (error) throw error;
+
+                                    var parsedRows = d3.csvParseRows(data);
+
+                                    graphTable3.select("tbody").selectAll("tr")
+                                        .data(parsedRows)
+                                        .enter().append("tr")
+
+                                        .selectAll("td")
+                                        .data(function(d) { return d; })
+                                        .enter().append("td")
+                                        .text(function(d) { return d; })
+                                });
+
+                            </script>
                         </div>
-                    </table>
-                </div>
-            <div id="next-qn" class="graph-table" style="margin-top: -22px">
-                <div class="text-center" >
 
-                    <script>
-                        var graphTable3 = d3.select("#next-qn").select("div")
-                                .append("table")
-                                .attr("class", "table table-condensed");
-
-                        graphTable3.append("thead");
-                        graphTable3.append("tbody");
-
-                        d3.text("..//tableData//nextQn//next_qn_1800.csv", function(error, data) {
-                            if (error) throw error;
-
-                            var parsedRows = d3.csvParseRows(data);
-
-                            graphTable3.select("tbody").selectAll("tr")
-                                    .data(parsedRows)
-                                    .enter().append("tr")
-
-                                    .selectAll("td")
-                                    .data(function(d) { return d; })
-                                    .enter().append("td")
-                                    .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
-                                    .text(function(d) { return d; })
-                        });
-
-                    </script>
+                    </div>
 
                 </div>
             </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-success" style="height: 28px;width: 75px;margin-top: 2px"><div style="margin-top: -3px;margin-left: -6px">Download</div></button>
-            </div>
-            </div>
-            </div>
-        </div>
+
         </div>
     </div>
+</div>
 </div>
 <footer class="container-fluid text-center">
     <p>Copyright @ Nanyang Technological University</p>
 </footer>
-
-<script>
-
-</script>
 
 </body>
 </html>
