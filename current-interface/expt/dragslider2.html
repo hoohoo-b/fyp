@@ -19,7 +19,7 @@
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 600px}
 
-        #top-row-div{height: 60px}
+        #top-row{height: 60px}
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -127,484 +127,370 @@
 </nav>
 
 <div class="container-fluid text-center">
-        <div class="col-sm-9 text-center" id="top-row">
 
-            <div class="row" id="top-row-div">
-                <div class="col-sm-3 text-center" id="link-probability-textarea">
-                    <h5>Link Probability:</h5>
-                    <h1 id="linkProbText"></h1>
+    <div class="row" id="top-row">
+        <div class="col-sm-3 text-center" id="link-probability-textarea">
+            <h5>Link Probability:</h5>
+            <h1 id="linkProbText"></h1>
+        </div>
+
+        <div class="col-sm-1 text-center" id="play-pause-btn">
+            <button type="button" class="btn btn-success btn-block" id="start-button">
+                <span class="glyphicon glyphicon-play" aria-label="play"></span>
+            </button>
+            <button type="button" class="btn btn-success btn-block" id="pause-button">
+                <span class="glyphicon glyphicon-pause" aria-label="pause"></span>
+            </button>
+        </div>
+
+        <div class="col-sm-5 text-center" id="progress">
+            <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 150px"></input>
+            <svg id="svg3" width="350" height="30"></svg>
+            <script>
+
+                var arr = [];
+                for (var i =0; i<20001; i+=200) arr.push(i);
+                var svg3 = d3.select("#svg3"),
+                    width = +svg3.attr("width"),
+                    height = +svg3.attr("height");
+                var margin = { top: 0, right: 0, bottom: 0, left: 0 };
+                var slider = svg3.append("g")
+                    .attr("class", "slider")
+                    .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
+
+                var scale2 = d3.scaleQuantize()
+                    .domain([0, width])
+                    .range(arr);
+
+                slider.append("line")
+                    .attr("class", "track")
+                    .attr("x1", 0)
+                    .attr("x2", width)
+                    .call(d3.drag()
+                        .on("drag", function() { sliderFunction(scale2(d3.event.x)); })
+                        .on("end", function() { sliderFunction2(scale2(d3.event.x)); }));
+
+                function sliderFunction(x) {
+                    d3.select("#answer-count")
+                        .attr("value", x);
+                }
+
+                function sliderFunction2(x) {
+                    updateSimulation(x);
+                }
+            </script>
+        </div>
+
+        <div class="col-sm-3 text-left" id="simulation-options">
+            <form id="form-simulation-options">
+                <div class="radio">
+                    <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
                 </div>
-
-                <div class="col-sm-1 text-center" id="play-pause-btn">
-                    <button type="button" class="btn btn-success btn-block" id="start-button">
-                        <span class="glyphicon glyphicon-play" aria-label="play"></span>
-                    </button>
-                    <button type="button" class="btn btn-success btn-block" id="pause-button">
-                        <span class="glyphicon glyphicon-pause" aria-label="pause"></span>
-                    </button>
+                <div class="radio">
+                    <label><input type="radio" id="clusterOption" name="optradio" value="">Clustering Result</label>
                 </div>
-
-                <div class="col-sm-5 text-center" id="progress">
-                    <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 150px"></input>
-                    <svg id="svg3" width="350" height="30"></svg>
-                    <script>
-
-                        var arr = [];
-                        for (var i =0; i<20001; i+=200) arr.push(i);
-                        var svg3 = d3.select("#svg3"),
-                            width = +svg3.attr("width"),
-                            height = +svg3.attr("height");
-                        var margin = { top: 0, right: 0, bottom: 0, left: 0 };
-                        var slider = svg3.append("g")
-                            .attr("class", "slider")
-                            .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
-
-                        var scale2 = d3.scaleQuantize()
-                            .domain([0, width])
-                            .range(arr);
-
-                        slider.append("line")
-                            .attr("class", "track")
-                            .attr("x1", 0)
-                            .attr("x2", width)
-                            .call(d3.drag()
-                            .on("drag", function() { sliderFunction(scale2(d3.event.x)); })
-                            .on("end", function() { sliderFunction2(scale2(d3.event.x)); }));
-
-                        function sliderFunction(x) {
-                            d3.select("#answer-count")
-                                .attr("value", x);
-                        }
-
-                        function sliderFunction2(x) {
-                            updateSimulation(x);
-                        }
-                    </script>
+                <div class="radio">
+                    <label><input type="radio" id="nextQnOption" name="optradio" value=""><p id="next-crowd-text">Next Crowd Questions</p>
+                        <div class="btn-group-xs">
+                            <button type="button" class="btn btn-success">5</button>
+                            <button type="button" class="btn btn-success">10</button>
+                            <button type="button" class="btn btn-success">15</button>
+                            <button type="button" class="btn btn-success">All</button>
+                        </div></label>
                 </div>
+            </form>
+        </div>
+    </div>
 
-                <div class="col-sm-3 text-left" id="simulation-options">
-                    <form id="form-simulation-options">
-                        <div class="radio">
-                            <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" id="clusterOption" name="optradio" value="">Clustering Result</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" id="nextQnOption" name="optradio" value=""><p id="next-crowd-text">Next Crowd Questions</p>
-                                <div class="btn-group-xs">
-                                <button type="button" class="btn btn-success">5</button>
-                                <button type="button" class="btn btn-success">10</button>
-                                <button type="button" class="btn btn-success">15</button>
-                                <button type="button" class="btn btn-success">All</button>
-                            </div></label>
-                        </div>
-                    </form>
+    <div class="row" id="main-body">
+        <div class="col-sm-3 text-center" id="photo-panel">
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <svg width="247" height="540">
+                        <g id="photo1"></g>
+                        <g id="photo2" transform="translate(0, 265)"></g>
+                    </svg>
                 </div>
             </div>
         </div>
-            <div class="row" id="main-body">
-                <div class="col-sm-4 text-center" id="photo-panel">
-                    <div class="panel panel-success">
-                        <div class="panel-body">
-                            <svg width="247" height="540">
-                                <g id="photo1"></g>
-                                <g id="photo2" transform="translate(0, 265)"></g>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8" id="simulation">
-                    <style>
+        <div class="col-sm-6" id="simulation">
+            <style>
 
-                        .link2s line {
-                            stroke: #f00;
-                            stroke-opacity: 0.4;
+                .link2s line {
+                    stroke: #f00;
+                    stroke-opacity: 0.4;
 
-                        }
+                }
 
-                        .links line {
-                            stroke: #999;
-                            stroke-opacity: 0.8;
+                .links line {
+                    stroke: #999;
+                    stroke-opacity: 0.8;
 
-                        }
+                }
 
-                        .fnodes circle {
-                            stroke: #fff;
-                            stroke-width: 1.5px;
-                            fill-opacity: 1;
-                        }
+                .fnodes circle {
+                    stroke: #fff;
+                    stroke-width: 1.5px;
+                    fill-opacity: 1;
+                }
 
-                        .hull {
-                            fill: black;
-                            stroke: green;
-                            fill-opacity: 0.3;
-                            stroke-opacity: 0.3;
-                            stroke-width: 20px;
-                            stroke-linejoin: round;
-                        }
+                .hull {
+                    fill: black;
+                    stroke: green;
+                    fill-opacity: 0.3;
+                    stroke-opacity: 0.3;
+                    stroke-width: 20px;
+                    stroke-linejoin: round;
+                }
 
 
-                        .ticks {
-                            font: 10px sans-serif;
-                        }
+                .ticks {
+                    font: 10px sans-serif;
+                }
 
-                        .track,
-                        .track-inset,
-                        .track-overlay {
-                            stroke-linecap: round;
-                        }
+                .track,
+                .track-inset,
+                .track-overlay {
+                    stroke-linecap: round;
+                }
 
-                        .track {
-                            stroke: #000;
-                            stroke-opacity: 0.3;
-                            stroke-width: 10px;
-                        }
+                .track {
+                    stroke: #000;
+                    stroke-opacity: 0.3;
+                    stroke-width: 10px;
+                }
 
-                        .track-inset {
-                            stroke: #ddd;
-                            stroke-width: 8px;
-                        }
+                .track-inset {
+                    stroke: #ddd;
+                    stroke-width: 8px;
+                }
 
-                        .track-overlay {
-                            pointer-events: stroke;
-                            stroke-width: 50px;
-                            stroke: transparent;
-                            cursor: crosshair;
-                        }
+                .track-overlay {
+                    pointer-events: stroke;
+                    stroke-width: 50px;
+                    stroke: transparent;
+                    cursor: crosshair;
+                }
 
-                        .handle {
-                            fill: #fff;
-                            stroke: #000;
-                            stroke-opacity: 0.5;
-                            stroke-width: 1.25px;
-                        }
+                .handle {
+                    fill: #fff;
+                    stroke: #000;
+                    stroke-opacity: 0.5;
+                    stroke-width: 1.25px;
+                }
 
-                    </style>
-                    <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg>
+            </style>
+            <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg>
 
-                    <script>
+            <script>
 
-                        function mouseenter(d) {
-                            d3.select("#photo1")
-                                .append('image')
-                                .attr('id', 'zoomImage')
-                                .attr('xlink:href', '..\\AllSports\\' + d.id + '.JPG')
-                                .attr("x", 0)
-                                .attr("y", 20)
-                                .attr('width', 247)
-                                .attr('height', 247);
-                            d3.select("#photo1")
-                                .append('text')
-                                .text(d.truth)
-                                .attr('id', 'imgText')
-                                .attr('text-anchor', 'middle')
-                                .attr('x', 123)
-                                .attr('y', 10);
-                        }
+                function mouseenter(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', '..\\AllSports\\' + d.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.truth)
+                        .attr('id', 'imgText')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                }
 
-                        function mouseleave() {
-                            d3.select('#zoomImage').remove();
-                            d3.select('#imgText').remove();
-                        }
+                function mouseleave() {
+                    d3.select('#zoomImage').remove();
+                    d3.select('#imgText').remove();
+                }
 
-                        function mouseenter2(d) {
-                            d3.select("#photo1")
-                                .append('image')
-                                .attr('id', 'zoomImage')
-                                .attr('xlink:href', '..\\AllSports\\' + d.source.id + '.JPG')
-                                .attr("x", 0)
-                                .attr("y", 20)
-                                .attr('width', 247)
-                                .attr('height', 247);
+                function mouseenter2(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', '..\\AllSports\\' + d.source.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
 
-                            d3.select("#photo1")
-                                .append('text')
-                                .text(d.source.truth)
-                                .attr('id', 'imgText1')
-                                .attr('text-anchor', 'middle')
-                                .attr('x', 123)
-                                .attr('y', 10);
-                            d3.select("#photo2")
-                                .append('image')
-                                .attr('id', 'zoomImage2')
-                                .attr('xlink:href', '..\\AllSports\\' + d.target.id + '.JPG')
-                                .attr("x", 0)
-                                .attr("y", 20)
-                                .attr('width', 247)
-                                .attr('height', 247);
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', '..\\AllSports\\' + d.target.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
 
-                            d3.select("#photo2")
-                                .append('text')
-                                .text(d.target.truth)
-                                .attr('id', 'imgText2')
-                                .attr('text-anchor', 'middle')
-                                .attr('x', 123)
-                                .attr('y', 18);
-                            d3.select("#linkProbText")
-                                .text((d.value*100).toString() + "%");
-                        }
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text((d.value*100).toString() + "%");
+                }
 
-                        function mouseleave2() {
-                            d3.select('#zoomImage').remove();
-                            d3.select('#imgText1').remove();
-                            d3.select('#zoomImage2').remove();
-                            d3.select('#imgText2').remove();
+                function mouseleave2() {
+                    d3.select('#zoomImage').remove();
+                    d3.select('#imgText1').remove();
+                    d3.select('#zoomImage2').remove();
+                    d3.select('#imgText2').remove();
 
-                            d3.select("#linkProbText")
-                                .text("");
-                        }
+                    d3.select("#linkProbText")
+                        .text("");
+                }
 
-                        function ticked() {
-                            link
-                                .attr("x1", function (d) {
-                                    return d.source.x;
-                                })
-                                .attr("y1", function (d) {
-                                    return d.source.y;
-                                })
-                                .attr("x2", function (d) {
-                                    return d.target.x;
-                                })
-                                .attr("y2", function (d) {
-                                    return d.target.y;
-                                });
-
-                            fnode
-                                .attr("cx", function (d) {
-                                    return d.x = Math.max(radius, Math.min(w - radius, d.x));
-                                })
-                                .attr("cy", function (d) {
-                                    return d.y = Math.max(radius, Math.min(h - radius, d.y));
-                                })
-                                .attr("r", radius);
-
-                            linkg.selectAll("path")
-                                .data(groups)
-                                .attr("d", groupPath)
-                                .enter()
-                                .insert("path", "line")
-                                .attr("class", "hull")
-                                .attr("d", groupPath);
-
-                        }
-
-                        var radius = 5.5;
-                        var color = d3.scaleOrdinal(d3.schemeCategory20b);
-                        var scale = d3.scaleLinear()
-                            .domain([0.5, 1])
-                            .range([1.8, 3.8]);
-                        var svg2 = d3.select("#svg2");
-                        var w = +svg2.attr("width"),
-                            h = +svg2.attr("height");
-                        var simulation, link, fnode;
-
-                        var fnodeg = svg2.append("g")
-                            .attr("class", "fnodes");
-
-                        var linkg = svg2.append("g")
-                            .attr("class", "links")
-                            .attr("id", "linkg");
-
-                        d3.json("..//vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
-                            if (error) throw error;
-
-                            simulation = d3.forceSimulation()
-                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
-                                .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
-                                .force("center", d3.forceCenter(w / 2, h / 2))
-                                .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                            link = linkg.selectAll("line")
-                                    .data(graph.links)
-                                    .enter().append("line")
-                                    .attr("stroke-width", function (d) { return scale(d.value); });
-
-                            fnode = fnodeg.selectAll("circle")
-                                    .data(graph.nodes)
-                                    .enter().append("circle")
-                                    .attr("r", radius)
-                                    .attr("fill", function (d) {
-                                        return color(d.truth);
-                                    });
-
-                            simulation
-                                    .nodes(graph.nodes)
-                                    .on("tick", ticked);
-
-                            simulation.force("link")
-                                    .links(graph.links);
-
-                            fnode.append("title")
-                                .text(function (d) {
-                                    return d.id;
-                                });
-
-                            link.append("title")
-                                .text(function(d) {
-                                    return d.value;
-                                });
-
-                            fnode.on('mouseenter', mouseenter)
-                                    .on('mouseleave', mouseleave);
-
-                            link.on('mouseenter', mouseenter2)
-                                .on('mouseleave', mouseleave2);
-
+                function ticked() {
+                    link
+                        .attr("x1", function (d) {
+                            return d.source.x;
+                        })
+                        .attr("y1", function (d) {
+                            return d.source.y;
+                        })
+                        .attr("x2", function (d) {
+                            return d.target.x;
+                        })
+                        .attr("y2", function (d) {
+                            return d.target.y;
                         });
 
-//                        d3.select("#start-button").on("click", updateSimulation(20000));
+                    fnode
+                        .attr("cx", function (d) {
+                            return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                        })
+                        .attr("cy", function (d) {
+                            return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                        })
+                        .attr("r", radius);
+                }
 
+                var radius = 5.5;
+                var color = d3.scaleOrdinal(d3.schemeCategory20b);
+                var scale = d3.scaleLinear()
+                    .domain([0.5, 1])
+                    .range([1.8, 3.8]);
+                var svg2 = d3.select("#svg2");
+                var w = +svg2.attr("width"),
+                    h = +svg2.attr("height");
+                var simulation, link, fnode;
 
-                        function updateSimulation(x) {
+                var fnodeg = svg2.append("g")
+                    .attr("class", "fnodes");
 
-                            d3.json("..//vizData//forceLayout//forceLayout_" + String(x) + ".json", function (error, graph) {
-                                if (error) throw error;
+                var linkg = svg2.append("g")
+                    .attr("class", "links")
+                    .attr("id", "linkg");
 
-                                link = linkg.selectAll("line")
-                                    .data(graph.links);
+                simulation = d3.forceSimulation()
+                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
+                    .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
+                    .force("center", d3.forceCenter(w / 2, h / 2))
+                    .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                                link.attr("stroke-width", function (d) { return scale(d.value); });
-                                link.enter().append("line")
-                                    .attr("stroke-width", function (d) { return scale(d.value); });
+                d3.json("..//vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                    if (error) throw error;
 
-                                link.exit().remove();
+                    link = linkg.selectAll("line")
+                        .data(graph.links)
+                        .enter().append("line")
+                        .attr("stroke-width", function (d) { return scale(d.value); });
 
-                                fnode = fnodeg.selectAll("circle")
-                                    .data(graph.nodes)
-                                    .attr("fill", function(d) { return color(d.truth); });
+                    fnode = fnodeg.selectAll("circle")
+                        .data(graph.nodes)
+                        .enter().append("circle")
+                        .attr("r", radius)
+                        .attr("fill", function (d) {
+                            return color(d.truth);
+                        });
 
-                                simulation
-                                    .nodes(graph.nodes)
-                                    .on("tick", ticked);
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
 
-                                simulation.force("link")
-                                    .links(graph.links);
+                    simulation.force("link")
+                        .links(graph.links);
 
-                                fnode.append("title")
-                                    .text(function (d) { return d.id; });
+                    fnode.append("title")
+                        .text(function (d) {
+                            return d.id;
+                        });
 
-                                link.append("title")
-                                    .text(function(d) { return d.value; });
+                    link.append("title")
+                        .text(function(d) {
+                            return d.value;
+                        });
 
-                                fnode.on('mouseenter', mouseenter)
-                                    .on('mouseleave', mouseleave);
+                    fnode.on('mouseenter', mouseenter)
+                        .on('mouseleave', mouseleave);
 
-                                link.on('mouseenter', mouseenter2)
-                                    .on('mouseleave', mouseleave2);
+                    link.on('mouseenter', mouseenter2)
+                        .on('mouseleave', mouseleave2);
 
-                                simulation.alpha(1).restart();
+                });
 
-                            });
+                function updateSimulation(x) {
 
-                            d3.text("tableData//uncertain//uncertain_graph_" + String(x) + ".csv", function (error, data) {
-                                if (error) throw error;
+                    d3.json("..//vizData//forceLayout//forceLayout_" + String(x) + ".json", function (error, graph) {
+                        if (error) throw error;
 
-                                var parsedRows = d3.csvParseRows(data);
-                                var gt = graphTable.select("tbody").selectAll("tr")
-                                    .data(parsedRows);
+                        link = linkg.selectAll("line")
+                            .data(graph.links);
 
-                                gt.selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .text(function (d) {
-                                        return d;
-                                    });
+                        link.attr("stroke-width", function (d) { return scale(d.value); });
+                        link.enter().append("line")
+                            .attr("stroke-width", function (d) { return scale(d.value); });
+                        link.exit().remove();
 
-                                gt.enter().append("tr")
-                                    .selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .enter().append("td")
-                                    .text(function (d) {
-                                        return d;
-                                    });
+                        fnode = fnodeg.selectAll("circle")
+                            .data(graph.nodes);
 
-                                gt.selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .exit().remove();
+                        fnode.attr("r", radius)
+                            .attr("fill", function(d) { return color(d.truth); });
+                        fnode.enter().append("circle")
+                            .attr("r", radius)
+                            .attr("fill", function(d) { return color(d.truth); });
+                        fnode.exit().remove();
 
-                                gt.exit().remove();
-                            });
+                        simulation
+                            .nodes(graph.nodes)
+                            .on("tick", ticked);
 
-                            d3.text("tableData//cluster//cluster_list_" + String(x) + ".tsv", function (error, data) {
-                                if (error) throw error;
+                        simulation.force("link")
+                            .links(graph.links);
 
-                                var parsedRows = d3.tsvParseRows(data);
+                        fnode.append("title")
+                            .text(function (d) { return d.id; });
 
-                                var gt2 = graphTable2.select("tbody").selectAll("tr")
-                                    .data(parsedRows);
+                        link.append("title")
+                            .text(function(d) { return d.value; });
 
-                                gt2.selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .text(function (d) {
-                                        return d;
-                                    });
+                        fnode.on('mouseenter', mouseenter)
+                            .on('mouseleave', mouseleave);
 
-                                gt2.enter().append("tr")
-                                    .selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .enter().append("td")
-                                    .text(function (d) {
-                                        return d;
-                                    });
+                        link.on('mouseenter', mouseenter2)
+                            .on('mouseleave', mouseleave2);
 
-                                gt2.selectAll("td").data(function (d) {
-                                    return d;
-                                })
-                                    .exit().remove();
+                        simulation.alpha(1).restart();
 
-                                gt2.exit().remove();
-                            });
-
-
-                            d3.text("tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
-                                if (error) throw error;
-
-                                var parsedRows = d3.csvParseRows(data);
-
-                                var gt3 = graphTable3.select("tbody").selectAll("tr")
-                                    .data(parsedRows);
-
-                                gt3.selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .text(function (d) {
-                                        return d;
-                                    });
-
-                                gt3.enter().append("tr")
-                                    .selectAll("td")
-                                    .data(function (d) {
-                                        return d;
-                                    })
-                                    .enter().append("td")
-                                    .text(function (d) {
-                                        return d;
-                                    });
-
-                                gt3.selectAll("td").data(function (d) {
-                                    return d;
-                                })
-                                    .exit().remove();
-
-                                gt3.exit().remove();
-                            });
-                        }
-                    </script>
-                </div>
-            </div>
+                    });
+                }
+            </script>
         </div>
-
         <div class="col-sm-3 sidenav text-left" id="graph-tables"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
 
             <!-- this is the table of uncertain graph -->
@@ -636,7 +522,7 @@
                         graphTable.append('thead');
                         graphTable.append('tbody');
 
-                        d3.text("tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
+                        d3.text("..//tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
                             if (error) throw error;
 
                             var parsedRows = d3.csvParseRows(data);
@@ -644,7 +530,6 @@
                             graphTable.select("tbody").selectAll("tr")
                                     .data(parsedRows)
                                     .enter().append("tr")
-
                                     .selectAll("td")
                                     .data(function(d) { return d; })
                                     .enter().append("td")
@@ -686,7 +571,7 @@
                         graphTable2.append("thead");
                         graphTable2.append("tbody");
 
-                        d3.text("tableData//cluster//cluster_list_1800.tsv", function(error, data) {
+                        d3.text("..//tableData//cluster//cluster_list_1800.tsv", function(error, data) {
                             if (error) throw error;
 
                             var parsedRows = d3.tsvParseRows(data);
@@ -739,7 +624,7 @@
                         graphTable3.append("thead");
                         graphTable3.append("tbody");
 
-                        d3.text("tableData//nextQn//next_qn_1800.csv", function(error, data) {
+                        d3.text("..//tableData//nextQn//next_qn_1800.csv", function(error, data) {
                             if (error) throw error;
 
                             var parsedRows = d3.csvParseRows(data);
@@ -767,12 +652,10 @@
         </div>
         </div>
     </div>
-
+</div>
 <footer class="container-fluid text-center">
     <p>Copyright @ Nanyang Technological University</p>
 </footer>
-
-</div>
 
 <script>
 
