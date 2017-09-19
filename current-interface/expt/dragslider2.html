@@ -418,9 +418,7 @@
                             link = linkg.selectAll("line")
                                     .data(graph.links)
                                     .enter().append("line")
-                                    .attr("stroke-width", function (d) {
-                                        return scale(d.value);
-                                    });
+                                    .attr("stroke-width", function (d) { return scale(d.value); });
 
                             fnode = fnodeg.selectAll("circle")
                                     .data(graph.nodes)
@@ -466,11 +464,9 @@
                                 link = linkg.selectAll("line")
                                     .data(graph.links);
 
+                                link.attr("stroke-width", function (d) { return scale(d.value); });
                                 link.enter().append("line")
-                                    .attr("stroke-width", function (d) {
-                                        return scale(d.value);
-                                    })
-                                    .merge(link);
+                                    .attr("stroke-width", function (d) { return scale(d.value); });
 
                                 link.exit().remove();
 
