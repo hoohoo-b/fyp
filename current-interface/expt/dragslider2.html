@@ -249,7 +249,7 @@
                 }
 
                 .hull {
-                    fill: black;
+                    fill: none;
                     stroke: green;
                     fill-opacity: 0.3;
                     stroke-opacity: 0.3;
@@ -391,6 +391,16 @@
                             return d.y = Math.max(radius, Math.min(h - radius, d.y));
                         })
                         .attr("r", radius);
+
+
+                    linkg.selectAll("path")
+                        .data(groups)
+                        .attr("d", groupPath)
+                        .enter()
+                        .insert("path", "line")
+                        .attr("class", "hull")
+                        .attr("d", groupPath);
+
                 }
 
                 var radius = 5.5;
@@ -402,6 +412,18 @@
                 var w = +svg2.attr("width"),
                     h = +svg2.attr("height");
                 var simulation, link, fnode;
+                var groupPath = function(d) {
+                    if (d.values.length === 2) {
+                        var arr = d.values.map(function(i) {
+                            return [i.x, i.y];
+                        });
+                        arr.push([arr[0][0], arr[0][1]]);
+                        return "M" + d3.polygonHull(arr).join("L") + "Z";
+                    } else {
+                        return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
+                            .join("L") + "Z";
+                    }
+                };
 
                 var fnodeg = svg2.append("g")
                     .attr("class", "fnodes");
@@ -416,46 +438,46 @@
                     .force("center", d3.forceCenter(w / 2, h / 2))
                     .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                d3.json("..//vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
-                    if (error) throw error;
+                updateSimulation(1800);
 
-                    link = linkg.selectAll("line")
-                        .data(graph.links)
-                        .enter().append("line")
-                        .attr("stroke-width", function (d) { return scale(d.value); });
+                /*                d3.json("..//vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                                    if (error) throw error;
 
-                    fnode = fnodeg.selectAll("circle")
-                        .data(graph.nodes)
-                        .enter().append("circle")
-                        .attr("r", radius)
-                        .attr("fill", function (d) {
-                            return color(d.truth);
-                        });
+                                    link = linkg.selectAll("line")
+                                        .data(graph.links)
+                                        .enter().append("line")
+                                        .attr("stroke-width", function (d) { return scale(d.value); });
 
-                    simulation
-                        .nodes(graph.nodes)
-                        .on("tick", ticked);
+                                    fnode = fnodeg.selectAll("circle")
+                                        .data(graph.nodes)
+                                        .enter().append("circle")
+                                        .attr("r", radius)
+                                        .attr("fill", function (d) {
+                                            return color(d.truth);
+                                        });
 
-                    simulation.force("link")
-                        .links(graph.links);
+                                    groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
 
-                    fnode.append("title")
-                        .text(function (d) {
-                            return d.id;
-                        });
+                                    simulation
+                                        .nodes(graph.nodes)
+                                        .on("tick", ticked);
 
-                    link.append("title")
-                        .text(function(d) {
-                            return d.value;
-                        });
+                                    simulation.force("link")
+                                        .links(graph.links);
 
-                    fnode.on('mouseenter', mouseenter)
-                        .on('mouseleave', mouseleave);
+                                    fnode.append("title")
+                                        .text(function (d) { return d.id; });
 
-                    link.on('mouseenter', mouseenter2)
-                        .on('mouseleave', mouseleave2);
+                                    link.append("title")
+                                        .text(function(d) { return d.value; });
 
-                });
+                                    fnode.on('mouseenter', mouseenter)
+                                        .on('mouseleave', mouseleave);
+
+                                    link.on('mouseenter', mouseenter2)
+                                        .on('mouseleave', mouseleave2);
+
+                                });*/
 
                 function updateSimulation(x) {
 
@@ -479,6 +501,10 @@
                             .attr("r", radius)
                             .attr("fill", function(d) { return color(d.truth); });
                         fnode.exit().remove();
+
+                        groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
+//                        linkg.selectAll("path").data(groups).exit().remove();
 
                         simulation
                             .nodes(graph.nodes)
@@ -571,7 +597,6 @@
                         gt2.exit().remove();
                     });
 
-
                     d3.text("..//..//tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
                         if (error) throw error;
 
@@ -631,31 +656,31 @@
                                 </tr>
                                 </thead>
                             </table>
-                        <div id="uncertain-graph-body" class="graph-table text-center"></div>
-                        <script>
-                            var graphTable = d3.select("#uncertain-graph-body")
-                                .append("table")
-                                .attr("class", "table table-condensed");
+                            <div id="uncertain-graph-body" class="graph-table text-center"></div>
+                            <script>
+                                var graphTable = d3.select("#uncertain-graph-body")
+                                    .append("table")
+                                    .attr("class", "table table-condensed");
 
-                            graphTable.append('thead');
-                            graphTable.append('tbody');
+                                graphTable.append('thead');
+                                graphTable.append('tbody');
 
-                            d3.text("..//tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
-                                if (error) throw error;
+                                d3.text("..//tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
+                                    if (error) throw error;
 
-                                var parsedRows = d3.csvParseRows(data);
+                                    var parsedRows = d3.csvParseRows(data);
 
-                                graphTable.select("tbody").selectAll("tr")
-                                    .data(parsedRows)
-                                    .enter().append("tr")
-                                    .selectAll("td")
-                                    .data(function(d) { return d; })
-                                    .enter().append("td")
-                                    .text(function(d) { return d; });
-                            });
-                        </script>
+                                    graphTable.select("tbody").selectAll("tr")
+                                        .data(parsedRows)
+                                        .enter().append("tr")
+                                        .selectAll("td")
+                                        .data(function(d) { return d; })
+                                        .enter().append("td")
+                                        .text(function(d) { return d; });
+                                });
+                            </script>
+                        </div>
                     </div>
-                </div>
                 </div>
 
                 <!-- this is the table of clustering result -->
@@ -675,35 +700,35 @@
                                 </tr>
                                 </thead>
                             </table>
-                        <div id="cluster-graph-body" class="graph-table text-center"></div>
-                        <script>
-                            var graphTable2 = d3.select("#cluster-graph-body")
-                                .append("table")
-                                .attr("class", "table table-condensed");
+                            <div id="cluster-graph-body" class="graph-table text-center"></div>
+                            <script>
+                                var graphTable2 = d3.select("#cluster-graph-body")
+                                    .append("table")
+                                    .attr("class", "table table-condensed");
 
-                            graphTable2.append("thead");
-                            graphTable2.append("tbody");
+                                graphTable2.append("thead");
+                                graphTable2.append("tbody");
 
-                            d3.text("..//..//tableData//cluster//cluster_list_1800.tsv", function(error, data) {
-                                if (error) throw error;
+                                d3.text("..//..//tableData//cluster//cluster_list_1800.tsv", function(error, data) {
+                                    if (error) throw error;
 
-                                var parsedRows = d3.tsvParseRows(data);
+                                    var parsedRows = d3.tsvParseRows(data);
 
-                                graphTable2.select("tbody").selectAll("tr")
-                                    .data(parsedRows)
-                                    .enter().append("tr")
+                                    graphTable2.select("tbody").selectAll("tr")
+                                        .data(parsedRows)
+                                        .enter().append("tr")
 
-                                    .selectAll("td")
-                                    .data(function(d) { return d; })
-                                    .enter().append("td")
-                                    .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
-                                    .text(function(d) { return d; });
-                            });
+                                        .selectAll("td")
+                                        .data(function(d) { return d; })
+                                        .enter().append("td")
+                                        .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
+                                        .text(function(d) { return d; });
+                                });
 
-                        </script>
+                            </script>
 
+                        </div>
                     </div>
-                </div>
                 </div>
 
                 <!-- this is the table of NQ result -->
