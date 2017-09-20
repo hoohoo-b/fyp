@@ -146,6 +146,17 @@
             <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 150px"></input>
             <svg id="svg3" width="350" height="30"></svg>
             <script>
+                d3.select("#answer-count").attr("value", "1800");
+                var val;
+                d3.select("#start-button").on("click", function() {
+                    val = parseInt(d3.select("#answer-count").attr("value"));
+                    setInterval(function() {
+                        val += 200;
+                        d3.select("#answer-count")
+                            .attr("value", val);
+                        updateSimulation(val);
+                    }, 800);
+                });
 
                 var arr = [];
                 for (var i =0; i<20001; i+=200) arr.push(i);
