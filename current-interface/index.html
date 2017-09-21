@@ -205,11 +205,19 @@
                 </div>
                 <div class="radio">
                     <label><input type="radio" id="nextQnOption" name="optradio" value=""><p id="next-crowd-text">Next Crowd Questions</p>
-                        <div class="btn-group-xs">
-                            <button type="button" class="btn btn-success">5</button>
-                            <button type="button" class="btn btn-success">10</button>
-                            <button type="button" class="btn btn-success">15</button>
-                            <button type="button" class="btn btn-success">All</button>
+                        <div class="btn-group-xs" id="btnGroup" data-toggle="buttons">
+                            <label class="btn btn-success active">
+                                <input type="radio" name="options" id="option5" value="5" checked> 5
+                            </label>
+                            <label class="btn btn-success">
+                                <input type="radio" name="options" id="option10" value="10"> 10
+                            </label>
+                            <label class="btn btn-success">
+                                <input type="radio" name="options" id="option15" value="15"> 15
+                            </label>
+                            <label class="btn btn-success">
+                                <input type="radio" name="options" id="optionAll" value="1000"> All
+                            </label>
                         </div></label>
                 </div>
             </form>
@@ -421,8 +429,15 @@
                     $("#nextQnOption").click(function() {
                         $("#link2g").show();
                     });
+
+                    $("#btnGroup label").on("click", function() {
+                        nextQnCount = $("input[name=options]:checked").attr("value");
+                        $("#nextQnOption").attr("checked", true);
+                        $("#nextQnOption").trigger("click");
+                    });
                 });
 
+                var nextQnCount = 5;
                 var radius = 5.5;
                 var color = d3.scaleOrdinal(d3.schemeCategory20b);
                 var scale = d3.scaleLinear()
@@ -564,7 +579,7 @@
                                 .links(graph.link2s);
 
                             link2
-                                .style("visibility", function(d, i) { return (i<=5 ? "visible" : "hidden"); })
+                                .style("visibility", function(d, i) { return (i<=nextQnCount ? "visible" : "hidden"); })
                                 .attr("x1", function (d) {
                                     return Math.max(radius, Math.min(w - radius, d.source.x));
                                 })
