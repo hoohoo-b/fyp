@@ -21,14 +21,14 @@
     <favorites_list name="current-interface" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.30390626">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
           <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="325">
-                  <caret line="723" column="0" lean-forward="false" selection-start-line="723" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
+                <state relative-caret-position="-131">
+                  <caret line="388" column="39" lean-forward="true" selection-start-line="388" selection-start-column="39" selection-end-line="395" selection-end-column="35" />
                   <folding />
                 </state>
               </provider>
@@ -41,21 +41,21 @@
           <file leaf-file-name="dragslider2.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/expt/dragslider2.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="376">
-                  <caret line="441" column="0" lean-forward="true" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
+                <state relative-caret-position="252">
+                  <caret line="618" column="46" lean-forward="false" selection-start-line="618" selection-start-column="46" selection-end-line="618" selection-end-column="46" />
                   <folding>
                     <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
                     <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                     <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                     <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="e#10165#10863#0" expanded="false" />
-                    <element signature="e#10903#11028#0" expanded="false" />
-                    <element signature="e#11070#12590#0" expanded="false" />
-                    <element signature="e#12631#12948#0" expanded="false" />
-                    <element signature="e#19979#21173#0" expanded="false" />
-                    <element signature="e#21290#22454#0" expanded="false" />
-                    <element signature="e#22569#23733#0" expanded="false" />
+                    <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="e#10201#10899#0" expanded="false" />
+                    <element signature="e#10939#11064#0" expanded="false" />
+                    <element signature="e#11106#12626#0" expanded="false" />
+                    <element signature="e#12667#12984#0" expanded="false" />
+                    <element signature="e#29818#31012#0" expanded="false" />
+                    <element signature="e#31129#32293#0" expanded="false" />
+                    <element signature="e#32408#33572#0" expanded="false" />
                     <element signature="n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                   </folding>
                 </state>
@@ -174,6 +174,7 @@
         <option value="$PROJECT_DIR$/expt/detectVarChange.html" />
         <option value="$PROJECT_DIR$/expt/index2.html" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/versions/no-dragslider.html" />
         <option value="$PROJECT_DIR$/expt/dragslider2.html" />
       </list>
     </option>
@@ -203,8 +204,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,17 +239,17 @@
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/expt" />
-      <recent name="$PROJECT_DIR$/versions" />
-      <recent name="$PROJECT_DIR$/../current-interface\versions" />
-      <recent name="C:\Users\PREDATOR\Documents\GitHub\fyp\current-interface\expt2" />
-      <recent name="C:\xampp\htdocs\fyp\current-interface\expt2" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/old_force_layout_JSON" />
       <recent name="$PROJECT_DIR$/expt" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/versions" />
+      <recent name="$PROJECT_DIR$/expt" />
+      <recent name="$PROJECT_DIR$/../current-interface\versions" />
+      <recent name="C:\Users\PREDATOR\Documents\GitHub\fyp\current-interface\expt2" />
+      <recent name="C:\xampp\htdocs\fyp\current-interface\expt2" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -263,7 +264,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.dragslider.html">
+  <component name="RunManager" selected="JavaScript Debug.dragslider2.html">
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -330,24 +331,24 @@
       <method />
     </configuration>
     <configuration name="convexHull4.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt/convexHull4.html" />
-    <configuration name="convexHull.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt/convexHull.html" />
+    <configuration name="dragslider2.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt/dragslider2.html" />
     <configuration name="dragslider.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt/dragslider.html" />
     <configuration name="half-hull.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/versions/half-hull.html" />
     <configuration name="index2.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/current-interface/expt/index2.html" />
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.convexHull.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.convexHull4.html" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.half-hull.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.dragslider.html" />
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.convexHull4.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.half-hull.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.dragslider.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.dragslider2.html" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.dragslider.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.half-hull.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.convexHull4.html" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.convexHull.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.dragslider2.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.dragslider.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.half-hull.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.index2.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.convexHull4.html" />
       </list>
     </recent_temporary>
   </component>
@@ -455,12 +456,16 @@
       <workItem from="1505808313937" duration="15292000" />
       <workItem from="1505872766509" duration="1872000" />
       <workItem from="1505874963009" duration="264000" />
-      <workItem from="1505880300127" duration="4584000" />
+      <workItem from="1505880300127" duration="4643000" />
+      <workItem from="1505890216662" duration="243000" />
+      <workItem from="1505961755344" duration="122000" />
+      <workItem from="1505980143635" duration="1544000" />
+      <workItem from="1506026230494" duration="2566000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="281658000" />
+    <option name="totallyTimeSpent" value="286192000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -483,7 +488,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2078125" sideWeight="0.505" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3595342" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -524,7 +529,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/expt2/graphData/clustering_with_1800.json" />
     <entry file="https://d3js.org/d3.v4.min.js">
       <provider selected="true" editor-type-id="httpFileEditor">
         <state />
@@ -710,31 +714,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/versions/no-dragslider.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="317" column="25" lean-forward="true" selection-start-line="317" selection-start-column="25" selection-end-line="317" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="723" column="0" lean-forward="false" selection-start-line="723" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
+        <state relative-caret-position="-131">
+          <caret line="388" column="39" lean-forward="true" selection-start-line="388" selection-start-column="39" selection-end-line="395" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/expt/dragslider2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="441" column="0" lean-forward="true" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
+        <state relative-caret-position="252">
+          <caret line="618" column="46" lean-forward="false" selection-start-line="618" selection-start-column="46" selection-end-line="618" selection-end-column="46" />
           <folding>
             <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#10165#10863#0" expanded="false" />
-            <element signature="e#10903#11028#0" expanded="false" />
-            <element signature="e#11070#12590#0" expanded="false" />
-            <element signature="e#12631#12948#0" expanded="false" />
-            <element signature="e#19979#21173#0" expanded="false" />
-            <element signature="e#21290#22454#0" expanded="false" />
-            <element signature="e#22569#23733#0" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10899#0" expanded="false" />
+            <element signature="e#10939#11064#0" expanded="false" />
+            <element signature="e#11106#12626#0" expanded="false" />
+            <element signature="e#12667#12984#0" expanded="false" />
+            <element signature="e#29818#31012#0" expanded="false" />
+            <element signature="e#31129#32293#0" expanded="false" />
+            <element signature="e#32408#33572#0" expanded="false" />
             <element signature="n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
