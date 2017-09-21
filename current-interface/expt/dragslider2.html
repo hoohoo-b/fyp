@@ -825,7 +825,7 @@
                         gt2.exit().remove();
                     });
 
-                    d3.text("..//..//tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
+                    d3.text("..//tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
                         if (error) throw error;
 
                         var parsedRows = d3.csvParseRows(data);
