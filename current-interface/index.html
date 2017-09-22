@@ -107,7 +107,6 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">AllSports</a></li>
-                    <li><a href="#">Gymnastics</a></li>
                     <li><a href="#">Landmark</a></li>
                 </ul>
             </li>
@@ -149,22 +148,21 @@
                 var simulationRun;
                 d3.select("#answer-count").attr("value", "1800");
                 d3.select("#play-button").on("click", function() {
+                    removeNextQn();
+                    disableNextQn(true);
 
-                    $("#nextQnOption").attr("disabled", true);
-                    $("input[name=options]").attr("disabled", true);
-
-                    var val = parseInt(d3.select("#answer-count").attr("value"));
+                    var count = parseInt(d3.select("#answer-count").attr("value"));
                     simulationRun = setInterval(function() {
-                        val += 200;
-                        if (val>19800) clearInterval(simulationRun);
+                        count += 200;
+                        if (count>19800) clearInterval(simulationRun);
                         d3.select("#answer-count")
-                            .attr("value", val);
-                        updateSimulation(val);
+                            .attr("value", count);
+                        updateSimulation(count);
                     }, 800);
                 });
                 d3.select("#pause-button").on("click", function() {
                     clearInterval(simulationRun);
-                    $("#nextQnOption").attr("disabled", false);
+                    disableNextQn(false);
 
                 });
 
@@ -194,9 +192,11 @@
                     d3.select("#answer-count")
                         .attr("value", x);
                     clearInterval(simulationRun);
+                    disableNextQn(false);
                 }
 
                 function sliderFunction2(x) {
+                    removeNextQn();
                     updateSimulation(x);
                 }
             </script>
@@ -213,16 +213,16 @@
                 <div class="checkbox">
                     <label><input type="checkbox" name="displayCheckbox" id="nextQnOption" value=""><p id="next-crowd-text">Next Crowd Questions</p>
                         <div class="btn-group-xs" id="btnGroup" data-toggle="buttons">
-                            <label class="btn btn-success active">
+                            <label class="nqlabel btn btn-success active">
                                 <input type="radio" name="options" id="option5" value="5" checked> 5
                             </label>
-                            <label class="btn btn-success">
+                            <label class="nqlabel btn btn-success">
                                 <input type="radio" name="options" id="option10" value="10"> 10
                             </label>
-                            <label class="btn btn-success">
+                            <label class="nqlabel btn btn-success">
                                 <input type="radio" name="options" id="option15" value="15"> 15
                             </label>
-                            <label class="btn btn-success">
+                            <label class="nqlabel btn btn-success">
                                 <input type="radio" name="options" id="optionAll" value="1000"> All
                             </label>
                         </div>
@@ -505,7 +505,9 @@
                         .links(graph.link2s);
 
                     link2
-                        .style("visibility", function(d, i) { return (i<=nextQnCount ? "visible" : "hidden"); })
+                        .style("visibility", function (d, i) {
+                            return (i <= nextQnCount ? "visible" : "hidden");
+                        })
                         .attr("x1", function (d) {
                             return Math.max(radius, Math.min(w - radius, d.source.x));
                         })
@@ -518,6 +520,7 @@
                         .attr("y2", function (d) {
                             return Math.max(radius, Math.min(h - radius, d.target.y));
                         });
+
                 }
 
                 function resumeSimulation(graph) {
@@ -533,25 +536,42 @@
 
                 }
 
+                function removeNextQn() {
+                    $("#nextQnOption").prop("checked", false);
+                    $("#link2g").hide();
+                }
+
+                function disableNextQn(value) {
+
+                    $("input[name=options]").prop("disabled", value);
+                    $("#nextQnOption").prop("disabled", value);
+                    if (value) {
+                        $(".nqlabel").addClass("disabled");
+                    } else {
+                        $(".nqlabel").removeClass("disabled");
+                    }
+                }
+
                 $(document).ready(function() {
 
                     $("#link2g").hide();
                     $("#pathg").hide();
 
                     $("#groupDisplayOption").change(function() {
-                       if (this.checked) {
-                           $("#pathg").show();
-                       } else {
-                           $("#pathg").hide();
-                       }
+                        if (this.checked) {
+                            $("#pathg").show();
+                        } else {
+                            $("#pathg").hide();
+                        }
                     });
 
+                    $("input[name=options]").change(function() {
+                        if (!$("#nextQnOption").prop("disabled")) {
 
-                    $("input[name=options]").click(function() {
-                        nextQnCount = $("input[name=options]:checked").attr("value");
-                        window.alert("HI!");
-                        $("#nextQnOption").attr("checked", true)
-                            .trigger("click");
+                            nextQnCount = $("input[name=options]:checked").attr("value");
+                            $("#nextQnOption").prop("checked", true)
+                                .trigger("change");
+                        }
                     });
                 });
 
@@ -653,6 +673,8 @@
 
 
                     $("#clusterDisplayOption").change(function() {
+                        $("#nextQnOption").prop("checked", false)
+                            .trigger("change");
                         if (this.checked) {
                             cluster(graph);
                         } else {
@@ -666,7 +688,7 @@
                             $("#link2g").show();
                             displayNextQn(graph);
                         } else {
-                            $("#link2g").hide();
+                            removeNextQn();
                             resumeSimulation(graph);
                         }
                     });
@@ -736,67 +758,27 @@
 
                         simulation.alpha(1).restart();
 
-                        d3.select("#forceOption")
-                            .on("click", function() {
-                                simulation
-                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                                    .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                    .force("center", d3.forceCenter(w / 2, h / 2))
-                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                                simulation
-                                    .nodes(graph.nodes)
-                                    .on("tick", ticked);
+                        $("#clusterDisplayOption").change(function() {
+                            $("#nextQnOption").prop("checked", false)
+                                .trigger("change");
+                            if (this.checked) {
+                                cluster(graph);
+                            } else {
+                                uncluster(graph);
+                            }
+                        });
 
-                                simulation.force("link")
-                                    .links(graph.links);
 
-                                simulation.alpha(0.05).restart();
-
-                            });
-
-                        d3.select("#clusterDisplayOption")
-                            .on("click", function() {
-                                simulation
-                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
-                                    .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                    .force("center", d3.forceCenter(w / 2, h / 2))
-                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                                simulation
-                                    .nodes(graph.nodes)
-                                    .on("tick", ticked);
-
-                                simulation.force("link")
-                                    .links(graph.links);
-
-                                simulation.alpha(0.1).restart();
-
-                            });
-
-                        d3.select("#nextQnOption")
-                            .on("click", function() {
-
-                                simulation.stop();
-
-                                simulation.force("link")
-                                    .links(graph.link2s);
-
-                                link2
-                                    .style("visibility", function(d, i) { return (i<=nextQnCount ? "visible" : "hidden"); })
-                                    .attr("x1", function (d) {
-                                        return Math.max(radius, Math.min(w - radius, d.source.x));
-                                    })
-                                    .attr("y1", function (d) {
-                                        return Math.max(radius, Math.min(h - radius, d.source.y));
-                                    })
-                                    .attr("x2", function (d) {
-                                        return Math.max(radius, Math.min(w - radius, d.target.x));
-                                    })
-                                    .attr("y2", function (d) {
-                                        return Math.max(radius, Math.min(h - radius, d.target.y));
-                                    });
-                            });
+                        $("#nextQnOption").change(function() {
+                            if (this.checked) {
+                                $("#link2g").show();
+                                displayNextQn(graph);
+                            } else {
+                                $("#link2g").hide();
+                                resumeSimulation(graph);
+                            }
+                        });
 
                     });
 
