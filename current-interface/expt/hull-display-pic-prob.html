@@ -193,7 +193,6 @@
                 function sliderFunction(x) {
                     d3.select("#answer-count")
                         .attr("value", x);
-                    clearInterval(simulationRun);
                 }
 
                 function sliderFunction2(x) {
@@ -204,14 +203,14 @@
 
         <div class="col-sm-3 text-left" id="simulation-options">
             <form id="form-simulation-options">
-                <div class="checkbox">
-                    <label><input type="checkbox" name="displayCheckbox" id="groupDisplayOption" value="">Group Display</label>
+                <div class="radio">
+                    <label><input type="radio" id="forceOption" name="optradio" value="" checked>Uncertain Graph</label>
                 </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="displayCheckbox" id="clusterDisplayOption" value="" >Cluster Display</label>
+                <div class="radio">
+                    <label><input type="radio" id="clusterOption" name="optradio" value="">Clustering Result</label>
                 </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="displayCheckbox" id="nextQnOption" value=""><p id="next-crowd-text">Next Crowd Questions</p>
+                <div class="radio">
+                    <label><input type="radio" id="nextQnOption" name="optradio" value=""><p id="next-crowd-text">Next Crowd Questions</p>
                         <div class="btn-group-xs" id="btnGroup" data-toggle="buttons">
                             <label class="btn btn-success active">
                                 <input type="radio" name="options" id="option5" value="5" checked> 5
@@ -225,8 +224,7 @@
                             <label class="btn btn-success">
                                 <input type="radio" name="options" id="optionAll" value="1000"> All
                             </label>
-                        </div>
-                    </label>
+                        </div></label>
                 </div>
             </form>
         </div>
@@ -260,7 +258,7 @@
 
                 .fnodes circle {
                     stroke: #fff;
-                    stroke-width: 0.8px;
+                    stroke-width: 1.5px;
                     fill-opacity: 1;
                 }
 
@@ -422,10 +420,6 @@
                 }
 
                 function ticked() {
-
-                    link = linkg.selectAll("line");
-                    fnode = fnodeg.selectAll("circle");
-
                     link
                         .attr("x1", function (d) {
                             return d.source.x;
@@ -465,20 +459,18 @@
                     $("#link2g").hide();
                     $("#pathg").hide();
 
-                    $("#groupDisplayOption").change(function() {
-                       if (this.checked) {
-                           $("#pathg").show();
-                       } else {
-                           $("#pathg").hide();
-                       }
+                    $("#forceOption").click(function() {
+                        $("#link2g").hide();
+                        $("#pathg").hide();
                     });
 
-                    $("#nextQnOption").change(function() {
-                       if (this.checked) {
-                           $("#link2g").show();
-                       } else {
-                           $("#link2g").hide();
-                       }
+                    $("#clusterOption").click(function() {
+                        $("#link2g").hide();
+                        $("#pathg").show();
+                    });
+
+                    $("#nextQnOption").click(function() {
+                        $("#link2g").show();
                     });
 
                     $("#btnGroup label").click(function() {
@@ -497,7 +489,7 @@
                 var svg2 = d3.select("#svg2");
                 var w = +svg2.attr("width"),
                     h = +svg2.attr("height");
-                var simulation, link, link2, fnode, poly;
+                var simulation, link, link2, fnode;
                 var groupPath = function(d) {
                     if (d.values.length === 2) {
                         var arr = d.values.map(function(i) {
@@ -506,17 +498,10 @@
                         arr.push([arr[0][0], arr[0][1]]);
                         return "M" + d3.polygonHull(arr).join("L") + "Z";
                     } else {
-                        poly = d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }));
-                        if (poly){
-                            return "M" + poly.join("L") + "Z";
-                        }
+                        return "M" + d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }))
+                            .join("L") + "Z";
                     }
                 };
-
-
-                var pathg = svg2.append("g")
-                    .attr("class", "hull")
-                    .attr("id", "pathg");
 
                 var fnodeg = svg2.append("g")
                     .attr("class", "fnodes");
@@ -524,9 +509,14 @@
                 var linkg = svg2.append("g")
                     .attr("class", "links")
                     .attr("id", "linkg");
+
                 var link2g = svg2.append("g")
                     .attr("class", "link2s")
                     .attr("id", "link2g");
+
+                var pathg = svg2.append("g")
+                    .attr("class", "hull")
+                    .attr("id", "pathg");
 
                 simulation = d3.forceSimulation()
                     .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
@@ -584,44 +574,44 @@
 
                     link2.on('mouseenter', mouseenter3)
                         .on('mouseleave', mouseleave2);
+                    /*
+                                        d3.select("#forceOption")
+                                            .on("click", function() {
+                                                simulation
+                                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                                                    .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                                    .force("center", d3.forceCenter(w / 2, h / 2))
+                                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                    d3.select("#forceOption")
-                        .on("click", function() {
-                            simulation
-                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                                .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                .force("center", d3.forceCenter(w / 2, h / 2))
-                                .force("collide", d3.forceCollide().strength(1).iterations(2));
+                                                simulation
+                                                    .nodes(graph.nodes)
+                                                    .on("tick", ticked);
 
-                            simulation
-                                .nodes(graph.nodes)
-                                .on("tick", ticked);
+                                                simulation.force("link")
+                                                    .links(graph.links);
 
-                            simulation.force("link")
-                                .links(graph.links);
+                                                simulation.alpha(0.05).restart();
 
-                            simulation.alpha(0.05).restart();
+                                            });
 
-                        });
+                                        d3.select("#clusterOption")
+                                            .on("click", function() {
+                                                simulation
+                                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                                                    .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                                    .force("center", d3.forceCenter(w / 2, h / 2))
+                                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                    d3.select("#clusterDisplayOption")
-                        .on("click", function() {
-                            simulation
-                                .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
-                                .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                .force("center", d3.forceCenter(w / 2, h / 2))
-                                .force("collide", d3.forceCollide().strength(1).iterations(2));
+                                                simulation
+                                                    .nodes(graph.nodes)
+                                                    .on("tick", ticked);
 
-                            simulation
-                                .nodes(graph.nodes)
-                                .on("tick", ticked);
+                                                simulation.force("link")
+                                                    .links(graph.links);
 
-                            simulation.force("link")
-                                .links(graph.links);
+                                                simulation.alpha(0.1).restart();
 
-                            simulation.alpha(0.1).restart();
-
-                        });
+                                            });*/
 
                     d3.select("#nextQnOption")
                         .on("click", function() {
@@ -651,7 +641,7 @@
 
                 function updateSimulation(x) {
 
-                    pathg.selectAll("path").remove();
+                    linkg.selectAll("path").remove();
 
                     if ($("#nextQnOption").is(":checked")) {
                         $("#forceOption").prop("checked", true);
@@ -710,44 +700,44 @@
                             .on('mouseleave', mouseleave2);
 
                         simulation.alpha(1).restart();
+                        /*
+                                                d3.select("#forceOption")
+                                                    .on("click", function() {
+                                                        simulation
+                                                            .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                                                            .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                                            .force("center", d3.forceCenter(w / 2, h / 2))
+                                                            .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                        d3.select("#forceOption")
-                            .on("click", function() {
-                                simulation
-                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                                    .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                    .force("center", d3.forceCenter(w / 2, h / 2))
-                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
+                                                        simulation
+                                                            .nodes(graph.nodes)
+                                                            .on("tick", ticked);
 
-                                simulation
-                                    .nodes(graph.nodes)
-                                    .on("tick", ticked);
+                                                        simulation.force("link")
+                                                            .links(graph.links);
 
-                                simulation.force("link")
-                                    .links(graph.links);
+                                                        simulation.alpha(0.05).restart();
 
-                                simulation.alpha(0.05).restart();
+                                                    });
 
-                            });
+                                                d3.select("#clusterOption")
+                                                    .on("click", function() {
+                                                        simulation
+                                                            .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                                                            .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                                                            .force("center", d3.forceCenter(w / 2, h / 2))
+                                                            .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                        d3.select("#clusterDisplayOption")
-                            .on("click", function() {
-                                simulation
-                                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
-                                    .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                                    .force("center", d3.forceCenter(w / 2, h / 2))
-                                    .force("collide", d3.forceCollide().strength(1).iterations(2));
+                                                        simulation
+                                                            .nodes(graph.nodes)
+                                                            .on("tick", ticked);
 
-                                simulation
-                                    .nodes(graph.nodes)
-                                    .on("tick", ticked);
+                                                        simulation.force("link")
+                                                            .links(graph.links);
 
-                                simulation.force("link")
-                                    .links(graph.links);
+                                                        simulation.alpha(0.1).restart();
 
-                                simulation.alpha(0.1).restart();
-
-                            });
+                                                    });*/
 
                         d3.select("#nextQnOption")
                             .on("click", function() {
