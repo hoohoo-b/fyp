@@ -184,20 +184,29 @@
                     .attr("class", "track")
                     .attr("x1", 0)
                     .attr("x2", width)
+                    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+                    .attr("class", "track-inset")
+                    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+                    .attr("class", "track-overlay")
                     .call(d3.drag()
-                        .on("drag", function() { sliderFunction(scale2(d3.event.x)); })
-                        .on("end", function() { sliderFunction(scale2(d3.event.x)); sliderFunction2(scale2(d3.event.x)); }));
+                        .on("drag", function() { sliderFunction(d3.event.x); })
+                        .on("end", function() { sliderFunction(d3.event.x); sliderFunction2(d3.event.x); }));
+
+                var handle = slider.insert("circle", ".track-overlay")
+                    .attr("class", "handle")
+                    .attr("r", 9);
 
                 function sliderFunction(x) {
+                    handle.attr("cx", x);
                     d3.select("#answer-count")
-                        .attr("value", x);
+                        .attr("value", scale2(x));
                     clearInterval(simulationRun);
                     disableNextQn(false);
                 }
 
                 function sliderFunction2(x) {
                     removeNextQn();
-                    updateSimulation(x);
+                    updateSimulation(scale2(x));
                 }
             </script>
         </div>
@@ -599,7 +608,6 @@
                         }
                     }
                 };
-
 
                 var pathg = svg2.append("g")
                     .attr("class", "hull")
