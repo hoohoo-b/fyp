@@ -142,7 +142,7 @@
         </div>
 
         <div class="col-sm-5 text-center" id="progress">
-            <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 150px"></input>
+            <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 100px"></input>
             <svg id="svg3" width="500" height="30"></svg>
             <script>
                 var simulationRun;
@@ -650,7 +650,7 @@
                     .force("center", d3.forceCenter(w / 2, h / 2))
                     .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                d3.json("vizData//DENSE//forceLayout_1800.json", function(error, graph) {
                     if (error) throw error;
 
                     fnode = fnodeg.selectAll("circle")
@@ -734,7 +734,7 @@
                         $("#link2g").hide();
                     }
 
-                    d3.json("vizData//forceLayout//forceLayout_" + String(x) + ".json", function (error, graph) {
+                    d3.json("vizData//DENSE//forceLayout_" + String(x) + ".json", function (error, graph) {
                         if (error) throw error;
 
                         fnode = fnodeg.selectAll("circle")
