@@ -54,7 +54,7 @@
         }
 
         .graph-table{
-            height: 10cm;
+            height: 9cm;
             overflow: scroll;
             margin-top: -22px;
         }
@@ -184,7 +184,7 @@
                 slider.append("line")
                     .attr("class", "track")
                     .attr("x1", 0)
-                    .attr("x2", width-margin.right)
+                    .attr("x2", width)
                     .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
                     .attr("class", "track-inset")
                     .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
@@ -197,14 +197,26 @@
                     .attr("class", "handle")
                     .attr("r", 9);
 
+                var progress = slider.insert("line", "circle")
+                    .attr("class", "progress-bar")
+                    .attr("x1", 0)
+                    .attr("x2", 0);
+
                 function sliderFunction(x) {
-                    handle.attr("cx", scale2.invertExtent(x)[0]);
+                    if (x!==0) {
+                        handle.attr("cx", scale2.invertExtent(x)[1]);
+                        progress.attr("x2", scale2.invertExtent(x)[1]);
+                    } else {
+                        handle.attr("cx", scale2.invertExtent(x)[0]);
+                        progress.attr("x2", scale2.invertExtent(x)[0]);
+                    }
                     d3.select("#answer-count")
                         .attr("value", (x));
                 }
 
                 function sliderFunction2(x) {
                     removeNextQn();
+                    clearInterval(simulationRun);
                     updateSimulation(x);
                 }
             </script>
@@ -254,6 +266,10 @@
         <div class="col-sm-6" id="simulation">
             <style>
 
+                #svg2 {
+                    cursor: crosshair;
+                }
+
                 .link2s line {
                     stroke: #f00;
                     stroke-opacity: 0.4;
@@ -288,19 +304,20 @@
 
                 .track,
                 .track-inset,
-                .track-overlay {
+                .track-overlay,
+                .progress-bar {
                     stroke-linecap: round;
                 }
 
                 .track {
                     stroke: #000;
                     stroke-opacity: 0.3;
-                    stroke-width: 10px;
+                    stroke-width: 3px;
                 }
 
                 .track-inset {
                     stroke: #ddd;
-                    stroke-width: 8px;
+                    stroke-width: 18px;
                 }
 
                 .track-overlay {
@@ -315,6 +332,11 @@
                     stroke: #000;
                     stroke-opacity: 0.5;
                     stroke-width: 1.25px;
+                }
+
+                .progress-bar {
+                    stroke: #5bc0de;
+                    stroke-width: 18px;
                 }
 
             </style>
