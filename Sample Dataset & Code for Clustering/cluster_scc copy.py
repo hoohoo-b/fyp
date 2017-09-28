@@ -128,59 +128,59 @@ def SCC(data):
 
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
-    filename_1='data'
+    filename_1='data_allSports_PERC'
 #    num = raw_input('Pls enter the num of records wanted:')
 
-    for num in range (1800, 2401, 200):
-        f = open('./'+filename_1+'.csv', 'r')
-        data = []
-        max_num = 0
-        for line in f.readlines():
-            data.append(line.split(','))
-            max_num = max_num + 1
-        # print data
+    num = 4373
+    f = open('./'+filename_1+'.csv', 'r')
+    data = []
+    max_num = 0
+    for line in f.readlines():
+        data.append(line.split(','))
+        max_num = max_num + 1
+    # print data
+
+
+    temp_data = []
+    for i in range(int(num)):
+    	# print i
+    	temp_data.append(data[i])
+
+    next_data = []
+    for i in range(100):
+    	next_data.append(data[i+int(num)])
+
+
+    cluster_list,time_cost=SCC(temp_data)
+    for i in cluster_list:
+        for j in range(len(i)):
+            i[j]=str(int(i[j]))
+    # print cluster_list
+    # print len(cluster_list)
     
-    
-        temp_data = []
-        for i in range(int(num)):
-        	# print i
-        	temp_data.append(data[i])
-    
-        next_data = []
-        for i in range(100):
-        	next_data.append(data[i+int(num)])
-    
-    
-        cluster_list,time_cost=SCC(temp_data)
-        for i in cluster_list:
-            for j in range(len(i)):
-                i[j]=str(int(i[j]))
-        # print cluster_list
-        # print len(cluster_list)
-        
-        # generate nodes entries in json
-        g = open('./origEdit1_'+str(num)+".json",'a')
-        g.write("{\n"+"  \"nodes\": [\n")
-        for i in range(len(cluster_list)):
-        	for j in cluster_list[i]:
-        		g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
-        g.write("  ],\n")
-    
-        # generate uncertain graph in json
-        g.write("  \"link1s\": [\n")
-        for i in temp_data:
-            if float(i[2])<0.5:
-                 continue
-            else:
-                 i[2]=str(int(float(i[2])*20+1))
-                 g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-        g.write("  ],\n")
-    
-        # generate next questions in json
-        g.write("  \"link2s\": [\n")
-        for i in next_data:
-        	i[2]="10"
-        	# print i
-        	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
-        g.write("  ]\n}")
-        g.close()
+    # generate nodes entries in json
+    g = open('./origEdit1_'+str(num)+".json",'a')
+    g.write("{\n"+"  \"nodes\": [\n")
+    for i in range(len(cluster_list)):
+    	for j in cluster_list[i]:
+    		g.write("    {\"id\": \""+str(j)+"\", \"group\": "+str(i)+"},\n")
+    g.write("  ],\n")
+
+    # generate uncertain graph in json
+    g.write("  \"link1s\": [\n")
+    for i in temp_data:
+        if float(i[2])<0.5:
+             continue
+        else:
+             i[2]=str(int(float(i[2])*20+1))
+             g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+    g.write("  ],\n")
+
+    # generate next questions in json
+    g.write("  \"link2s\": [\n")
+    for i in next_data:
+    	i[2]="10"
+    	# print i
+    	g.write("    {\"source\": \""+i[0]+"\", \"target\": \""+i[1]+"\", \"value\": "+i[2]+"},\n")
+    g.write("  ]\n}")
+    g.close()

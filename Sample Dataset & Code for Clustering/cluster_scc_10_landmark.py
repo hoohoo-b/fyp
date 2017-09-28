@@ -129,24 +129,24 @@ def SCC(data):
 
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
-    filename_1='data_landmark'
+    filename_1='data_landmark3'
     filename_2='gold_landmark'
 #    num = raw_input('Pls enter the num of records wanted:')
 
-    for num in range (10,11,2223):
+    for num in range (4370,34444,340):
     
         f = open('./'+filename_1+'.csv', 'r')
         data = []
         max_num = 0
         for line in f.readlines():
-            data.append(re.split(',|\n', line)[:-1])
+            data.append(re.split(',|\r\n', line)[:-1])
             max_num += 1
     
         f2 = open('./'+filename_2+'.csv', 'r')
         data2 = []
         max_num2 = 0
         for line in f2.readlines():
-            data2.append(re.split(',|\r\n', line)[:-1])
+            data2.append(re.split(',|\r\n', line))
             max_num2 += 1
     
         f=open('./landmark_url.csv','r')
@@ -154,8 +154,9 @@ if __name__ == "__main__":
         for line in f.readlines():
             line = re.split(',|\r|\n', line)
             key = line[0]
-            url_dict.setdefault(key, [])
-            url_dict[key].append(line[1])
+            if key not in url_dict:
+                url_dict.setdefault(key, [])
+                url_dict[key].append(line[1])
     
         GTAdict = dict()
         for i in range(max_num2):
@@ -178,7 +179,7 @@ if __name__ == "__main__":
         g.write("{\n"+"  \"nodes\": [\n")
         for i in range(len(cluster_list)-1):
             for j in cluster_list[i]:
-                g.write("    {\"id\": \""+str(j)+"\", \"url\": \""+url_dict[str(j)]+"\", \"group\": "+str(i)+", \"truth\": \"")
+                g.write("    {\"id\": \""+str(j)+"\", \"url\": \""+url_dict[str(j)][0]+"\", \"group\": "+str(i)+", \"truth\": \"")
                 for k,v in GTAdict.iteritems():
                     for m,n in enumerate(v):
                         if n == int(j):
@@ -188,7 +189,7 @@ if __name__ == "__main__":
         i = len(cluster_list)-1
         for j in cluster_list[i]:
             if j != cluster_list[i][-1]:
-                g.write("    {\"id\": \""+str(j)+"\", \"url\": \""+url_dict[str(j)]+"\", \"group\": "+str(i)+", \"truth\": \"")
+                g.write("    {\"id\": \""+str(j)+"\", \"url\": \""+url_dict[str(j)][0]+"\", \"group\": "+str(i)+", \"truth\": \"")
                 for k,v in GTAdict.iteritems():
                     for m,n in enumerate(v):
                         if n == int(j):
@@ -196,7 +197,7 @@ if __name__ == "__main__":
                             break
 
             else:
-                g.write("    {\"id\": \""+str(j)+"\", \"url\": \""+url_dict[str(j)]+"\", \"group\": "+str(i)+", \"truth\": \"")
+                g.write("    {\"id\": \""+str(j)+"\", \"url\": \""+url_dict[str(j)][0]+"\", \"group\": "+str(i)+", \"truth\": \"")
                 for k,v in GTAdict.iteritems():
                     for m,n in enumerate(v):
                         if n == int(j):

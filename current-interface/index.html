@@ -146,15 +146,17 @@
             <svg id="svg3" width="500" height="30"></svg>
             <script>
                 var simulationRun;
-                d3.select("#answer-count").attr("value", "1800");
+                var dataset = { allSports: { count_lower: 1800, count_upper: 17600, inc: 200, text: "allSports" }, landmark: { count_lower: 4370, count_upper: 34440, inc: 340, text: "landmark" } };
+                var algorithm = { perc: "PERC", dense: "DENSE" };
+                d3.select("#answer-count").attr("value", dataset.landmark.count_lower);
                 d3.select("#play-button").on("click", function() {
                     removeNextQn();
                     disableNextQn(true);
 
                     var count = parseInt(d3.select("#answer-count").attr("value"));
                     simulationRun = setInterval(function() {
-                        count += 200;
-                        if (count>19800) clearInterval(simulationRun);
+                        count += dataset.landmark.inc;
+                        if (count>dataset.landmark.count_upper-200) clearInterval(simulationRun);
                         d3.select("#answer-count")
                             .attr("value", count);
                         updateSimulation(count);
@@ -168,7 +170,7 @@
                 });
 
                 var arr = [];
-                for (var i =0; i<20001; i+=200) arr.push(i);
+                for (var i =0; i<=dataset.landmark.count_upper; i+=200) arr.push(i);
                 var margin = { top: 0, right: 10, bottom: 0, left: 10 };
                 var svg3 = d3.select("#svg3"),
                     width = +svg3.attr("width") - margin.left - margin.right,
@@ -650,7 +652,7 @@
                     .force("center", d3.forceCenter(w / 2, h / 2))
                     .force("collide", d3.forceCollide().strength(1).iterations(2));
 
-                d3.json("vizData//DENSE//forceLayout_1800.json", function(error, graph) {
+                d3.json("vizData//"+dataset.landmark.text+"_"+algorithm.perc+"//forceLayout_4370.json", function(error, graph) {
                     if (error) throw error;
 
                     fnode = fnodeg.selectAll("circle")
@@ -734,7 +736,7 @@
                         $("#link2g").hide();
                     }
 
-                    d3.json("vizData//DENSE//forceLayout_" + String(x) + ".json", function (error, graph) {
+                    d3.json("vizData//"+dataset.landmark.text+"_"+algorithm.perc+"//forceLayout_" + String(x) + ".json", function (error, graph) {
                         if (error) throw error;
 
                         fnode = fnodeg.selectAll("circle")
