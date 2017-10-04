@@ -109,21 +109,21 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="dropdown active" id="dropdown1">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Target Dataset
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="target-dataset-text">AllSports
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" value="allSports" id="opt1">
-                        <span class="glyphicon glyphicon-ok"></span>AllSports</a></li>
+                    <li><a href="#" value="allSports">
+                        <span class="glyphicon glyphicon-ok" id="opt1"></span>AllSports</a></li>
                     <li><a href="#" value="landmark">
                         <span class="glyphicon glyphicon-ok"></span>Landmark</a></li>
                 </ul>
             </li>
             <li class="dropdown" id="dropdown2">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Algorithm
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="algorithm-text">PERC
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#" value="perc" selected>
-                        <span class="glyphicon glyphicon-ok" id="opt11" aria-label="play"></span>PERC</a></li>
+                        <span class="glyphicon glyphicon-ok" id="opt2" aria-label="play"></span>PERC</a></li>
                     <li><a href="#" value="dense">
                         <span class="glyphicon glyphicon-ok" aria-label="play"></span>bDense</a></li>
                     <li><a href="#" value="minmax">
@@ -156,6 +156,7 @@
             <svg id="svg3" width="500" height="30"></svg>
             <script>
                 var simulationRun;
+                var algorithm = { perc: "PERC", dense: "DENSE" };
                 var dataset = {
                     allSports: {
                         count_lower: 1800,
@@ -170,18 +171,19 @@
                         text: "landmark"
                     }
                 };
-                var algorithm = { perc: "PERC", dense: "DENSE" };
+
                 var datasetChosen = dataset.allSports , algoChosen = algorithm.perc;
 
                 $(".glyphicon-ok").css("visibility", "hidden");
                 $("#opt1").css("visibility", "visible");
-                $("#opt11").css("visibility", "visible");
+                $("#opt2").css("visibility", "visible");
 
                 $("#dropdown1 li a").click(function() {
                     var d = $(this).attr("value");
                     datasetChosen = eval("dataset."+d);
                     $(this).parent().siblings("li").find(".glyphicon-ok").css("visibility", "hidden");
                     $(this).find(".glyphicon-ok").css("visibility", "visible");
+                    $("#target-dataset-text").html($(this).text() + " <span class=\"caret\"></span>");
                     d3.select("#answer-count").attr("value", datasetChosen.count_lower);
                     updateSimulation(datasetChosen.count_lower);
                     sliderFunction(datasetChosen.count_lower);
@@ -192,6 +194,7 @@
                     algoChosen = eval("algorithm."+d);
                     $(this).parent().siblings("li").find(".glyphicon-ok").css("visibility", "hidden");
                     $(this).find(".glyphicon-ok").css("visibility", "visible");
+                    $("#algorithm-text").html($(this).text() + " <span class=\"caret\"></span>");
                     updateSimulation(d3.select("#answer-count").attr("value"));
                 });
 
@@ -393,11 +396,29 @@
 
             <script>
 
-                function mouseenter(d) {
+                function mouseenter_allSports(d) {
                     d3.select("#photo1")
                         .append('image')
                         .attr('id', 'zoomImage')
                         .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.truth)
+                        .attr('id', 'imgText')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                }
+
+                function mouseenter_landmark(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', d.url)
                         .attr("x", 0)
                         .attr("y", 20)
                         .attr('width', 247)
@@ -416,7 +437,7 @@
                     d3.select('#imgText').remove();
                 }
 
-                function mouseenter2(d) {
+                function mouseenter_link_allSports(d) {
                     d3.select("#photo1")
                         .append('image')
                         .attr('id', 'zoomImage')
@@ -453,7 +474,44 @@
                         .text((d.value*100).toString() + "%");
                 }
 
-                function mouseenter3(d) {
+                function mouseenter_link_landmark(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', d.source.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', d.target.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text((d.value*100).toString() + "%");
+                }
+
+                function mouseenter_nextqn_allSports(d) {
                     d3.select("#photo1")
                         .append('image')
                         .attr('id', 'zoomImage')
@@ -474,6 +532,43 @@
                         .append('image')
                         .attr('id', 'zoomImage2')
                         .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text("?");
+                }
+
+                function mouseenter_nextqn_landmark(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', d.source.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', d.target.url)
                         .attr("x", 0)
                         .attr("y", 20)
                         .attr('width', 247)
@@ -740,13 +835,13 @@
                     link2.append("title")
                         .text(function(d) { return d.value; });
 
-                    fnode.on('mouseenter', mouseenter)
+                    fnode.on('mouseenter', eval("mouseenter_"+datasetChosen.text))
                         .on('mouseleave', mouseleave);
 
-                    link.on('mouseenter', mouseenter2)
+                    link.on('mouseenter', eval("mouseenter_link_"+datasetChosen.text))
                         .on('mouseleave', mouseleave2);
 
-                    link2.on('mouseenter', mouseenter3)
+                    link2.on('mouseenter', eval("mouseenter_nextqn_"+datasetChosen.text))
                         .on('mouseleave', mouseleave2);
 
 
@@ -825,13 +920,13 @@
                         link.append("title")
                             .text(function(d) { return d.value; });
 
-                        fnode.on('mouseenter', mouseenter)
+                        fnode.on('mouseenter', eval("mouseenter_"+datasetChosen.text))
                             .on('mouseleave', mouseleave);
 
-                        link.on('mouseenter', mouseenter2)
+                        link.on('mouseenter', eval("mouseenter_link_"+datasetChosen.text))
                             .on('mouseleave', mouseleave2);
 
-                        link2.on('mouseenter', mouseenter3)
+                        link2.on('mouseenter', eval("mouseenter_nextqn_"+datasetChosen.text))
                             .on('mouseleave', mouseleave2);
 
                         simulation.alpha(1).restart();

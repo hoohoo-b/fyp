@@ -25,12 +25,13 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="193" column="79" lean-forward="false" selection-start-line="193" selection-start-column="79" selection-end-line="193" selection-end-column="79" />
+            <state relative-caret-position="257">
+              <caret line="840" column="63" lean-forward="false" selection-start-line="840" selection-start-column="48" selection-end-line="840" selection-end-column="63" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#svg#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1506580296000" expanded="true" signature="44408:44417" ph="..." />
+                <element signature="e#19753#21238#0" expanded="false" />
+                <marker date="1507129404000" expanded="true" signature="48604:48613" ph="..." />
               </folding>
             </state>
           </provider>
@@ -47,12 +48,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>graphTable</find>
-      <find>String(a)</find>
-      <find>ticked2</find>
-      <find>groups</find>
-      <find>../js</find>
-      <find>..\\allsports</find>
       <find>btn-success</find>
       <find>start-button</find>
       <find>m</find>
@@ -77,6 +72,12 @@
       <find>dataset.allSports</find>
       <find>algorithm.perc</find>
       <find>play</find>
+      <find>change</find>
+      <find>on</find>
+      <find>mouseenter3</find>
+      <find>mouseenter</find>
+      <find>d.url</find>
+      <find>mouseenter_link</find>
     </findStrings>
     <replaceStrings>
       <replace>svg2</replace>
@@ -189,6 +190,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,8 +218,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -458,12 +459,13 @@
       <workItem from="1506527537565" duration="531000" />
       <workItem from="1506558532154" duration="1558000" />
       <workItem from="1506562610138" duration="1291000" />
-      <workItem from="1506571317982" duration="7453000" />
+      <workItem from="1506571317982" duration="7509000" />
+      <workItem from="1507127715133" duration="2385000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="320653000" />
+    <option name="totallyTimeSpent" value="323094000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -518,11 +520,17 @@
           <line>51</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/index.html</url>
+          <line>480</line>
+          <properties />
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="93" />
+      <option name="time" value="95" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
@@ -717,10 +725,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/expt/detectVarChange.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expt/dragslider.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="56" column="43" lean-forward="false" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/d3.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
-          <caret line="6" column="6169" lean-forward="false" selection-start-line="6" selection-start-column="6169" selection-end-line="6" selection-end-column="6169" />
+          <caret line="3" column="29495" lean-forward="false" selection-start-line="3" selection-start-column="29495" selection-end-line="3" selection-end-column="29495" />
           <folding>
             <marker date="1499000990000" expanded="true" signature="238:218923" ph="{...}" />
             <marker date="1499000990000" expanded="true" signature="24626:24730" ph="..." />
@@ -841,28 +863,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expt/detectVarChange.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expt/dragslider.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="56" column="43" lean-forward="false" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="193" column="79" lean-forward="false" selection-start-line="193" selection-start-column="79" selection-end-line="193" selection-end-column="79" />
+        <state relative-caret-position="257">
+          <caret line="840" column="63" lean-forward="false" selection-start-line="840" selection-start-column="48" selection-end-line="840" selection-end-column="63" />
           <folding>
             <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#svg#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1506580296000" expanded="true" signature="44408:44417" ph="..." />
+            <element signature="e#19753#21238#0" expanded="false" />
+            <marker date="1507129404000" expanded="true" signature="48604:48613" ph="..." />
           </folding>
         </state>
       </provider>
