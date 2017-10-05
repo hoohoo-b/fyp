@@ -155,6 +155,7 @@
             <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 100px"></input>
             <svg id="svg3" width="500" height="30"></svg>
             <script>
+                var arr, scale2;
                 var simulationRun;
                 var algorithm = { perc: "PERC", dense: "DENSE" };
                 var dataset = {
@@ -166,7 +167,7 @@
                     },
                     landmark: {
                         count_lower: 4370,
-                        count_upper: 34440,
+                        count_upper: 34290,
                         inc: 340,
                         text: "landmark"
                     }
@@ -186,7 +187,13 @@
                     $("#target-dataset-text").html($(this).text() + " <span class=\"caret\"></span>");
                     d3.select("#answer-count").attr("value", datasetChosen.count_lower);
                     updateSimulation(datasetChosen.count_lower);
+                    arr = [];
+                    for (var i =datasetChosen.count_lower; i<=datasetChosen.count_upper; i+=datasetChosen.inc) arr.push(i);
+                    scale2 = d3.scaleQuantize()
+                        .domain([datasetChosen.count_lower/datasetChosen.count_upper * width, width])
+                        .range(arr);
                     sliderFunction(datasetChosen.count_lower);
+
                 });
 
                 $("#dropdown2 li a").click(function() {
@@ -219,8 +226,8 @@
 
                 });
 
-                var arr = [];
-                for (var i =0; i<=datasetChosen.count_upper; i+=200) arr.push(i);
+                arr = [];
+                for (var i =datasetChosen.count_lower; i<=datasetChosen.count_upper; i+=datasetChosen.inc) arr.push(i);
                 var margin = { top: 0, right: 10, bottom: 0, left: 10 };
                 var svg3 = d3.select("#svg3"),
                     width = +svg3.attr("width") - margin.left - margin.right,
@@ -229,8 +236,8 @@
                     .attr("class", "slider")
                     .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
 
-                var scale2 = d3.scaleQuantize()
-                    .domain([0, width])
+                scale2 = d3.scaleQuantize()
+                    .domain([datasetChosen.count_lower/datasetChosen.count_upper * width, width])
                     .range(arr);
 
                 slider.append("line")
@@ -255,7 +262,7 @@
                     .attr("x2", 0);
 
                 function sliderFunction(x) {
-                    if (x!==0) {
+                    if (x!==datasetChosen.count_lower) {
                         handle.attr("cx", scale2.invertExtent(x)[1]);
                         progress.attr("x2", scale2.invertExtent(x)[1]);
                     } else {
@@ -871,12 +878,11 @@
 
                 function updateSimulation(x) {
 
-                    pathg.selectAll("path").remove();
+//                    pathg.selectAll("path").remove();
 
-                    if ($("#nextQnOption").is(":checked")) {
-                        $("#forceOption").prop("checked", true);
-                        $("#link2g").hide();
-                    }
+//                    if ($("#nextQnOption").is(":checked")) {
+//                        $("#link2g").hide();
+//                    }
 
                     d3.json("vizData//"+datasetChosen.text+"_"+algoChosen+"//forceLayout_" + String(x) + ".json", function (error, graph) {
                         if (error) throw error;
