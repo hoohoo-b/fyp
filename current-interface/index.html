@@ -261,14 +261,11 @@
                     .attr("x1", 0)
                     .attr("x2", 0);
 
+                sliderFunction(datasetChosen.count_lower);
+
                 function sliderFunction(x) {
-                    if (x!==datasetChosen.count_lower) {
                         handle.attr("cx", scale2.invertExtent(x)[1]);
                         progress.attr("x2", scale2.invertExtent(x)[1]);
-                    } else {
-                        handle.attr("cx", scale2.invertExtent(x)[0]);
-                        progress.attr("x2", scale2.invertExtent(x)[0]);
-                    }
                     d3.select("#answer-count")
                         .attr("value", (x));
                 }
@@ -851,7 +848,6 @@
                     link2.on('mouseenter', eval("mouseenter_nextqn_"+datasetChosen.text))
                         .on('mouseleave', mouseleave2);
 
-
                     $("#clusterDisplayOption").change(function() {
                         $("#nextQnOption").prop("checked", false)
                             .trigger("change");
@@ -862,7 +858,6 @@
                         }
                     });
 
-
                     $("#nextQnOption").change(function() {
                         if (this.checked) {
                             $("#link2g").show();
@@ -872,7 +867,6 @@
                             resumeSimulation(graph);
                         }
                     });
-
 
                 });
 
@@ -903,7 +897,6 @@
                             .attr("stroke-width", function (d) { return scale(d.value); });
                         link.exit().remove();
 
-
                         link2 = link2g.selectAll("line")
                             .data(graph.link2s);
                         link2.attr("stroke-width", function (d) { return scale(d.value); })
@@ -924,6 +917,9 @@
                             .text(function (d) { return d.id; });
 
                         link.append("title")
+                            .text(function(d) { return d.value; });
+
+                        link2.append("title")
                             .text(function(d) { return d.value; });
 
                         fnode.on('mouseenter', eval("mouseenter_"+datasetChosen.text))
@@ -961,7 +957,7 @@
 
                     });
 
-                    d3.text("tableData//uncertain//uncertain_graph_" + String(x) + ".csv", function (error, data) {
+                    d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//uncertain//uncertain_graph_" + String(x) + ".csv", function (error, data) {
                         if (error) throw error;
 
                         var parsedRows = d3.csvParseRows(data);
@@ -995,7 +991,7 @@
                         gt.exit().remove();
                     });
 
-                    d3.text("tableData//cluster//cluster_list_" + String(x) + ".tsv", function (error, data) {
+                    d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//cluster//cluster_list_" + String(x) + ".tsv", function (error, data) {
                         if (error) throw error;
 
                         var parsedRows = d3.tsvParseRows(data);
@@ -1029,7 +1025,7 @@
                         gt2.exit().remove();
                     });
 
-                    d3.text("tableData//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
+                    d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
                         if (error) throw error;
 
                         var parsedRows = d3.csvParseRows(data);
@@ -1097,7 +1093,7 @@
                                 graphTable.append('thead');
                                 graphTable.append('tbody');
 
-                                d3.text("tableData//uncertain//uncertain_graph_1800.csv", function(error, data) {
+                                d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//uncertain//uncertain_graph_1800.csv", function(error, data) {
                                     if (error) throw error;
 
                                     var parsedRows = d3.csvParseRows(data);
@@ -1141,7 +1137,7 @@
                                 graphTable2.append("thead");
                                 graphTable2.append("tbody");
 
-                                d3.text("tableData//cluster//cluster_list_1800.tsv", function(error, data) {
+                                d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//cluster//cluster_list_1800.tsv", function(error, data) {
                                     if (error) throw error;
 
                                     var parsedRows = d3.tsvParseRows(data);
@@ -1190,7 +1186,7 @@
                                 graphTable3.append("thead");
                                 graphTable3.append("tbody");
 
-                                d3.text("tableData//nextQn//next_qn_1800.csv", function(error, data) {
+                                d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//nextQn//next_qn_1800.csv", function(error, data) {
                                     if (error) throw error;
 
                                     var parsedRows = d3.csvParseRows(data);

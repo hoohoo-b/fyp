@@ -129,11 +129,11 @@ def SCC(data):
 
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
-    filename_1='data_landmark3'
+    filename_1='data_landmark_cleaned'
     filename_2='gold_landmark'
 #    num = raw_input('Pls enter the num of records wanted:')
 
-    for num in range (4370,34444,340):
+    for num in range (8110, 8111, 340):
     
         f = open('./'+filename_1+'.csv', 'r')
         data = []
@@ -166,8 +166,13 @@ if __name__ == "__main__":
                 GTAdict[key].append(int(data2[i][1+j]))
     
         next_data = []
-        for i in range(100): #PROBLEM HERE
+        for i in range(100): 
             next_data.append(data[i+int(num)])
+            
+        temp_data = []
+        for i in range(int(num)):
+        	# print i
+        	temp_data.append(data[i])
                 
         cluster_list,time_cost=SCC(temp_data)
         for i in cluster_list:

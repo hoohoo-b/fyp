@@ -128,10 +128,10 @@ def SCC(data):
 
 if __name__ == "__main__":
     # filename_1 = raw_input('Please enter the standard crowd answer input filename:')
-    filename_1='data_allSports_PERC'
+    filename_1='data_landmark_cleaned'
 #    num = raw_input('Pls enter the num of records wanted:')
 
-    num = 4373
+    num = 22050
     f = open('./'+filename_1+'.csv', 'r')
     data = []
     max_num = 0

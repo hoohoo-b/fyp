@@ -25,21 +25,12 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="239" column="88" lean-forward="false" selection-start-line="239" selection-start-column="88" selection-end-line="239" selection-end-column="88" />
+            <state relative-caret-position="15">
+              <caret line="301" column="99" lean-forward="false" selection-start-line="301" selection-start-column="96" selection-end-line="301" selection-end-column="99" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#svg#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#15516#16210#0" expanded="false" />
-                <element signature="e#16260#16930#0" expanded="false" />
-                <element signature="e#16970#17095#0" expanded="false" />
-                <element signature="e#17151#18663#0" expanded="false" />
-                <element signature="e#18718#20182#0" expanded="false" />
-                <element signature="e#20240#21725#0" expanded="false" />
-                <element signature="e#21782#23219#0" expanded="false" />
-                <element signature="e#23260#23577#0" expanded="false" />
-                <marker date="1507172403000" expanded="true" signature="49034:49043" ph="..." />
+                <marker date="1507945673000" expanded="true" signature="49189:49198" ph="..." />
               </folding>
             </state>
           </provider>
@@ -56,24 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>#pathg</find>
-      <find>tableData</find>
-      <find>dYWTEOption</find>
-      <find>pathg</find>
-      <find>linkg</find>
-      <find>PLAY-BUTTON</find>
-      <find>val</find>
-      <find>play-button</find>
-      <find>.hull</find>
-      <find>hull</find>
-      <find>track</find>
-      <find>10cm</find>
-      <find>forceLayout</find>
-      <find>answer-count</find>
-      <find>20001</find>
-      <find>dense</find>
-      <find>4370</find>
-      <find>dataset.allSports</find>
       <find>algorithm.perc</find>
       <find>play</find>
       <find>change</find>
@@ -82,10 +55,28 @@
       <find>mouseenter</find>
       <find>d.url</find>
       <find>mouseenter_link</find>
-      <find>link2</find>
       <find>forceop</find>
       <find>1800</find>
       <find>count_lower</find>
+      <find>link2</find>
+      <find>nextqnoption</find>
+      <find>link2g</find>
+      <find>link2g&quot;).hide()</find>
+      <find>updatesim</find>
+      <find>link2s</find>
+      <find>resumesi</find>
+      <find>displaynex</find>
+      <find>nextqncount</find>
+      <find>displaynextqn</find>
+      <find>lower</find>
+      <find>links</find>
+      <find>link</find>
+      <find>link.</find>
+      <find>algochos</find>
+      <find>table</find>
+      <find>All</find>
+      <find>options</find>
+      <find>qncountop</find>
     </findStrings>
     <replaceStrings>
       <replace>svg2</replace>
@@ -114,6 +105,7 @@
       <replace>1800</replace>
       <replace>datasetChosen</replace>
       <replace>algoChosen</replace>
+      <replace>qnCountOpt</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -198,8 +190,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -226,6 +216,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -469,12 +461,15 @@
       <workItem from="1506562610138" duration="1291000" />
       <workItem from="1506571317982" duration="7509000" />
       <workItem from="1507127715133" duration="3096000" />
-      <workItem from="1507171205937" duration="1100000" />
+      <workItem from="1507171205937" duration="2470000" />
+      <workItem from="1507255360468" duration="1989000" />
+      <workItem from="1507267370730" duration="1145000" />
+      <workItem from="1507944365164" duration="1148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="324905000" />
+    <option name="totallyTimeSpent" value="330557000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -489,7 +484,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21015625" sideWeight="0.495" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21015625" sideWeight="0.495" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -868,21 +863,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="239" column="88" lean-forward="false" selection-start-line="239" selection-start-column="88" selection-end-line="239" selection-end-column="88" />
+        <state relative-caret-position="15">
+          <caret line="301" column="99" lean-forward="false" selection-start-line="301" selection-start-column="96" selection-end-line="301" selection-end-column="99" />
           <folding>
             <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#svg#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#15516#16210#0" expanded="false" />
-            <element signature="e#16260#16930#0" expanded="false" />
-            <element signature="e#16970#17095#0" expanded="false" />
-            <element signature="e#17151#18663#0" expanded="false" />
-            <element signature="e#18718#20182#0" expanded="false" />
-            <element signature="e#20240#21725#0" expanded="false" />
-            <element signature="e#21782#23219#0" expanded="false" />
-            <element signature="e#23260#23577#0" expanded="false" />
-            <marker date="1507172403000" expanded="true" signature="49034:49043" ph="..." />
+            <marker date="1507945673000" expanded="true" signature="49189:49198" ph="..." />
           </folding>
         </state>
       </provider>
