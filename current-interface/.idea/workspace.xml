@@ -25,12 +25,12 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="301" column="99" lean-forward="false" selection-start-line="301" selection-start-column="96" selection-end-line="301" selection-end-column="99" />
+            <state relative-caret-position="242">
+              <caret line="735" column="39" lean-forward="false" selection-start-line="735" selection-start-column="39" selection-end-line="735" selection-end-column="39" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#svg#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1507945673000" expanded="true" signature="49189:49198" ph="..." />
+                <marker date="1507945879000" expanded="true" signature="49130:49139" ph="..." />
               </folding>
             </state>
           </provider>
@@ -464,12 +464,12 @@
       <workItem from="1507171205937" duration="2470000" />
       <workItem from="1507255360468" duration="1989000" />
       <workItem from="1507267370730" duration="1145000" />
-      <workItem from="1507944365164" duration="1148000" />
+      <workItem from="1507944365164" duration="1345000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330557000" />
+    <option name="totallyTimeSpent" value="330754000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -863,12 +863,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="301" column="99" lean-forward="false" selection-start-line="301" selection-start-column="96" selection-end-line="301" selection-end-column="99" />
+        <state relative-caret-position="242">
+          <caret line="735" column="39" lean-forward="false" selection-start-line="735" selection-start-column="39" selection-end-line="735" selection-end-column="39" />
           <folding>
             <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#svg#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1507945673000" expanded="true" signature="49189:49198" ph="..." />
+            <marker date="1507945879000" expanded="true" signature="49130:49139" ph="..." />
           </folding>
         </state>
       </provider>

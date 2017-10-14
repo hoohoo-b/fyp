@@ -48,7 +48,7 @@
             font-size: 13px;
         }
 
-        #form-simulation-options{
+        #form-simulation-qnCountOpt{
             margin-top: -3px;
             margin-left: 48px;
         }
@@ -278,8 +278,8 @@
             </script>
         </div>
 
-        <div class="col-sm-3 text-left" id="simulation-options">
-            <form id="form-simulation-options">
+        <div class="col-sm-3 text-left" id="simulation-qnCountOpt">
+            <form id="form-simulation-qnCountOpt">
                 <div class="checkbox">
                     <label><input type="checkbox" name="displayCheckbox" id="groupDisplayOption" value="">Group Display</label>
                 </div>
@@ -290,16 +290,16 @@
                     <label><input type="checkbox" name="displayCheckbox" id="nextQnOption" value=""><p id="next-crowd-text">Next Crowd Questions</p>
                         <div class="btn-group-xs" id="btnGroup" data-toggle="buttons">
                             <label class="nqlabel btn btn-success active">
-                                <input type="radio" name="options" id="option5" value="5" checked> 5
+                                <input type="radio" name="qnCountOpt" id="option5" value="5" checked> 5
                             </label>
                             <label class="nqlabel btn btn-success">
-                                <input type="radio" name="options" id="option10" value="10"> 10
+                                <input type="radio" name="qnCountOpt" id="option10" value="10"> 10
                             </label>
                             <label class="nqlabel btn btn-success">
-                                <input type="radio" name="options" id="option15" value="15"> 15
+                                <input type="radio" name="qnCountOpt" id="option15" value="15"> 15
                             </label>
                             <label class="nqlabel btn btn-success">
-                                <input type="radio" name="options" id="optionAll" value="1000"> All
+                                <input type="radio" name="qnCountOpt" id="optionAll" value="1000"> 100
                             </label>
                         </div>
                     </label>
@@ -721,7 +721,7 @@
 
                 function disableNextQn(value) {
 
-                    $("input[name=options]").prop("disabled", value);
+                    $("input[name=qnCountOpt]").prop("disabled", value);
                     $("#nextQnOption").prop("disabled", value);
                     if (value) {
                         $(".nqlabel").addClass("disabled");
@@ -735,18 +735,10 @@
                     $("#link2g").hide();
                     $("#pathg").hide();
 
-                    $("#groupDisplayOption").change(function() {
-                        if (this.checked) {
-                            $("#pathg").show();
-                        } else {
-                            $("#pathg").hide();
-                        }
-                    });
-
-                    $("input[name=options]").change(function() {
+                    $("input[name=qnCountOpt]").change(function() {
                         if (!$("#nextQnOption").prop("disabled")) {
 
-                            nextQnCount = $("input[name=options]:checked").attr("value");
+                            nextQnCount = $("input[name=qnCountOpt]:checked").attr("value");
                             $("#nextQnOption").prop("checked", true)
                                 .trigger("change");
                         }
@@ -852,8 +844,10 @@
                         $("#nextQnOption").prop("checked", false)
                             .trigger("change");
                         if (this.checked) {
+                            $("#pathg").show();
                             cluster(graph);
                         } else {
+                            $("#pathg").hide();
                             uncluster(graph);
                         }
                     });
@@ -938,8 +932,10 @@
                             $("#nextQnOption").prop("checked", false)
                                 .trigger("change");
                             if (this.checked) {
+                                $("#pathg").show();
                                 cluster(graph);
                             } else {
+                                $("#pathg").hide();
                                 uncluster(graph);
                             }
                         });
