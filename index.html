@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="js/bootstrap.min.css"> <!-- REMEMBER to change to CDN web version after you're done with the entire project! -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 600px}
+
+        #top-row{height: 60px}
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        #play-button{
+            margin-top: 8px;
+        }
+
+        #pause-button{
+            margin-bottom: 8px;
+        }
+
+        #bar{
+            margin-top: 25px;
+            margin-left: -12px;
+            margin-right: -60px;
+            height: 35px;
+        }
+
+        #text-in-bar{
+            margin-top: 7px;
+            font-size: 13px;
+        }
+
+        #form-simulation-qnCountOpt{
+            margin-top: -3px;
+            margin-left: 48px;
+        }
+
+        .graph-table{
+            height: 9cm;
+            overflow: scroll;
+        }
+
+        #next-crowd-text {
+            margin-bottom: 5px;
+        }
+
+        #link-prob-div {
+            padding-left: 80px;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+
+        #answer-count {
+            border: none;
+            display: inline;
+            font-family: inherit;
+            font-size: inherit;
+            padding: unset;
+            width: auto;
+        }
+
+        .glyphicon-ok {
+            font-size: 0.8em;
+            padding-right: 0.5em;
+            padding-bottom: 0.6em;
+        }
+
+        #simulation-qnCountOpt {
+            /*margin-top: 3px;*/
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-right">
+            <a class="navbar-brand" href="#">PERC Crowdsourcing Entity Resolution Platform</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown active" id="dropdown1">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="target-dataset-text">AllSports
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" value="allSports">
+                        <span class="glyphicon glyphicon-ok" id="opt1"></span>AllSports</a></li>
+                    <!--<li><a href="#" value="landmark">
+                        <span class="glyphicon glyphicon-ok"></span>Landmark</a></li>-->
+                </ul>
+            </li>
+            <li class="dropdown" id="dropdown2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="algorithm-text">PERC
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" value="perc" selected>
+                        <span class="glyphicon glyphicon-ok" id="opt2" aria-label="play"></span>PERC</a></li>
+                    <li><a href="#" value="dense">
+                        <span class="glyphicon glyphicon-ok" aria-label="play"></span>bDense</a></li>
+                    <!--<li><a href="#" value="minmax">
+                        <span class="glyphicon glyphicon-ok" aria-label="play"></span>MinMax</a></li>-->
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid text-center">
+
+    <div class="row" id="top-row">
+        <div class="col-sm-3 text-center" id="link-probability-textarea">
+            <h5>Link Probability:</h5>
+            <h1 id="linkProbText"></h1>
+        </div>
+
+        <div class="col-sm-1 text-center" id="play-pause-btn">
+            <button type="button" class="btn btn-success btn-block" id="play-button">
+                <span class="glyphicon glyphicon-play" aria-label="play"></span>
+            </button>
+            <button type="button" class="btn btn-success btn-block" id="pause-button">
+                <span class="glyphicon glyphicon-pause" aria-label="pause"></span>
+            </button>
+        </div>
+
+        <div class="col-sm-5 text-center" id="progress">
+            <input id="answer-count" style="margin-top: 8px; margin-bottom: -16px; margin-left: 100px"></input>
+            <svg id="svg3" width="500" height="30"></svg>
+            <script>
+                var arr, scale2;
+                var simulationRun;
+                var algorithm = { perc: "PERC", dense: "DENSE" };
+                var dataset = {
+                    allSports: {
+                        count_lower: 1800,
+                        count_upper: 17600,
+                        inc: 200,
+                        text: "allSports"
+                    },
+                    landmark: {
+                        count_lower: 4370,
+                        count_upper: 34290,
+                        inc: 340,
+                        text: "landmark"
+                    }
+                };
+
+                var datasetChosen = dataset.allSports , algoChosen = algorithm.perc;
+
+                $(".glyphicon-ok").css("visibility", "hidden");
+                $("#opt1").css("visibility", "visible");
+                $("#opt2").css("visibility", "visible");
+
+                $("#dropdown1 li a").click(function() {
+                    var d = $(this).attr("value");
+                    datasetChosen = eval("dataset."+d);
+                    $(this).parent().siblings("li").find(".glyphicon-ok").css("visibility", "hidden");
+                    $(this).find(".glyphicon-ok").css("visibility", "visible");
+                    $("#target-dataset-text").html($(this).text() + " <span class=\"caret\"></span>");
+                    d3.select("#answer-count").attr("value", datasetChosen.count_lower);
+                    updateSimulation(datasetChosen.count_lower);
+                    arr = [];
+                    for (var i =datasetChosen.count_lower; i<=datasetChosen.count_upper; i+=datasetChosen.inc) arr.push(i);
+                    scale2 = d3.scaleQuantize()
+                        .domain([datasetChosen.count_lower/datasetChosen.count_upper * width, width])
+                        .range(arr);
+                    sliderFunction(datasetChosen.count_lower);
+
+                });
+
+                $("#dropdown2 li a").click(function() {
+                    var d = $(this).attr("value");
+                    algoChosen = eval("algorithm."+d);
+                    $(this).parent().siblings("li").find(".glyphicon-ok").css("visibility", "hidden");
+                    $(this).find(".glyphicon-ok").css("visibility", "visible");
+                    $("#algorithm-text").html($(this).text() + " <span class=\"caret\"></span>");
+                    updateSimulation(d3.select("#answer-count").attr("value"));
+                });
+
+                d3.select("#answer-count").attr("value", datasetChosen.count_lower);
+                d3.select("#play-button").on("click", function() {
+                    removeNextQn();
+                    disableNextQn(true);
+                    disablePlayBtn(true);
+
+                    var count = parseInt(d3.select("#answer-count").attr("value"));
+                    simulationRun = setInterval(function() {
+                        count += datasetChosen.inc;
+                        if (count>datasetChosen.count_upper-200) clearInterval(simulationRun);
+                        d3.select("#answer-count")
+                            .attr("value", count);
+                        updateSimulation(count);
+                        sliderFunction(count);
+                    }, 800);
+                });
+                d3.select("#pause-button").on("click", function() {
+                    clearInterval(simulationRun);
+                    disableNextQn(false);
+                    disablePlayBtn(false);
+
+                });
+
+                arr = [];
+                for (var i =datasetChosen.count_lower; i<=datasetChosen.count_upper; i+=datasetChosen.inc) arr.push(i);
+                var margin = { top: 0, right: 10, bottom: 0, left: 10 };
+                var svg3 = d3.select("#svg3"),
+                    width = +svg3.attr("width") - margin.left - margin.right,
+                    height = +svg3.attr("height");
+                var slider = svg3.append("g")
+                    .attr("class", "slider")
+                    .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
+
+                scale2 = d3.scaleQuantize()
+                    .domain([datasetChosen.count_lower/datasetChosen.count_upper * width, width])
+                    .range(arr);
+
+                slider.append("line")
+                    .attr("class", "track")
+                    .attr("x1", 0)
+                    .attr("x2", width)
+                    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+                    .attr("class", "track-inset")
+                    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+                    .attr("class", "track-overlay")
+                    .call(d3.drag()
+                        .on("drag", function() { sliderFunction(scale2(d3.event.x)); clearInterval(simulationRun); disableNextQn(false);})
+                        .on("end", function() { sliderFunction(scale2(d3.event.x)); sliderFunction2(scale2(d3.event.x)); }));
+
+                var handle = slider.insert("circle", ".track-overlay")
+                    .attr("class", "handle")
+                    .attr("r", 9);
+
+                var progress = slider.insert("line", "circle")
+                    .attr("class", "progress-bar")
+                    .attr("x1", 0)
+                    .attr("x2", 0);
+
+                sliderFunction(datasetChosen.count_lower);
+
+                function sliderFunction(x) {
+                    handle.attr("cx", scale2.invertExtent(x)[1]);
+                    progress.attr("x2", scale2.invertExtent(x)[1]);
+                    d3.select("#answer-count")
+                        .attr("value", (x));
+                }
+
+                function sliderFunction2(x) {
+                    removeNextQn();
+                    clearInterval(simulationRun);
+                    updateSimulation(x);
+                }
+            </script>
+        </div>
+
+        <div class="col-sm-3 text-left" id="simulation-qnCountOpt">
+            <form id="form-simulation-qnCountOpt">
+                <div class="checkbox">
+                    <label><input type="checkbox" name="displayCheckbox" id="clusterDisplayOption" value="" >Cluster Display</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" name="displayCheckbox" id="nextQnOption" value=""><p id="next-crowd-text">Next Crowd Questions</p>
+                        <div class="btn-group-xs" id="btnGroup" data-toggle="buttons">
+                            <label class="nqlabel btn btn-success active">
+                                <input type="radio" name="qnCountOpt" id="option5" value="5" checked> 5
+                            </label>
+                            <label class="nqlabel btn btn-success">
+                                <input type="radio" name="qnCountOpt" id="option10" value="10"> 10
+                            </label>
+                            <label class="nqlabel btn btn-success">
+                                <input type="radio" name="qnCountOpt" id="option15" value="15"> 15
+                            </label>
+                            <label class="nqlabel btn btn-success">
+                                <input type="radio" name="qnCountOpt" id="optionAll" value="100"> 100
+                            </label>
+                        </div>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row row-eq-height" id="main-body">
+        <div class="col-sm-3 text-center" id="photo-panel">
+            <div class="panel panel-success">
+                <div class="panel-body">
+                    <svg width="247" height="540">
+                        <g id="photo1"></g>
+                        <g id="photo2" transform="translate(0, 265)"></g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6" id="simulation">
+            <style>
+
+                #svg2 {
+                    cursor: crosshair;
+                }
+
+                .link2s line {
+                    stroke: #f00;
+                    stroke-opacity: 0.4;
+
+                }
+
+                .links line {
+                    stroke: #999;
+                    stroke-opacity: 0.8;
+
+                }
+
+                .fnodes circle {
+                    stroke: #fff;
+                    stroke-width: 0.8px;
+                    fill-opacity: 1;
+                }
+
+                .hull {
+                    fill: none;
+                    stroke: green;
+                    fill-opacity: 0.3;
+                    stroke-opacity: 0.3;
+                    stroke-width: 20px;
+                    stroke-linejoin: round;
+                }
+
+
+                .ticks {
+                    font: 10px sans-serif;
+                }
+
+                .track,
+                .track-inset,
+                .track-overlay,
+                .progress-bar {
+                    stroke-linecap: round;
+                }
+
+                .track {
+                    stroke: #000;
+                    stroke-opacity: 0.3;
+                    stroke-width: 3px;
+                }
+
+                .track-inset {
+                    stroke: #ddd;
+                    stroke-width: 18px;
+                }
+
+                .track-overlay {
+                    pointer-events: stroke;
+                    stroke-width: 50px;
+                    stroke: transparent;
+                    cursor: crosshair;
+                }
+
+                .handle {
+                    fill: #fff;
+                    stroke: #000;
+                    stroke-opacity: 0.5;
+                    stroke-width: 1.25px;
+                }
+
+                .progress-bar {
+                    stroke: #5bc0de;
+                    stroke-width: 18px;
+                }
+
+            </style>
+            <svg id="svg2" width="600" height="600" style="margin-left: -5px"></svg>
+
+            <script>
+
+                function mouseenter_allSports(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.truth)
+                        .attr('id', 'imgText')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 11);
+                }
+
+                function mouseenter_landmark(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', d.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.truth)
+                        .attr('id', 'imgText')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                }
+
+                function mouseleave() {
+                    d3.select('#zoomImage').remove();
+                    d3.select('#imgText').remove();
+                }
+
+                function mouseenter_link_allSports(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 11);
+
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text((d.value*100).toString() + "%");
+                }
+
+                function mouseenter_link_landmark(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', d.source.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', d.target.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text((d.value*100).toString() + "%");
+                }
+
+                function mouseenter_nextqn_allSports(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text("?");
+                }
+
+                function mouseenter_nextqn_landmark(d) {
+                    d3.select("#photo1")
+                        .append('image')
+                        .attr('id', 'zoomImage')
+                        .attr('xlink:href', d.source.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo1")
+                        .append('text')
+                        .text(d.source.truth)
+                        .attr('id', 'imgText1')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 10);
+                    d3.select("#photo2")
+                        .append('image')
+                        .attr('id', 'zoomImage2')
+                        .attr('xlink:href', d.target.url)
+                        .attr("x", 0)
+                        .attr("y", 20)
+                        .attr('width', 247)
+                        .attr('height', 247);
+
+                    d3.select("#photo2")
+                        .append('text')
+                        .text(d.target.truth)
+                        .attr('id', 'imgText2')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', 123)
+                        .attr('y', 18);
+                    d3.select("#linkProbText")
+                        .text("?");
+                }
+
+                function mouseleave2() {
+                    d3.select('#zoomImage').remove();
+                    d3.select('#imgText1').remove();
+                    d3.select('#zoomImage2').remove();
+                    d3.select('#imgText2').remove();
+
+                    d3.select("#linkProbText")
+                        .text("");
+                }
+
+                function ticked() {
+
+                    link = linkg.selectAll("line");
+                    fnode = fnodeg.selectAll("circle");
+
+                    link
+                        .attr("x1", function (d) {
+                            return d.source.x;
+                        })
+                        .attr("y1", function (d) {
+                            return d.source.y;
+                        })
+                        .attr("x2", function (d) {
+                            return d.target.x;
+                        })
+                        .attr("y2", function (d) {
+                            return d.target.y;
+                        });
+
+                    fnode
+                        .attr("cx", function (d) {
+                            return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                        })
+                        .attr("cy", function (d) {
+                            return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                        })
+                        .attr("r", radius);
+
+
+                    pathg.selectAll("path")
+                        .data(groups)
+                        .attr("d", groupPath)
+                        .enter()
+                        .insert("path", "line")
+                        .attr("class", "hull")
+                        .attr("d", groupPath);
+
+                }
+
+                function uncluster(graph) {
+
+                    simulation
+                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                        .force("center", d3.forceCenter(w / 2, h / 2))
+                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    simulation.alpha(0.05).restart();
+
+                }
+
+                function cluster(graph) {
+
+                    simulation
+                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(10).strength(1))
+                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                        .force("center", d3.forceCenter(w / 2, h / 2))
+                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    simulation.alpha(0.1).restart();
+
+                }
+
+                function displayNextQn(graph) {
+                    simulation.stop();
+
+                    simulation.force("link")
+                        .links(graph.link2s);
+
+                    link2
+                        .style("visibility", function (d, i) {
+                            return (i <= nextQnCount ? "visible" : "hidden");
+                        })
+                        .attr("x1", function (d) {
+                            return Math.max(radius, Math.min(w - radius, d.source.x));
+                        })
+                        .attr("y1", function (d) {
+                            return Math.max(radius, Math.min(h - radius, d.source.y));
+                        })
+                        .attr("x2", function (d) {
+                            return Math.max(radius, Math.min(w - radius, d.target.x));
+                        })
+                        .attr("y2", function (d) {
+                            return Math.max(radius, Math.min(h - radius, d.target.y));
+                        });
+
+                }
+
+                function resumeSimulation(graph) {
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    simulation.alpha(0.1).restart();
+
+                }
+
+                function removeNextQn() {
+                    $("#nextQnOption").prop("checked", false);
+                    $("#link2g").hide();
+                }
+
+                function disableNextQn(value) {
+
+                    $("input[name=qnCountOpt]").prop("disabled", value);
+                    $("#nextQnOption").prop("disabled", value);
+                    if (value) {
+                        $(".nqlabel").addClass("disabled");
+                    } else {
+                        $(".nqlabel").removeClass("disabled");
+                    }
+                }
+                function disablePlayBtn(value) {
+
+                    $("#play-button").prop("disabled", value);
+                }
+
+                $(document).ready(function() {
+
+                    $("#link2g").hide();
+                    $("#pathg").hide();
+
+                    $("input[name=qnCountOpt]").change(function() {
+                        if (!$("#nextQnOption").prop("disabled")) {
+
+                            nextQnCount = $("input[name=qnCountOpt]:checked").attr("value");
+                            $("#nextQnOption").prop("checked", true)
+                                .trigger("change");
+                        }
+                    });
+                });
+
+                var nextQnCount = 5;
+                var radius = 5.5;
+                var color = d3.scaleOrdinal(d3.schemeCategory20b);
+                var scale = d3.scaleLinear()
+                    .domain([0.5, 1])
+                    .range([1.8, 3.8]);
+                var svg2 = d3.select("#svg2");
+                var w = +svg2.attr("width"),
+                    h = +svg2.attr("height");
+                var simulation, link, link2, fnode, poly;
+                var groupPath = function(d) {
+                    if (d.values.length === 2) {
+                        var arr = d.values.map(function(i) {
+                            return [i.x, i.y];
+                        });
+                        arr.push([arr[0][0], arr[0][1]]);
+                        return "M" + d3.polygonHull(arr).join("L") + "Z";
+                    } else {
+                        poly = d3.polygonHull(d.values.map(function(i) { return [i.x, i.y]; }));
+                        if (poly){
+                            return "M" + poly.join("L") + "Z";
+                        }
+                    }
+                };
+
+                var pathg = svg2.append("g")
+                    .attr("class", "hull")
+                    .attr("id", "pathg");
+
+                var fnodeg = svg2.append("g")
+                    .attr("class", "fnodes");
+
+                var linkg = svg2.append("g")
+                    .attr("class", "links")
+                    .attr("id", "linkg");
+
+                var link2g = svg2.append("g")
+                    .attr("class", "link2s")
+                    .attr("id", "link2g");
+
+                simulation = d3.forceSimulation()
+                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
+                    .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
+                    .force("center", d3.forceCenter(w / 2, h / 2))
+                    .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                d3.json("vizData//"+datasetChosen.text+"_"+algoChosen+"//forceLayout_"+datasetChosen.count_lower+".json", function(error, graph) {
+                    if (error) throw error;
+
+                    fnode = fnodeg.selectAll("circle")
+                        .data(graph.nodes)
+                        .enter().append("circle")
+                        .attr("r", radius)
+                        .attr("fill", function (d) {
+                            return color(d.truth);
+                        });
+
+                    link = linkg.selectAll("line")
+                        .data(graph.links)
+                        .enter().append("line")
+                        .attr("stroke-width", function (d) { return scale(d.value); });
+
+                    link2 = link2g.selectAll("line")
+                        .data(graph.link2s)
+                        .enter().append("line")
+                        .attr("stroke-width", function (d) {
+                            return scale(d.value);
+                        });
+
+                    groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    fnode.append("title")
+                        .text(function (d) { return d.id; });
+
+                    link.append("title")
+                        .text(function(d) { return d.value; });
+
+                    link2.append("title")
+                        .text(function(d) { return d.value; });
+
+                    fnode.on('mouseenter', eval("mouseenter_"+datasetChosen.text))
+                        .on('mouseleave', mouseleave);
+
+                    link.on('mouseenter', eval("mouseenter_link_"+datasetChosen.text))
+                        .on('mouseleave', mouseleave2);
+
+                    link2.on('mouseenter', eval("mouseenter_nextqn_"+datasetChosen.text))
+                        .on('mouseleave', mouseleave2);
+
+                    $("#clusterDisplayOption").change(function() {
+                        $("#nextQnOption").prop("checked", false)
+                            .trigger("change");
+                        if (this.checked) {
+                            $("#pathg").show();
+                            cluster(graph);
+                        } else {
+                            $("#pathg").hide();
+                            uncluster(graph);
+                        }
+                    });
+
+                    $("#nextQnOption").change(function() {
+                        if (this.checked) {
+                            $("#link2g").show();
+                            displayNextQn(graph);
+                        } else {
+                            removeNextQn();
+                            resumeSimulation(graph);
+                        }
+                    });
+
+                });
+
+                function updateSimulation(x) {
+
+//                    pathg.selectAll("path").remove();
+
+//                    if ($("#nextQnOption").is(":checked")) {
+//                        $("#link2g").hide();
+//                    }
+
+                    d3.json("vizData//"+datasetChosen.text+"_"+algoChosen+"//forceLayout_" + String(x) + ".json", function (error, graph) {
+                        if (error) throw error;
+
+                        fnode = fnodeg.selectAll("circle")
+                            .data(graph.nodes);
+                        fnode.attr("r", radius)
+                            .attr("fill", function(d) { return color(d.truth); });
+                        fnode.enter().append("circle")
+                            .attr("r", radius)
+                            .attr("fill", function(d) { return color(d.truth); });
+                        fnode.exit().remove();
+
+                        link = linkg.selectAll("line")
+                            .data(graph.links);
+                        link.attr("stroke-width", function (d) { return scale(d.value); });
+                        link.enter().append("line")
+                            .attr("stroke-width", function (d) { return scale(d.value); });
+                        link.exit().remove();
+
+                        link2 = link2g.selectAll("line")
+                            .data(graph.link2s);
+                        link2.attr("stroke-width", function (d) { return scale(d.value); })
+                            .enter().append("line")
+                            .attr("stroke-width", function (d) { return scale(d.value); });
+                        link2.exit().remove();
+
+                        groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
+
+                        simulation
+                            .nodes(graph.nodes)
+                            .on("tick", ticked);
+
+                        simulation.force("link")
+                            .links(graph.links);
+
+                        fnode.append("title")
+                            .text(function (d) { return d.id; });
+
+                        link.append("title")
+                            .text(function(d) { return d.value; });
+
+                        link2.append("title")
+                            .text(function(d) { return d.value; });
+
+                        fnode.on('mouseenter', eval("mouseenter_"+datasetChosen.text))
+                            .on('mouseleave', mouseleave);
+
+                        link.on('mouseenter', eval("mouseenter_link_"+datasetChosen.text))
+                            .on('mouseleave', mouseleave2);
+
+                        link2.on('mouseenter', eval("mouseenter_nextqn_"+datasetChosen.text))
+                            .on('mouseleave', mouseleave2);
+
+                        simulation.alpha(1).restart();
+
+
+                        $("#clusterDisplayOption").change(function() {
+                            $("#nextQnOption").prop("checked", false)
+                                .trigger("change");
+                            if (this.checked) {
+                                $("#pathg").show();
+                                cluster(graph);
+                            } else {
+                                $("#pathg").hide();
+                                uncluster(graph);
+                            }
+                        });
+
+
+                        $("#nextQnOption").change(function() {
+                            if (this.checked) {
+                                $("#link2g").show();
+                                displayNextQn(graph);
+                            } else {
+                                $("#link2g").hide();
+                                resumeSimulation(graph);
+                            }
+                        });
+
+                    });
+
+                    d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//uncertain//uncertain_graph_" + String(x) + ".csv", function (error, data) {
+                        if (error) throw error;
+
+                        var parsedRows = d3.csvParseRows(data);
+                        var gt = graphTable.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                        gt.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt.enter().append("tr")
+                            .selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .enter().append("td")
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .exit().remove();
+
+                        gt.exit().remove();
+                    });
+
+                    d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//cluster//cluster_list_" + String(x) + ".tsv", function (error, data) {
+                        if (error) throw error;
+
+                        var parsedRows = d3.tsvParseRows(data);
+
+                        var gt2 = graphTable2.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                        gt2.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt2.enter().append("tr")
+                            .selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .enter().append("td")
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt2.selectAll("td").data(function (d) {
+                            return d;
+                        })
+                            .exit().remove();
+
+                        gt2.exit().remove();
+                    });
+
+                    d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//nextQn//next_qn_" + String(x) + ".csv", function (error, data) {
+                        if (error) throw error;
+
+                        var parsedRows = d3.csvParseRows(data);
+
+                        var gt3 = graphTable3.select("tbody").selectAll("tr")
+                            .data(parsedRows);
+
+                        gt3.selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt3.enter().append("tr")
+                            .selectAll("td")
+                            .data(function (d) {
+                                return d;
+                            })
+                            .enter().append("td")
+                            .text(function (d) {
+                                return d;
+                            });
+
+                        gt3.selectAll("td").data(function (d) {
+                            return d;
+                        })
+                            .exit().remove();
+
+                        gt3.exit().remove();
+                    });
+                }
+            </script>
+        </div>
+        <div class="col-sm-3 sidenav text-left" id="graph-tables">
+
+
+            <!-- this is the table of uncertain graph -->
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#uncertain-graph-panel">Uncertain Graph</a>
+                        </h4>
+                    </div>
+
+                    <div id="uncertain-graph-panel" class="panel-collapse collapse in">
+                        <div class="panel-body text-center">
+                            <table class="table table-condensed" >
+                                <thead>
+                                <tr>
+                                    <th>Record 1</th>
+                                    <th>Record 2</th>
+                                    <th>Probability</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div id="uncertain-graph-body" class="graph-table text-center"></div>
+                            <script>
+                                var graphTable = d3.select("#uncertain-graph-body")
+                                    .append("table")
+                                    .attr("class", "table table-condensed");
+
+                                graphTable.append('thead');
+                                graphTable.append('tbody');
+
+                                d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//uncertain//uncertain_graph_1800.csv", function(error, data) {
+                                    if (error) throw error;
+
+                                    var parsedRows = d3.csvParseRows(data);
+
+                                    graphTable.select("tbody").selectAll("tr")
+                                        .data(parsedRows)
+                                        .enter().append("tr")
+                                        .selectAll("td")
+                                        .data(function(d) { return d; })
+                                        .enter().append("td")
+                                        .text(function(d) { return d; });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- this is the table of clustering result -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#cluster-graph-panel">Clustering</a>
+                        </h4>
+                    </div>
+                    <div id="cluster-graph-panel" class="panel-collapse collapse">
+                        <div class="panel-body text-center">
+                            <table class="table table-condensed" >
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Cluster</th>
+                                    <th class="text-center">Records</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div id="cluster-graph-body" class="graph-table text-center"></div>
+                            <script>
+                                var graphTable2 = d3.select("#cluster-graph-body")
+                                    .append("table")
+                                    .attr("class", "table table-condensed");
+
+                                graphTable2.append("thead");
+                                graphTable2.append("tbody");
+
+                                d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//cluster//cluster_list_1800.tsv", function(error, data) {
+                                    if (error) throw error;
+
+                                    var parsedRows = d3.tsvParseRows(data);
+
+                                    graphTable2.select("tbody").selectAll("tr")
+                                        .data(parsedRows)
+                                        .enter().append("tr")
+
+                                        .selectAll("td")
+                                        .data(function(d) { return d; })
+                                        .enter().append("td")
+                                        .attr("width", function(d, i) { if (i%2===0) return "40%"; else return "60%"; })
+                                        .text(function(d) { return d; });
+                                });
+
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- this is the table of NQ result -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#next-qn-panel">Next Questions</a>
+                        </h4>
+                    </div>
+                    <div id="next-qn-panel" class="panel-collapse collapse">
+                        <div class="panel-body text-center">
+                            <table class="table table-condensed" >
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Record 1</th>
+                                    <th class="text-center">Record 2</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div id="next-qn-body" class="graph-table text-center"></div>
+
+                            <script>
+                                var graphTable3 = d3.select("#next-qn-body")
+                                    .append("table")
+                                    .attr("class", "table table-condensed");
+
+                                graphTable3.append("thead");
+                                graphTable3.append("tbody");
+
+                                d3.text("tableData//"+datasetChosen.text+"_"+algoChosen+"//nextQn//next_qn_1800.csv", function(error, data) {
+                                    if (error) throw error;
+
+                                    var parsedRows = d3.csvParseRows(data);
+
+                                    graphTable3.select("tbody").selectAll("tr")
+                                        .data(parsedRows)
+                                        .enter().append("tr")
+
+                                        .selectAll("td")
+                                        .data(function(d) { return d; })
+                                        .enter().append("td")
+                                        .text(function(d) { return d; })
+                                });
+
+                            </script>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<footer class="container-fluid text-center">
+    <p>Copyright @ Nanyang Technological University</p>
+</footer>
+
+</body>
+</html>
