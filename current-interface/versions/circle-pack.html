@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>PERC Displayer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -352,7 +352,7 @@
                     });
                 });
 
-                d3.json("vizData//circlePack//clustering_with_1800.json", function(error, data) {
+                d3.json("..//vizData//circlePack//clustering_with_1800.json", function(error, data) {
                     if (error) throw error;
                     root = d3.hierarchy(data)
                             .sum(function (d) {
@@ -403,7 +403,7 @@
                         d3.select(this.parentNode)
                                 .append('image')
                                 .attr('id', 'zoomImage')
-                                .attr('xlink:href', 'AllSports\\' + d.data.name + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.data.name + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 0)
                                 .attr('width', 200)
@@ -416,7 +416,7 @@
 
                 });
 
-                d3.json("vizData//forceLayout//forceLayout_1800.json", function(error, graph) {
+                d3.json("..//vizData//allSports_PERC//forceLayout_1800.json", function(error, graph) {
                     if (error) throw error;
 
                     simulation = d3.forceSimulation()
@@ -467,7 +467,7 @@
                         d3.select(this.parentNode)
                                 .append('image')
                                 .attr('id', 'zoomImage')
-                                .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 0)
                                 .attr('width', 200)
@@ -766,7 +766,7 @@
         progressbar.setAttribute('style', 'width: ' + String(p) + '%');
         textInBar.innerHTML = String(p) + '%';
 
-        d3.json("vizData//circlePack//clustering_with_" + String(a) + ".json", function (error, data) {
+        d3.json("..//vizData//circlePack//clustering_with_" + String(a) + ".json", function (error, data) {
             if (error) throw error;
             root = d3.hierarchy(data)
                 .sum(function (d) {
@@ -824,7 +824,7 @@
                 d3.select(this.parentNode)
                     .append('image')
                     .attr('id', 'zoomImage')
-                    .attr('xlink:href', 'AllSports\\' + d.data.name + '.JPG')
+                    .attr('xlink:href', '..\\AllSports\\' + d.data.name + '.JPG')
                     .attr("x", 0)
                     .attr("y", 0)
                     .attr('width', 200)
@@ -850,7 +850,7 @@
 
         // TODO: Resolve if Python edited output is same as original... What's wrong?!
 
-        d3.json("vizData//forceLayout//forceLayout_" + String(a) + ".json", function (error, graph) {
+        d3.json("..//vizData//allSports_PERC//forceLayout_" + String(a) + ".json", function (error, graph) {
             if (error) throw error;
 
             link = linkg.selectAll("line")
@@ -908,7 +908,7 @@
                 d3.select(this.parentNode)
                     .append('image')
                     .attr('id', 'zoomImage')
-                    .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                    .attr('xlink:href', '..\\AllSports\\' + d.id + '.JPG')
                     .attr("x", 0)
                     .attr("y", 0)
                     .attr('width', 200)

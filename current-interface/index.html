@@ -8,7 +8,6 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/d3.min.js"></script>
-    <script src="js/d3-scale-chromatic.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -54,9 +53,8 @@
         }
 
         .graph-table{
-            height: 9cm;
+            height: 8cm;
             overflow: scroll;
-            margin-top: -22px;
         }
 
         #next-crowd-text {
@@ -98,6 +96,10 @@
             padding-bottom: 0.6em;
         }
 
+        #simulation-qnCountOpt {
+            /*margin-top: 3px;*/
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -114,8 +116,8 @@
                 <ul class="dropdown-menu">
                     <li><a href="#" value="allSports">
                         <span class="glyphicon glyphicon-ok" id="opt1"></span>AllSports</a></li>
-                    <li><a href="#" value="landmark">
-                        <span class="glyphicon glyphicon-ok"></span>Landmark</a></li>
+                    <!--<li><a href="#" value="landmark">
+                        <span class="glyphicon glyphicon-ok"></span>Landmark</a></li>-->
                 </ul>
             </li>
             <li class="dropdown" id="dropdown2">
@@ -126,8 +128,8 @@
                         <span class="glyphicon glyphicon-ok" id="opt2" aria-label="play"></span>PERC</a></li>
                     <li><a href="#" value="dense">
                         <span class="glyphicon glyphicon-ok" aria-label="play"></span>bDense</a></li>
-                    <li><a href="#" value="minmax">
-                        <span class="glyphicon glyphicon-ok" aria-label="play"></span>MinMax</a></li>
+                    <!--<li><a href="#" value="minmax">
+                        <span class="glyphicon glyphicon-ok" aria-label="play"></span>MinMax</a></li>-->
                 </ul>
             </li>
         </ul>
@@ -209,6 +211,7 @@
                 d3.select("#play-button").on("click", function() {
                     removeNextQn();
                     disableNextQn(true);
+                    disablePlayBtn(true);
 
                     var count = parseInt(d3.select("#answer-count").attr("value"));
                     simulationRun = setInterval(function() {
@@ -223,6 +226,7 @@
                 d3.select("#pause-button").on("click", function() {
                     clearInterval(simulationRun);
                     disableNextQn(false);
+                    disablePlayBtn(false);
 
                 });
 
@@ -264,8 +268,8 @@
                 sliderFunction(datasetChosen.count_lower);
 
                 function sliderFunction(x) {
-                        handle.attr("cx", scale2.invertExtent(x)[1]);
-                        progress.attr("x2", scale2.invertExtent(x)[1]);
+                    handle.attr("cx", scale2.invertExtent(x)[1]);
+                    progress.attr("x2", scale2.invertExtent(x)[1]);
                     d3.select("#answer-count")
                         .attr("value", (x));
                 }
@@ -280,9 +284,6 @@
 
         <div class="col-sm-3 text-left" id="simulation-qnCountOpt">
             <form id="form-simulation-qnCountOpt">
-                <div class="checkbox">
-                    <label><input type="checkbox" name="displayCheckbox" id="groupDisplayOption" value="">Group Display</label>
-                </div>
                 <div class="checkbox">
                     <label><input type="checkbox" name="displayCheckbox" id="clusterDisplayOption" value="" >Cluster Display</label>
                 </div>
@@ -299,7 +300,7 @@
                                 <input type="radio" name="qnCountOpt" id="option15" value="15"> 15
                             </label>
                             <label class="nqlabel btn btn-success">
-                                <input type="radio" name="qnCountOpt" id="optionAll" value="1000"> 100
+                                <input type="radio" name="qnCountOpt" id="optionAll" value="100"> 100
                             </label>
                         </div>
                     </label>
@@ -415,7 +416,7 @@
                         .attr('id', 'imgText')
                         .attr('text-anchor', 'middle')
                         .attr('x', 123)
-                        .attr('y', 10);
+                        .attr('y', 11);
                 }
 
                 function mouseenter_landmark(d) {
@@ -457,7 +458,8 @@
                         .attr('id', 'imgText1')
                         .attr('text-anchor', 'middle')
                         .attr('x', 123)
-                        .attr('y', 10);
+                        .attr('y', 11);
+
                     d3.select("#photo2")
                         .append('image')
                         .attr('id', 'zoomImage2')
@@ -495,6 +497,7 @@
                         .attr('text-anchor', 'middle')
                         .attr('x', 123)
                         .attr('y', 10);
+
                     d3.select("#photo2")
                         .append('image')
                         .attr('id', 'zoomImage2')
@@ -638,25 +641,6 @@
 
                 }
 
-                function uncluster(graph) {
-
-                    simulation
-                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
-                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
-                        .force("center", d3.forceCenter(w / 2, h / 2))
-                        .force("collide", d3.forceCollide().strength(1).iterations(2));
-
-                    simulation
-                        .nodes(graph.nodes)
-                        .on("tick", ticked);
-
-                    simulation.force("link")
-                        .links(graph.links);
-
-                    simulation.alpha(0.05).restart();
-
-                }
-
                 function cluster(graph) {
 
                     simulation
@@ -673,6 +657,25 @@
                         .links(graph.links);
 
                     simulation.alpha(0.1).restart();
+
+                }
+
+                function uncluster(graph) {
+
+                    simulation
+                        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(20).strength(1))
+                        .force("charge", d3.forceManyBody().strength(-4).distanceMin(15).distanceMax(180))
+                        .force("center", d3.forceCenter(w / 2, h / 2))
+                        .force("collide", d3.forceCollide().strength(1).iterations(2));
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    simulation.alpha(0.05).restart();
 
                 }
 
@@ -729,6 +732,10 @@
                         $(".nqlabel").removeClass("disabled");
                     }
                 }
+                function disablePlayBtn(value) {
+
+                    $("#play-button").prop("disabled", value);
+                }
 
                 $(document).ready(function() {
 
@@ -780,6 +787,7 @@
                 var linkg = svg2.append("g")
                     .attr("class", "links")
                     .attr("id", "linkg");
+
                 var link2g = svg2.append("g")
                     .attr("class", "link2s")
                     .attr("id", "link2g");
@@ -865,12 +873,6 @@
                 });
 
                 function updateSimulation(x) {
-
-//                    pathg.selectAll("path").remove();
-
-//                    if ($("#nextQnOption").is(":checked")) {
-//                        $("#link2g").hide();
-//                    }
 
                     d3.json("vizData//"+datasetChosen.text+"_"+algoChosen+"//forceLayout_" + String(x) + ".json", function (error, graph) {
                         if (error) throw error;
@@ -1057,7 +1059,7 @@
                 }
             </script>
         </div>
-        <div class="col-sm-3 sidenav text-left" id="graph-tables"> <!-- TODO: I want these tables in CODEPEN.IO style!! -->
+        <div class="col-sm-3 sidenav text-left" id="graph-tables">
 
 
             <!-- this is the table of uncertain graph -->

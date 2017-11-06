@@ -4,11 +4,11 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="js/bootstrap.min.css"> <!-- REMEMBER to change to CDN web version after you're done with the entire project! -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/d3.min.js"></script>
-    <script src="js/d3-scale-chromatic.min.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap.min.css"> <!-- REMEMBER to change to CDN web version after you're done with the entire project! -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/d3.min.js"></script>
+    <script src="../js/d3-scale-chromatic.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -217,7 +217,7 @@
                             d3.select("#photo1")
                                 .append('image')
                                 .attr('id', 'zoomImage')
-                                .attr('xlink:href', 'AllSports\\' + d.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 20)
                                 .attr('width', 247)
@@ -240,7 +240,7 @@
                             d3.select("#photo1")
                                 .append('image')
                                 .attr('id', 'zoomImage')
-                                .attr('xlink:href', 'AllSports\\' + d.source.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.source.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 20)
                                 .attr('width', 247)
@@ -256,7 +256,7 @@
                             d3.select("#photo2")
                                 .append('image')
                                 .attr('id', 'zoomImage2')
-                                .attr('xlink:href', 'AllSports\\' + d.target.id + '.JPG')
+                                .attr('xlink:href', '..\\AllSports\\' + d.target.id + '.JPG')
                                 .attr("x", 0)
                                 .attr("y", 20)
                                 .attr('width', 247)
@@ -306,14 +306,6 @@
                                     return d.y = Math.max(radius, Math.min(h - radius, d.y));
                                 })
                                 .attr("r", radius);
-
-                            linkg.selectAll("path")
-                                .data(groups)
-                                .attr("d", groupPath)
-                                .enter()
-                                .insert("path", "line")
-                                .attr("class", "hull")
-                                .attr("d", groupPath);
 
                         }
 
@@ -370,7 +362,7 @@
                             });
                         });
 
-                        d3.json("vizData//forceLayout//forceLayout_15000.json", function(error, graph) {
+                        d3.json("..//vizData//allSports_PERC//forceLayout_15000.json", function(error, graph) {
                             if (error) throw error;
 
                             simulation = d3.forceSimulation()
@@ -692,7 +684,7 @@
             }
         });
 
-        d3.json("vizData//forceLayout//forceLayout_1800.json", function (error, graph) {
+        d3.json("..//vizData//allSports_PERC//forceLayout_1800.json", function (error, graph) {
             if (error) throw error;
 
             link = linkg.selectAll("line")
