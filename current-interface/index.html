@@ -792,14 +792,19 @@
                     .attr("class", "link2s")
                     .attr("id", "link2g");
 
-                simulation = d3.forceSimulation()
-                    .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(30).strength(1))
-                    .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
-                    .force("center", d3.forceCenter(w / 2, h / 2))
-                    .force("collide", d3.forceCollide().strength(1).iterations(2));
-
                 d3.json("vizData//"+datasetChosen.text+"_"+algoChosen+"//forceLayout_"+datasetChosen.count_lower+".json", function(error, graph) {
                     if (error) throw error;
+
+                    simulation = d3.forceSimulation(graph.nodes)
+                        .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; }).distance(30).strength(1))
+                        .force("charge", d3.forceManyBody().strength(-2).distanceMin(15).distanceMax(180))
+                        .force("center", d3.forceCenter(w / 2, h / 2))
+                        .force("collide", d3.forceCollide().strength(1).iterations(2))
+                        .stop();
+                    
+                    for (var i = 0, n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())); i < n; ++i) {
+                        simulation.tick();
+                    }
 
                     fnode = fnodeg.selectAll("circle")
                         .data(graph.nodes)
@@ -823,13 +828,40 @@
 
                     groups = d3.nest().key(function(d) { return d.group; }).entries(graph.nodes);
 
-                    simulation
-                        .nodes(graph.nodes)
-                        .on("tick", ticked);
+                    link = linkg.selectAll("line");
+                    fnode = fnodeg.selectAll("circle");
 
-                    simulation.force("link")
-                        .links(graph.links);
+                    link
+                        .attr("x1", function (d) {
+                            return d.source.x;
+                        })
+                        .attr("y1", function (d) {
+                            return d.source.y;
+                        })
+                        .attr("x2", function (d) {
+                            return d.target.x;
+                        })
+                        .attr("y2", function (d) {
+                            return d.target.y;
+                        });
 
+                    fnode
+                        .attr("cx", function (d) {
+                            return d.x = Math.max(radius, Math.min(w - radius, d.x));
+                        })
+                        .attr("cy", function (d) {
+                            return d.y = Math.max(radius, Math.min(h - radius, d.y));
+                        })
+                        .attr("r", radius);
+
+
+                    pathg.selectAll("path")
+                        .data(groups)
+                        .attr("d", groupPath)
+                        .enter()
+                        .insert("path", "line")
+                        .attr("class", "hull")
+                        .attr("d", groupPath);
                     fnode.append("title")
                         .text(function (d) { return d.id; });
 
