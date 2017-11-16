@@ -25,9 +25,13 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1133">
-              <caret line="980" column="24" lean-forward="false" selection-start-line="980" selection-start-column="24" selection-end-line="980" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="255">
+              <caret line="286" column="82" lean-forward="false" selection-start-line="286" selection-start-column="82" selection-end-line="286" selection-end-column="82" />
+              <folding>
+                <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#31000#35682#0" expanded="false" />
+                <element signature="e#35135#35256#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -43,10 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lower</find>
-      <find>links</find>
-      <find>link.</find>
-      <find>algochos</find>
       <find>table</find>
       <find>All</find>
       <find>qncountop</find>
@@ -73,6 +73,10 @@
       <find>displ</find>
       <find>update</find>
       <find>onmess</find>
+      <find>uncluster</find>
+      <find>cluster</find>
+      <find>cluster(gra</find>
+      <find>updatesim</find>
     </findStrings>
     <replaceStrings>
       <replace>230</replace>
@@ -481,11 +485,12 @@
       <workItem from="1510628819958" duration="1953000" />
       <workItem from="1510721068284" duration="438000" />
       <workItem from="1510733672266" duration="4002000" />
+      <workItem from="1510795338462" duration="1667000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="351222000" />
+    <option name="totallyTimeSpent" value="353231000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -543,7 +548,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/expt/static.html</url>
           <line>439</line>
-          <properties />
           <option name="timeStamp" value="96" />
         </line-breakpoint>
       </breakpoints>
@@ -807,9 +811,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1133">
-          <caret line="980" column="24" lean-forward="false" selection-start-line="980" selection-start-column="24" selection-end-line="980" selection-end-column="24" />
-          <folding />
+        <state relative-caret-position="255">
+          <caret line="286" column="82" lean-forward="false" selection-start-line="286" selection-start-column="82" selection-end-line="286" selection-end-column="82" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#31000#35682#0" expanded="false" />
+            <element signature="e#35135#35256#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
